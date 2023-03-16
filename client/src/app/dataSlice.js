@@ -34,6 +34,7 @@ const initialState = {
   showQuickView: false,
 };
 
+// createAsyncThunk 异步操作
 export const getTotalPages = createAsyncThunk(
   "/data/texts/getTotalPages",
   async ({ projectId, getPages, filters, pageLimit }) => {

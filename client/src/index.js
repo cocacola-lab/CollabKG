@@ -19,6 +19,8 @@ import { theme } from "./theme";
 
 import App from "./App";
 
+// strictMode for check work
+// Provider 为了嵌套组建能够访问store; persist* 为了持久化保存。
 let persistor = persistStore(store);
 ReactDOM.render(
   <React.StrictMode>

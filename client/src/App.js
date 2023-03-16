@@ -27,20 +27,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAnnotationMode, setAnnotationMode } from "./app/dataSlice";
 
 function App() {
-  const dispatch = useDispatch();
-  const annotationMode = useSelector(selectAnnotationMode);
+  const dispatch = useDispatch(); // redux tool
+  const annotationMode = useSelector(selectAnnotationMode); // initialState.annotationMode
 
+  // hook, 副效应函数
   useEffect(() => {
     const handler = (e) => {
-      if (e.ctrlKey && e.keyCode === 77) {
+      if (e.ctrlKey && e.keyCode === 77) { // 按下ctrl+M 
         dispatch(
-          setAnnotationMode(annotationMode === "entity" ? "relation" : "entity")
+          setAnnotationMode(annotationMode === "entity" ? "relation" : "entity") // ()里相当于setAnnotationMode的action.payload
         );
       }
     };
 
-    window.addEventListener("keydown", handler, false);
-    return () => window.removeEventListener("keydown", handler, false);
+    window.addEventListener("keydown", handler, false); // 监听
+    return () => window.removeEventListener("keydown", handler, false); // 组件卸载时清除副效应
   }, [annotationMode]);
 
   const routes = [
