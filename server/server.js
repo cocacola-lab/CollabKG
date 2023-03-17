@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());
 
+// 绑定route路径，便于client中访问api
 // Authentication
 app.use("/api/auth", require("./routes/auth/auth"));
 

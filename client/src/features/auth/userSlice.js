@@ -16,11 +16,12 @@ const initialState = {
   preferences: {},
 };
 
+// 函数的返回值会传到UserSlice的extraReducers中。
 export const signup = createAsyncThunk(
   "/user/signup",
   async ({ username, password, email }, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/api/auth/signup", {
+      const response = await axios.post("/api/auth/signup", { //访问server里的api
         username: username,
         password: password,
         email: email,
@@ -138,11 +139,11 @@ export const userSlice = createSlice({
           "An unknown error occurred 😞 - give it another crack!";
         state.loginStatus = "failed";
       })
-      .addCase(signup.pending, (state) => {
+      .addCase(signup.pending, (state) => { // 待办 signup request
         state.signupError = null;
         state.signupStatus = "loading";
       })
-      .addCase(signup.fulfilled, (state, action) => {
+      .addCase(signup.fulfilled, (state, action) => { // success signup request
         state.signupError = null;
         state.username = action.payload.username;
         state._id = action.payload._id;
@@ -151,7 +152,7 @@ export const userSlice = createSlice({
         state.invitations = action.payload.invitations;
         state.signupStatus = "succeeded";
       })
-      .addCase(signup.rejected, (state, action) => {
+      .addCase(signup.rejected, (state, action) => { // failed signup request
         state.isAuthenticated = false;
         state.signupError =
           action.payload.error ||

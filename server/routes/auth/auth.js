@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express"); // require相当于python的import
 const router = express.Router();
 const logger = require("../../logger");
 const dotenv = require("dotenv");
@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 const authUtils = require("./utils");
-dotenv.config();
+dotenv.config(); // 加载.env文件，=> process.env
 
 const generateJWT = (user_id) => {
   return jwt.sign({ user_id: user_id }, process.env.TOKEN_SECRET, {
@@ -21,7 +21,7 @@ router.post("/signup", async (req, res) => {
   logger.info("Signing up user", { route: "/signup" });
   try {
     const { username, password, email } = req.body;
-    const userExists = await User.exists({ username: username });
+    const userExists = await User.exists({ username: username }); // User相当于表
 
     if (userExists) {
       res.status(409).send({ message: "User already exists" });
@@ -31,7 +31,7 @@ router.post("/signup", async (req, res) => {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hash = bcrypt.hashSync(password, salt);
 
-      const newUser = new User({
+      const newUser = new User({ // 创建新用户
         username: username,
         email: email,
         password: hash,

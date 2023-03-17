@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// 数据库：根据schema创建一个model (User)，model管理一系列文档
 const UserSchema = mongoose.Schema(
   {
     username: {

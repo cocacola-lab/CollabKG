@@ -35,7 +35,7 @@ export const SignUp = () => {
   const signupError = useSelector(selectSignupError);
   const isAuthenticated = useSelector(selectIsAuthenticated);
 
-  useEffect(() => {
+  useEffect(() => { // signup成功后跳转feed页面
     if (signupStatus === "succeeded" && isAuthenticated) {
       history.push("/feed");
     }
@@ -43,7 +43,7 @@ export const SignUp = () => {
 
   const handleSubmit = (values) => {
     const { username, password, email } = values;
-    dispatch(signup({ username, password, email }));
+    dispatch(signup({ username, password, email })); //调用异步函数
   };
 
   return (

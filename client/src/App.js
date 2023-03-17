@@ -44,6 +44,7 @@ function App() {
     return () => window.removeEventListener("keydown", handler, false); // 组件卸载时清除副效应
   }, [annotationMode]);
 
+  // component 是对应的页面/组件
   const routes = [
     {
       protected: true,
