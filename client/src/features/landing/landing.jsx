@@ -18,6 +18,7 @@ export const Landing = () => {
     await loadFull(main);
   };
 
+  // Particles 背景那个互动的东西; Grid 网格布局; APPBar是页面最上方的任务栏; toolBar是任务栏中控制组件的位置
   return (
     <>
       <Particles
