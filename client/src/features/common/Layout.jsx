@@ -82,6 +82,7 @@ export default function Layout({ children, context }) {
   const projectProgress =
     metrics && `${metrics.savedTexts} / ${metrics.totalTexts}`;
 
+  // 上下的任务栏
   return (
     <Grid container>
       <Grid item xs={12}>

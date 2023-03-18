@@ -39,7 +39,7 @@ router.post("/signup", async (req, res) => {
 
       const savedUser = await newUser.save();
       res.cookie("token", generateJWT(savedUser._id));
-      res.json({
+      res.json({ // 返回值也就是调用处的response.data
         username: newUser.username,
         _id: newUser._id,
         colour: newUser.colour,

@@ -38,7 +38,7 @@ export const Create = () => {
   const dispatch = useDispatch();
   const steps = useSelector(selectSteps);
 
-  const components = {
+  const components = {// 表单子页面
     details: <Details />,
     upload: <Upload />,
     preprocessing: <Preprocessing />,
@@ -56,16 +56,16 @@ export const Create = () => {
     review: "Review project before creation",
   };
 
-  const activeStep = useSelector(selectActiveStep);
+  const activeStep = useSelector(selectActiveStep); // 当前步
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleContinue = () => {
+  const handleContinue = () => {//转到表单的下一个小步骤
     dispatch(saveStep());
     dispatch(incrementActiveStep());
   };
 
-  const handleCreate = async () => {
+  const handleCreate = async () => { // 多表单都填完，提交后，传到server进行交互处理。
     const payload = {
       name: steps.details.data.name,
       description: steps.details.data.description,
@@ -110,6 +110,8 @@ export const Create = () => {
     }
   };
 
+  // Step 是多表单“进度条”，即到哪个子步骤了
+  // steps[activeStep].valid控制下一步按键是否disable
   return (
     <Grid item style={{ width: "75vw", maxWidth: "1600px" }}>
       <Grid item style={{ margin: "1rem 0rem" }}>

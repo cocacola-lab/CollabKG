@@ -25,7 +25,7 @@ export const Feed = () => {
   const feedStatus = useSelector(selectFeedStatus);
   const feedError = useSelector(selectFeedError);
 
-  useEffect(() => {
+  useEffect(() => { // 首先检查/获取project
     if (feedStatus === "idle") {
       dispatch(fetchProjects());
     }
@@ -33,7 +33,7 @@ export const Feed = () => {
 
   if (feedStatus !== "succeeded") {
     return <Loader message={"Projects loading"} />;
-  } else if (projects.length === 0) {
+  } else if (projects.length === 0) { // 获取成功但没project
     return (
       <Grid
         item
@@ -53,7 +53,7 @@ export const Feed = () => {
         </Button>
       </Grid>
     );
-  } else {
+  } else {// 获取成功且有project
     return <ProjectList />;
   }
 };

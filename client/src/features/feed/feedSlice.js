@@ -20,7 +20,7 @@ export const feedSlice = createSlice({
   name: "feed",
   initialState: initialState,
   reducers: {
-    setActiveProject: (state, action) => {
+    setActiveProject: (state, action) => { // action是个字典，包含type,payload(数据)
       state.activeProject = action.payload;
     },
     setIdle: (state, action) => {

@@ -20,7 +20,7 @@ export const Upload = () => {
   const corpus = useSelector(selectCorpus);
   const [loading, setLoading] = useState(false);
 
-  const readFile = (fileMeta) => {
+  const readFile = (fileMeta) => { // 上传文件按钮对应的读文件函数
     let reader = new FileReader();
     reader.readAsText(fileMeta);
     reader.onload = () => {
@@ -29,7 +29,7 @@ export const Upload = () => {
       if (fileExt === "txt") {
         dispatch(
           setStepData({
-            corpus: reader.result.split("\n").filter((line) => line !== ""),
+            corpus: reader.result.split("\n").filter((line) => line !== ""), // 用换行符分割文档得到句子列表
             corpusFileName: fileMeta.name,
           })
         );

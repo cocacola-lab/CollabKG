@@ -13,11 +13,11 @@ const axios = require("axios").default;
 const { getFlatOntology, filterOntology } = require("./utils");
 const { getFontColour, addAlpha } = require("./utils");
 
-const createProject = async (payload, userId) => {
+const createProject = async (payload, userId) => { // 重要
   logger.info("Creating base project");
   // TODO: weighting and ranking
 
-  const project = await Project.create({
+  const project = await Project.create({ //创建项目表
     projectManager: userId,
     name: payload.name,
     description: payload.description,
@@ -171,7 +171,7 @@ const createProject = async (payload, userId) => {
 
   let textClusterMapping;
   let clusterDetails;
-  if (payload.performClustering) {
+  if (payload.performClustering) { // 访问后端server_cluster
     // Send corpus to rank cluster server to get sentence ranking and cluster assignment
     // NOTE: Documents do not have IDS and are only associated by position indexing.
     logger.info("Performing clustering");

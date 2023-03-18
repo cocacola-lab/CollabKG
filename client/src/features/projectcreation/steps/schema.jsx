@@ -30,7 +30,7 @@ import {
   setStepData,
   setStepValid,
 } from "../createStepSlice";
-import { entityOntologies, relationOntologies } from "../data/ontologies";
+import { entityOntologies, relationOntologies } from "../data/ontologies"; // 预设的数据集；重要
 import { getRandomColor } from "../data/utils";
 import { v4 as uuidv4 } from "uuid";
 

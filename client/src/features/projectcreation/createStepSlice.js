@@ -66,7 +66,7 @@ const initialState = {
       valid: false,
     },
   },
-  activeStep: "details",
+  activeStep: "details", //当前步，到哪个小页面了
 };
 
 export const createStepSlice = createSlice({
@@ -76,7 +76,7 @@ export const createStepSlice = createSlice({
     setStep: (state, action) => {
       state.steps = action.payload;
     },
-    setStepData: (state, action) => {
+    setStepData: (state, action) => { // 更改data中的元素
       // Sets a value for a key in the data associated with a step
       const newData = {
         ...state.steps[state.activeStep].data,
@@ -91,7 +91,7 @@ export const createStepSlice = createSlice({
     setActiveStep: (state, action) => {
       state.activeStep = action.payload;
     },
-    incrementActiveStep: (state, action) => {
+    incrementActiveStep: (state, action) => { //下一步
       const currentStepNo = state.steps[state.activeStep].number;
       const nextStepNo = currentStepNo + 1;
 
@@ -99,7 +99,7 @@ export const createStepSlice = createSlice({
         (stepName) => state.steps[stepName].number === nextStepNo
       )[0];
     },
-    decrementActiveStep: (state, action) => {
+    decrementActiveStep: (state, action) => { //上一步
       const currentStepNo = state.steps[state.activeStep].number;
       const nextStepNo = currentStepNo - 1;
 

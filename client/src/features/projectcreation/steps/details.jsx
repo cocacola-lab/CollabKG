@@ -36,6 +36,7 @@ export const Details = () => {
     }
   }, [steps]);
 
+  // setStepData设置当前表单子页面对应的state值。
   return (
     <Grid item xs={12}>
       <Grid item container xs={12} spacing={4}>

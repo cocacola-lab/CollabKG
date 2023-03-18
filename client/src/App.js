@@ -115,7 +115,7 @@ function App() {
     },
   ];
 
-  // ProtectedRoute 是为了保护一些页面，对于未登陆的用户不可访问
+  // ProtectedRoute 是为了保护一些页面，对于未登陆的用户不可访问；Layout是上下的任务栏
   return (
     <Router history={history}>
       <AuthProvider>
