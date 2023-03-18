@@ -18,6 +18,10 @@ export const Project = () => {
   const annotationMode = useSelector(selectAnnotationMode);
   const showCluster = useSelector(selectShowCluster);
 
+  // AnnotationToast是那个标注工具条，apply/all delete等
+  // sideBar应该是左边显示标签的部分
+  // Paginator 是分页器
+  // AnnotationTable 是文本标注块
   return (
     <>
       {showToast && <AnnotationToast />}
