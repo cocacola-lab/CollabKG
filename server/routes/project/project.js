@@ -10,7 +10,7 @@ const crypto = require("crypto");
 dotenv.config();
 const mongoose = require("mongoose");
 
-router.get("/", authUtils.cookieJwtAuth, async (req, res) => {
+router.get("/", authUtils.cookieJwtAuth, async (req, res) => { // 得到全体project
   try {
     logger.info("Fetching all projects", { route: "/api/project/" });
     const userId = authUtils.getUserIdFromToken(req.cookies.token);
@@ -101,7 +101,7 @@ router.patch("/:projectId", authUtils.cookieJwtAuth, async (req, res) => {
   }
 });
 
-router.get("/:projectId", authUtils.cookieJwtAuth, async (req, res) => {
+router.get("/:projectId", authUtils.cookieJwtAuth, async (req, res) => { // 得到某一个project
   try {
     logger.info("Fetching single project", {
       route: `/api/project/${req.params.projectId}`,

@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import history from "../../utils/history";
 import { ClusterActionBar } from "../cluster/ClusterActionBar";
 import {
-  fetchProject,
+  fetchProject, // 获得当前项目信息；重要
   selectFilters,
   selectKeyBinding,
   selectProject,
@@ -57,7 +57,7 @@ export const Table = () => {
 
   const annotationMode = useSelector(selectAnnotationMode);
   const keyBinding = useSelector(selectKeyBinding);
-  const selectMode = useSelector(selectSelectMode);
+  const selectMode = useSelector(selectSelectMode); // 在Token组件中被设置
 
   useEffect(() => {
     dispatch(setPage(pageNumber));
@@ -69,12 +69,13 @@ export const Table = () => {
     }
   }, [pageNumber]);
 
-  useEffect(() => {
+  useEffect(() => { // 获得当前项目
     if (activeProjectId && projectStatus === "idle") {
       dispatch(fetchProject({ projectId: activeProjectId }));
     }
   }, [activeProjectId, projectStatus, dispatch]);
 
+  // 重要
   useEffect(() => {
     if (
       activeProjectId &&
@@ -104,6 +105,7 @@ export const Table = () => {
     }
   }, [textsStatus, projectStatus]);
 
+  // 重要，按下标记功能
   const handleMarkupKeyDownEvent = (e) => {
     if (annotationMode === "entity") {
       // TODO: Handle for multiple key presses within a certain timeframe... 11, 12, etc. like RedCoat.
@@ -111,7 +113,7 @@ export const Table = () => {
       // User wants to markup a span of text
 
       // If user is holding shift, e.key will be the shift version e.g. 1 -> !; need to correct for this.
-      const key = e.code.split("Digit")[1]; // will be null if no number is pressed
+      const key = e.code.split("Digit")[1]; // will be null if no number is pressed; 按下了某个数字键可以标上对应标签
 
       if (
         Object.keys(keyBinding).includes(key) &&

@@ -26,6 +26,7 @@ import Layout from "./features/common/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAnnotationMode, setAnnotationMode } from "./app/dataSlice";
 
+// dataSlice就相当于加载完project后用，标注用的
 function App() {
   const dispatch = useDispatch(); // redux tool
   const annotationMode = useSelector(selectAnnotationMode); // initialState.annotationMode

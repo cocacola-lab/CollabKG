@@ -53,7 +53,7 @@ export const getTotalPages = createAsyncThunk(
   }
 );
 
-export const fetchTexts = createAsyncThunk(
+export const fetchTexts = createAsyncThunk( // 重要
   "/data/texts/fetchTexts",
   async ({ projectId, getPages, filters, pageLimit, page }) => {
     const response = await axios.post(

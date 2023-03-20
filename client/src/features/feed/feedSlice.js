@@ -4,7 +4,7 @@ import axios from "../utils/api-interceptor";
 const initialState = {
   status: "idle",
   error: null,
-  projects: null,
+  projects: null, // 就是一个项目列表，里面是project对应的字典
   activeProject: null,
 };
 
