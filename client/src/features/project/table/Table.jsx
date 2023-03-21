@@ -17,8 +17,9 @@ import {
 import { TextContainer } from "../text/TextContainer";
 import {
   fetchClusterMetrics,
-  fetchTexts,
-  getTotalPages,
+  fetchTexts, // 获取texts
+  getTotalPages, // 获取总页数
+  selectTotalPages,
   applyAnnotation,
   selectActiveCluster,
   selectPage,
@@ -104,6 +105,8 @@ export const Table = () => {
       dispatch(fetchClusterMetrics({ projectId: project._id }));
     }
   }, [textsStatus, projectStatus]);
+
+  //console.log(useSelector(selectTexts));
 
   // 重要，按下标记功能
   const handleMarkupKeyDownEvent = (e) => {

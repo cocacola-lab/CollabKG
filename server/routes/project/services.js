@@ -124,7 +124,7 @@ const createProject = async (payload, userId) => { // 重要
                 tokens[index + ngramOrder - 1] === ngramTokens[ngramOrder - 1]
               ) {
                 // Higher-order ngrams
-                return {
+                return { // 标注格式；重要
                   textId: textObj._id,
                   start: index,
                   end: index + ngramOrder - 1,

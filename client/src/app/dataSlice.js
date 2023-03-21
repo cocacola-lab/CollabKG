@@ -19,7 +19,7 @@ const initialState = {
   sourceSpan: null,
   targetSpan: null,
   relatedSpans: null,
-  texts: [],
+  texts: [], // 一系列的{}
   page: 1,
   pageLimit: 10,
   totalPages: null,
@@ -35,7 +35,7 @@ const initialState = {
 };
 
 // createAsyncThunk 异步操作
-export const getTotalPages = createAsyncThunk(
+export const getTotalPages = createAsyncThunk( // 获得总页数totalPages，一个数值
   "/data/texts/getTotalPages",
   async ({ projectId, getPages, filters, pageLimit }) => {
     const response = await axios.post(

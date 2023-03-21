@@ -145,6 +145,8 @@ export const Schema = () => {
       })
     );
   }, [entityData, relationData]);
+  //console.log(steps[activeStep].data.entityLabels); // {name: 'Person', fullName: 'Person', isEntity: true, description: '', children: Array(0), colour: '#E79584', ...}
+  //console.log(steps[activeStep].data.relationLabels); 
 
   return (
     <Grid item xs={12}>

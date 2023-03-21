@@ -3,7 +3,7 @@ import axios from "../utils/api-interceptor";
 import { getFlatOntology } from "./utils";
 
 const initialState = {
-  details: {}, // 存放project信息
+  details: {}, // 存放project信息;好像查询出来的不包含texts
   id: null,
   status: "idle",
   error: null,

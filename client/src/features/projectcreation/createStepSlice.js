@@ -21,7 +21,7 @@ const initialState = {
       number: 1,
       saved: false,
       data: {
-        corpus: [],
+        corpus: [], // 就是文本列表
         corpusFileName: null,
       },
       valid: false,
@@ -41,10 +41,10 @@ const initialState = {
       number: 3,
       saved: false,
       data: {
-        entityName: "",
-        entityLabels: [],
+        entityName: "", // Custom等数据集名字
+        entityLabels: [], //里面存放 {name: 'Person', fullName: 'Person', isEntity: true, description: '', children: Array(0), colour: '#E79584', ...}
         relationName: "",
-        relationLabels: [],
+        relationLabels: [],// 与entityLabels类似，见client/src/features/projectcreation/data/ontologies.js
       },
       valid: false,
     },
