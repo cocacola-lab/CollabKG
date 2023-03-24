@@ -106,7 +106,8 @@ export const Table = () => {
     }
   }, [textsStatus, projectStatus]);
 
-  //console.log(useSelector(selectTexts));
+  console.log(useSelector(selectTexts));
+  console.log(useSelector(selectProject));
 
   // 重要，按下标记功能
   const handleMarkupKeyDownEvent = (e) => {

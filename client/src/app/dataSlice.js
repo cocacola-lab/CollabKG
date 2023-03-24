@@ -19,7 +19,7 @@ const initialState = {
   sourceSpan: null,
   targetSpan: null,
   relatedSpans: null,
-  texts: [], // 一系列的{}
+  texts: [], // 一系列的{} {textID:{tokens:{tokenID:{value:,...},...},...},...}
   page: 1,
   pageLimit: 10,
   totalPages: null,
