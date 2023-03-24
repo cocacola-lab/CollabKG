@@ -6,8 +6,8 @@ const initialState = {
   textsError: null,
   annotationMode: "entity",
   selectedTokens: {},
-  relations: null,
-  entities: null,
+  relations: null, // 有哪些实体已经被标注，与表MarkUP对应
+  entities: null, // 有哪些关系已经被标注
   selectMode: {
     active: false,
     tokenIds: [],
@@ -394,11 +394,11 @@ export const dataSlice = createSlice({
       .addCase(fetchTexts.pending, (state, action) => {
         state.textsStatus = "loading";
       })
-      .addCase(fetchTexts.fulfilled, (state, action) => {
+      .addCase(fetchTexts.fulfilled, (state, action) => { // 重要
         state.textsStatus = "succeeded";
         state.texts = action.payload.texts;
-        state.relations = action.payload.relations;
-        state.entities = action.payload.entities;
+        state.relations = action.payload.relations; // 有哪些关系已经被标注
+        state.entities = action.payload.entities; // 有哪些实体已经被标注
       })
       .addCase(applyAnnotation.fulfilled, (state, action) => {
         const response = action.payload.response;

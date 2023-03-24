@@ -26,6 +26,8 @@ import {
   selectPageBeforeViewChange,
   selectPageLimit,
   selectTexts,
+  selectRelations,
+  selectEntities,
   setActiveCluster,
   setTextsIdle,
   setPage,
@@ -108,6 +110,8 @@ export const Table = () => {
 
   console.log(useSelector(selectTexts));
   console.log(useSelector(selectProject));
+  //console.log(useSelector(selectRelations));
+
 
   // 重要，按下标记功能
   const handleMarkupKeyDownEvent = (e) => {

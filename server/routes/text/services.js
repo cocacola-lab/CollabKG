@@ -128,7 +128,7 @@ const filterTexts = async (payload, skip, limit, userId) => {
           text.tokens.flatMap((token) => ({ ...token, textId: text._id }))
         );
 
-        const markup = await Markup.find(
+        const markup = await Markup.find( // 查找以及被标注的实体或关系；重要
           {
             textId: { $in: filteredTexts.map((t) => t._id) },
             createdBy: userId,
