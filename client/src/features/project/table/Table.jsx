@@ -110,7 +110,8 @@ export const Table = () => {
 
   console.log(useSelector(selectTexts));
   console.log(useSelector(selectProject));
-  //console.log(useSelector(selectRelations));
+  console.log(useSelector(selectRelations));
+  console.log(useSelector(selectEntities));
 
 
   // 重要，按下标记功能

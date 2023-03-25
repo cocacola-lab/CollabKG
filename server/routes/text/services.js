@@ -243,7 +243,7 @@ const filterTexts = async (payload, skip, limit, userId) => {
   return { data: response, status: failed ? 500 : 200 };
 };
 
-const applySingleAnnotation = async (payload, userId) => {
+const applySingleAnnotation = async (payload, userId) => { // 执行一次标记，存入表中
   let response;
   let failed = false;
 
@@ -418,7 +418,7 @@ const applySingleAnnotation = async (payload, userId) => {
   return { data: response, status: failed ? 400 : 200 }; // Not the best HTTP handling...
 };
 
-const applyAllAnnotations = async (payload, userId) => {
+const applyAllAnnotations = async (payload, userId) => { // 就是标签传播用的，markup的suggest为true
   let response;
   let failed = false;
   let matchedTexts;

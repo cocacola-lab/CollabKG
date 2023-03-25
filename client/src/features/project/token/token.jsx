@@ -33,6 +33,7 @@ export const Token = ({ tokenId, textId, tokenIndex }) => {
 
   const token = texts[textId].tokens[tokenId];
 
+  // 3个鼠标事件选择标记的token；重要
   const handleMouseOver = () => {
     if (allowSelect) {
       dispatch(setSelectedTokens(token));

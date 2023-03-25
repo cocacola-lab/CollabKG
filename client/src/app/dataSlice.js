@@ -6,7 +6,7 @@ const initialState = {
   textsError: null,
   annotationMode: "entity",
   selectedTokens: {},
-  relations: null, // 有哪些实体已经被标注，与表MarkUP对应
+  relations: null, // 有哪些实体已经被标注，与表MarkUP对应 {textID: [{$markup}]}
   entities: null, // 有哪些关系已经被标注
   selectMode: {
     active: false,
@@ -71,7 +71,7 @@ export const fetchTexts = createAsyncThunk( // 重要
   }
 );
 
-export const applyAnnotation = createAsyncThunk(
+export const applyAnnotation = createAsyncThunk( // apply标注
   "/data/texts/applyAnnotation",
   async ({
     entitySpanStart,
@@ -265,7 +265,7 @@ export const dataSlice = createSlice({
       state.targetSpan = null;
       state.relatedSpans = null;
     },
-    setSelectedTokens: (state, action) => {
+    setSelectedTokens: (state, action) => { // 重要
       const token = action.payload;
       state.selectMode.textId = token.textId;
 

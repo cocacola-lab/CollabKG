@@ -7,7 +7,7 @@ const MarkupSchema = mongoose.Schema(
       ref: "Text",
       required: true,
     },
-    suggested: { type: Boolean, required: true },
+    suggested: { type: Boolean, required: true }, // false表示已经应用，true表示还没accept(就是虚显示)；默认为true
     isEntity: { type: Boolean, required: true },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,

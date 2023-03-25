@@ -38,7 +38,7 @@ router.post("/filter", authUtils.cookieJwtAuth, async (req, res) => {
   }
 });
 
-router.post("/annotation/apply", authUtils.cookieJwtAuth, async (req, res) => {
+router.post("/annotation/apply", authUtils.cookieJwtAuth, async (req, res) => { // apply标记
   /* 
   End point for apply markup to an entiy span or relation
 */

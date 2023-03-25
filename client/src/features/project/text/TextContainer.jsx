@@ -79,6 +79,7 @@ const TextCard = ({
   textId,
 }) => {
   const dispatch = useDispatch();
+  //包括一个左上角的序号、一个中间的文本块和一个右上角的工具栏:一个保存图标、关系计数图标。
   return (
     <div
       style={{

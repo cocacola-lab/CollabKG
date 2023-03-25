@@ -17,7 +17,7 @@ const createProject = async (payload, userId) => { // 重要
   logger.info("Creating base project");
   // TODO: weighting and ranking
 
-  const project = await Project.create({ //创建项目表
+  const project = await Project.create({ //往collections/Table中插入一个条目,create和save都有插入数据的功能
     projectManager: userId,
     name: payload.name,
     description: payload.description,

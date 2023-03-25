@@ -18,10 +18,10 @@ export const Project = () => {
   const annotationMode = useSelector(selectAnnotationMode);
   const showCluster = useSelector(selectShowCluster);
 
-  // AnnotationToast是那个标注工具条，apply/all delete等
+  // AnnotationToast是一种通知框，通常用于向用户显示简短的、非致命的消息，例如操作成功，提醒等。它通常显示在应用程序的界面上方或下方，一段时间后自动消失。
   // sideBar应该是左边显示标签的部分
   // Paginator 是分页器
-  // AnnotationTable 是文本标注块
+  // AnnotationTable 是文本标注块；重要。
   return (
     <>
       {showToast && <AnnotationToast />}

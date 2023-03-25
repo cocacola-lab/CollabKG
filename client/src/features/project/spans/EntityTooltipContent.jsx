@@ -14,7 +14,7 @@ import {
 } from "../../../app/dataSlice";
 import { selectProject, selectFlatOntology } from "../projectSlice";
 
-export const EntityTooltipContent = ({ tooltipFocusSpan, text }) => {
+export const EntityTooltipContent = ({ tooltipFocusSpan, text }) => { // 就是悬停时出现的工具栏：apply,delete等；重要
   const dispatch = useDispatch();
   const project = useSelector(selectProject);
   const flatOntology = useSelector(selectFlatOntology);
