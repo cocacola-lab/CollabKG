@@ -216,7 +216,7 @@ const Span = ({ text, tokenIndex, span, suggested }) => {
     }
   };
 
-  const entityTooltip = (props) => {
+  const entityTooltip = (props) => { // 实体标注悬停工具栏
     const tooltipContentProps = { tooltipFocusSpan, text };
 
     return (
