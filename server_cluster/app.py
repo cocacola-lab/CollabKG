@@ -115,6 +115,17 @@ def rank_cluster(data: Data):
 
     return {'clustered_corpus': clustered_corpus, 'cluster_details': cluster_details_sorted}
 
+@app.post("/auto_annotate")
+def auto_annotate(data:Data):
+    logger.info("hello, i am autoannotate")
+
+    return {'markup':[
+        {
+        
+        }
+    ]}
+
+
 
 if __name__ == '__main__':
     uvicorn.run(app, host="0.0.0.0", port=8000)

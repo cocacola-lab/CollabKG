@@ -13,7 +13,28 @@ const {
   deleteAllAnnotations,
   saveSingleText,
   saveManyTexts,
+  autoAnnotate,
 } = require("./services");
+
+router.post("/autoannotate", authUtils.cookieJwtAuth, async (req, res) => {
+  try {
+    const expectedKeys = ["sentence", "text", "type", "lang", "type"];
+    if (!authUtils.checkBodyValid(req.body, expectedKeys)) {
+      res.status(400).send("One or more required fields not supplied");
+    } else {
+      const userId = authUtils.getUserIdFromToken(req.cookies.token);
+      
+      response = await autoAnnotate(req.body, userId);
+      res.status(response.status).send(response.data);
+    }
+  } catch (err) {
+    logger.error("Failed to get auto annotation results");
+    res.status(500).send({
+      detail: "Server error - failed to fetch text(s). Please try again.",
+    });
+  }
+});
+
 
 router.post("/filter", authUtils.cookieJwtAuth, async (req, res) => {
   try {

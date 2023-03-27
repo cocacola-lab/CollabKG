@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IoColorWand, IoGitCompare, IoSave } from "react-icons/io5";
+import { IoColorWand, IoGitCompare, IoSave, IoBrush } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import {
   saveAnnotations,
@@ -8,16 +8,20 @@ import {
   selectRelations,
   selectTexts,
   selectTextsStatus,
+  selectAnnotationMode
 } from "../../../app/dataSlice";
 import { selectUserId } from "../../auth/userSlice";
 import { ClusterIcon } from "../cluster/ClusterIcon";
 import { selectProject } from "../projectSlice";
 import { Text } from "./Text";
 import "./Text.css";
+import axios from "../../utils/api-interceptor";
+import history from "../../utils/history";
 
 export const TextContainer = ({ textId, textIndex }) => {
   const project = useSelector(selectProject);
   const texts = useSelector(selectTexts);
+  const annotationMode = useSelector(selectAnnotationMode);
   const textsStatus = useSelector(selectTextsStatus);
   const relations = useSelector(selectRelations);
   const userId = useSelector(selectUserId);
@@ -52,6 +56,8 @@ export const TextContainer = ({ textId, textIndex }) => {
     relationCount,
     suggestedRelationCount,
     textId,
+    texts,
+    annotationMode,
   };
 
   return (
@@ -77,8 +83,36 @@ const TextCard = ({
   relationCount,
   suggestedRelationCount,
   textId,
+  texts,
+  annotationMode
 }) => {
   const dispatch = useDispatch();
+
+  const handleautoAnnotate = async () => { 
+    const temptype = Object.values(project.ontology).filter( (ont) =>
+        ont.isEntity
+    );
+    const payinput = {
+        sentence: '',
+        text: texts[textId],
+        type: temptype,
+        lang: 'english',
+        task: annotationMode,
+    }
+    //console.log(payinput);  
+    await axios
+        .post("/api/text/autoannotate", payinput)
+        .then((response) => {
+          if (response.status === 200) {
+            console.log(response)
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401 || 403) {
+            history.push("/unauthorized");
+          }
+        });
+  }  
   //包括一个左上角的序号、一个中间的文本块和一个右上角的工具栏:一个保存图标、关系计数图标。
   return (
     <div
@@ -134,6 +168,15 @@ const TextCard = ({
                 }`}
               />
             )}
+            <IoBrush
+              title={"auto annotate"}
+              style={{
+                color: "#FFFFFF",
+                margin: "0rem 0.25rem 0rem 0rem",
+                cursor: "pointer",
+              }}
+              onClick={handleautoAnnotate}
+            />
             <IoSave
               title={saved ? "Click to unsave" : "Click to save"}
               style={{

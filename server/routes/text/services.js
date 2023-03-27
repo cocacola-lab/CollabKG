@@ -9,6 +9,29 @@ const Project = require("../../models/Project");
 const utils = require("./utils");
 const mongoose = require("mongoose");
 const { getFlatOntology } = require("../project/utils");
+const axios = require("axios").default;
+
+const autoAnnotate = async (payload, userId) => {
+  let response;
+  let failed = false;
+  logger.info("Auto Annotate");
+  //logger.info(payload)
+
+  async function fetchAutoAnnotate() {
+    return axios({
+      headers: { "Content-Type": "application/json" },
+      proxy: false,
+      url: "http://server_cluster:8000/auto_annotate",
+      method: "post",
+      data: {corpus: ["123".replace('"', '\\"')]},
+    });
+  }
+  const AutoResponse = await fetchAutoAnnotate();
+  response = AutoResponse.data
+  logger.info(response)
+
+  return { data: response, status: failed ? 500 : 200 };
+}
 
 const filterTexts = async (payload, skip, limit, userId) => {
   let response;
@@ -1557,4 +1580,5 @@ module.exports = {
   deleteAllAnnotations,
   saveSingleText,
   saveManyTexts,
+  autoAnnotate,
 };
