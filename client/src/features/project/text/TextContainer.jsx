@@ -104,7 +104,8 @@ const TextCard = ({
         .post("/api/text/autoannotate", payinput)
         .then((response) => {
           if (response.status === 200) {
-            console.log(response)
+            const result = response.data;
+            console.log(result);
           }
         })
         .catch((error) => {

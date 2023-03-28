@@ -23,7 +23,7 @@ const autoAnnotate = async (payload, userId) => {
       proxy: false,
       url: "http://server_cluster:8000/auto_annotate",
       method: "post",
-      data: {corpus: ["123".replace('"', '\\"')]},
+      data: {payin: payload},
     });
   }
   const AutoResponse = await fetchAutoAnnotate();
