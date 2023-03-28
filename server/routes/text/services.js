@@ -322,7 +322,7 @@ const applySingleAnnotation = async (payload, userId) => { // 执行一次标记
           start: payload.entitySpanStart,
           end: payload.entitySpanEnd,
           labelId: payload.entityLabelId,
-          suggested: false,
+          suggested: payload.suggested,
           entityText: payload.entityText,
         });
         newEntity = {

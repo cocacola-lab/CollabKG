@@ -122,12 +122,17 @@ class Data2(BaseModel):
 @app.post("/auto_annotate")
 def auto_annotate(data: Data2):
     logger.info("hello, i am auto annotater")
-    logger.info(data.payin)
+    payin = data.payin
+    logger.info(payin)
 
     return {'markup':[
         {
+            'entitySpanStart': 1,
+            'entitySpanEnd': 1,
+            'entityLabel': 'Location',
+            'entityLabelId': payin['pretype'][2]['_id'],
+            'entityText': 'love',
             'isEntity': True,
-            'test': 'hello'
         }
     ]}
 

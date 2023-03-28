@@ -8,7 +8,8 @@ import {
   selectRelations,
   selectTexts,
   selectTextsStatus,
-  selectAnnotationMode
+  selectAnnotationMode,
+  applyAnnotation,
 } from "../../../app/dataSlice";
 import { selectUserId } from "../../auth/userSlice";
 import { ClusterIcon } from "../cluster/ClusterIcon";
@@ -89,30 +90,57 @@ const TextCard = ({
   const dispatch = useDispatch();
 
   const handleautoAnnotate = async () => { 
-    const temptype = Object.values(project.ontology).filter( (ont) =>
-        ont.isEntity
-    );
-    const payinput = {
-        sentence: '',
-        text: texts[textId],
-        type: temptype,
-        lang: 'english',
-        task: annotationMode,
-    }
-    //console.log(payinput);  
-    await axios
-        .post("/api/text/autoannotate", payinput)
-        .then((response) => {
-          if (response.status === 200) {
-            const result = response.data;
-            console.log(result);
-          }
-        })
-        .catch((error) => {
-          if (error.response.status === 401 || 403) {
-            history.push("/unauthorized");
-          }
-        });
+    if (annotationMode === "entity"){
+      const temptype = Object.values(project.ontology).filter( (ont) =>
+          ont.isEntity
+      );
+      const payinput = {
+          sentence: "",
+          type: [],
+          text: texts[textId],
+          pretype: temptype,
+          lang: "english",
+          task: "entity",
+      }
+      //console.log(payinput);  
+      await axios
+          .post("/api/text/autoannotate", payinput)
+          .then((response) => {
+            if (response.status === 200) {
+              const result = response.data;
+              console.log(result);
+              if(result.markup.length === 0){
+                return;
+              }
+              // Create payload
+              Object.values(result.markup).forEach( item => {
+                  const payload = {
+                    entitySpanStart: item.entitySpanStart,
+                    entitySpanEnd: item.entitySpanEnd,
+                    entityLabel: item.entityLabel,
+                    entityLabelId: item.entityLabelId,
+                    textId: textId,
+                    projectId: project._id,
+                    applyAll: false,
+                    annotationType: "entity",
+                    suggested: true,
+                    textIds: Object.keys(texts),
+                    entityText: item.entityText,
+                  };
+                  console.log(payload);
+    
+                  dispatch(applyAnnotation({ ...payload }));
+                }
+              )
+              
+            }
+          })
+          .catch((error) => {
+            if (error.response.status === 401 || 403) {
+              history.push("/unauthorized");
+            }
+          });
+    }    
   }  
   //包括一个左上角的序号、一个中间的文本块和一个右上角的工具栏:一个保存图标、关系计数图标。
   return (

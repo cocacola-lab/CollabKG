@@ -18,7 +18,7 @@ const {
 
 router.post("/autoannotate", authUtils.cookieJwtAuth, async (req, res) => {
   try {
-    const expectedKeys = ["sentence", "text", "type", "lang", "type"];
+    const expectedKeys = ["sentence", "text", "type", "lang", "pretype", "task"];
     if (!authUtils.checkBodyValid(req.body, expectedKeys)) {
       res.status(400).send("One or more required fields not supplied");
     } else {
