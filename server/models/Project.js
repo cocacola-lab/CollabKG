@@ -45,6 +45,7 @@ const ProjectSchema = mongoose.Schema(
         children: { type: Array, required: true },
         domain: { type: Array, required: false },
         range: { type: Array, required: false },
+        extra: { type: Array, required: false },
       },
     ],
     annotators: [

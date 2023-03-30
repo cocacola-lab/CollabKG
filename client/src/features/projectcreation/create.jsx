@@ -5,6 +5,7 @@ import {
   incrementActiveStep,
   selectActiveStep,
   saveStep,
+  setStepData,
 } from "./createStepSlice";
 import { setIdle } from "../feed/feedSlice";
 import { Details } from "./steps/details";
@@ -66,6 +67,66 @@ export const Create = () => {
   };
 
   const handleCreate = async () => { // 多表单都填完，提交后，传到server进行交互处理。
+    const getextra = (pre) => {
+      // input: "related:[PER, LOC]" output: ["PER", "LOC"]数组
+      var aft = []; // 返回RE的subject，object类型等
+      const index = pre.indexOf(":");
+      if(index < 0){
+        return [];
+      }
+
+      var pre2 = pre.substring(index + 1).split(',');
+      //console.log(pre2);
+      aft = Object.values(pre2).map(
+        v => v.trim().replace('[','').replace(']','')
+      )
+      //console.log(aft);
+      return aft
+    };
+
+    const getprefix = (pre) => {
+      // input: "related:[PER, LOC]" output: releated
+      const index = pre.indexOf(":");
+      if(index < 0){
+        return pre;
+      }
+      return pre.substring(0, index).trim();
+    };
+
+    const addextra = (list) => {
+      // 在relations添加extra值
+
+      //const entitys = Object.values(list).filter(
+      //  (v) => v.isEntity
+      //)
+      //const rels = Object.values(list).filter(
+      //  (v) => !v.isEntity
+      //)
+      //console.log(entitys)
+      //console.log(rels)
+      //console.log(list);
+      const newrels = Object.values(list).map(
+        (v) => {
+          const newV = Object.assign({}, v, { extra: getextra(v.name) }); // 因为v设置为了不可改变所以不能直接添加extra值；此外v存在extra值也会改变的
+          newV.name = getprefix(v.name)
+          newV.fullName = getprefix(v.fullName)
+          return newV
+        }
+      )
+      //console.log(newrels)
+  
+      //return [...entitys, ...newrels]
+      return newrels
+    }
+
+    const newrels = addextra(steps.schema.data.relationLabels);
+    console.log(newrels);
+    dispatch(
+      setStepData({
+        relationLabels: newrels,
+      })
+    );
+
     const payload = {
       name: steps.details.data.name,
       description: steps.details.data.description,
@@ -80,7 +141,7 @@ export const Create = () => {
       typedTripleDictionary: steps.preannotation.data.typedTripleDictionary,
       entityOntology: steps.schema.data.entityLabels,
       relationOntology: steps.details.data.performRelationAnnotation
-        ? steps.schema.data.relationLabels
+        ? newrels
         : [],
       lowerCase: steps.preprocessing.data.lowercase,
       removeDuplicates: steps.preprocessing.data.removeDuplicates,

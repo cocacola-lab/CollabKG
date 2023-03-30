@@ -5834,6 +5834,26 @@ export const relationOntologies = {
       isEntity: false,
     },
   ],
+  NYT11: [
+    {
+      name: "person-company:[Person, Person]",
+      fullName: "person-company:[Person, Person]",
+      description: "",
+      domain: [],
+      range: [],
+      _id: uuidv4(),
+      isEntity: false,
+    },
+    {
+      name: "person-nationality: [Person, Country]",
+      fullName: "person-nationality: [Person, Country]",
+      description: "",
+      domain: [],
+      range: [],
+      _id: uuidv4(),
+      isEntity: false,
+    },
+  ],
   ConceptNet5: [
     {
       name: "RelatedTo",
