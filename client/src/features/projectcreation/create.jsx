@@ -120,7 +120,7 @@ export const Create = () => {
     }
 
     const newrels = addextra(steps.schema.data.relationLabels);
-    console.log(newrels);
+    //console.log(newrels);
     dispatch(
       setStepData({
         relationLabels: newrels,

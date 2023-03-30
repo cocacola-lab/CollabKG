@@ -8,6 +8,7 @@ const initialState = {
   selectedTokens: {},
   relations: null, // 有哪些实体已经被标注，与表MarkUP对应 {textID: [{$markup}]}
   entities: null, // 有哪些关系已经被标注
+  lastestAutoEId: "", // 标注后的实体的_id值。
   selectMode: {
     active: false,
     tokenIds: [],
@@ -427,6 +428,8 @@ export const dataSlice = createSlice({
                 state.entities[textId] = [entity];
               }
             });
+            state.lastestAutoEId = entities[0]._id;
+            //console.log(state.lastestAutoEId);
           } else if (
             details.annotationType === "relation" ||
             details.annotationType === "openRelation"
@@ -763,5 +766,7 @@ export const selectShowQuickView = (state) => state.data.showQuickView;
 
 export const selectTextsStatus = (state) => state.data.textsStatus;
 export const selectTextsError = (state) => state.data.textsError;
+
+export const selectlastestAutoEId = (state) => state.data.lastestAutoEId;
 
 export default dataSlice.reducer;

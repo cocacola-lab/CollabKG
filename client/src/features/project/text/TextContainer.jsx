@@ -10,6 +10,7 @@ import {
   selectTextsStatus,
   selectAnnotationMode,
   applyAnnotation,
+  selectlastestAutoEId,
 } from "../../../app/dataSlice";
 import { selectUserId } from "../../auth/userSlice";
 import { ClusterIcon } from "../cluster/ClusterIcon";
@@ -88,6 +89,18 @@ const TextCard = ({
   annotationMode
 }) => {
   const dispatch = useDispatch();
+  // const GetEntityid = () => {
+  //   const temp = useSelector(selectlastestAutoEId);
+  //   return temp;
+  // }
+  // const [entityId, setEntityId] = useState(null);
+  // const latestAutoEId = useSelector(selectlastestAutoEId);
+
+  // useEffect(() => {
+  //   setEntityId(latestAutoEId);
+  // }, [latestAutoEId]);
+
+  //console.log(entityId);
 
   const handleautoAnnotate = async () => { 
     if (annotationMode === "entity"){
@@ -130,16 +143,52 @@ const TextCard = ({
                   console.log(payload);
     
                   dispatch(applyAnnotation({ ...payload }));
+                  // const source = entityId;
+
+                  // const payload2 = {
+                  //   entitySpanStart: 2,
+                  //   entitySpanEnd: 2,
+                  //   entityLabel: item.entityLabel,
+                  //   entityLabelId: item.entityLabelId,
+                  //   textId: textId,
+                  //   projectId: project._id,
+                  //   applyAll: false,
+                  //   annotationType: "entity",
+                  //   suggested: true,
+                  //   textIds: Object.keys(texts),
+                  //   entityText: "you",
+                  // };
+                  // console.log(payload2);
+    
+                  // dispatch(applyAnnotation({ ...payload2 }));
+                  // const target = entityId;
+                  
+
+                  // dispatch(
+                  //   applyAnnotation({
+                  //     projectId: project._id,
+                  //     textId: textId,
+                  //     sourceEntityId: "6425ad1d3ecd7c001e67a245",
+                  //     targetEntityId: "6425ad1d3ecd7c001e67a246",
+                  //     relationLabelId: "c4dfdc6c-757c-4492-8772-1125aaa3784f",
+                  //     applyAll: false,
+                  //     suggested: true,
+                  //     annotationType: "relation",
+                  //     textIds: Object.keys(texts),//.map((t) => t._id),
+                  //   })
+                  // );
                 }
               )
               
             }
           })
           .catch((error) => {
-            if (error.response.status === 401 || 403) {
-              history.push("/unauthorized");
-            }
-          });
+            // if (error.response.status === 401 || 403) {
+            //   history.push("/unauthorized");
+            // }else{
+            console.log(error);
+            
+          }); 
     }    
   }  
   //包括一个左上角的序号、一个中间的文本块和一个右上角的工具栏:一个保存图标、关系计数图标。
