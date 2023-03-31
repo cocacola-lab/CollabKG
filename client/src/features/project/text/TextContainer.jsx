@@ -89,12 +89,12 @@ const TextCard = ({
   annotationMode
 }) => {
   const dispatch = useDispatch();
-  // const GetEntityid = () => {
+  // const GetEntityid = async () => {
   //   const temp = useSelector(selectlastestAutoEId);
   //   return temp;
   // }
   // const [entityId, setEntityId] = useState(null);
-  // const latestAutoEId = useSelector(selectlastestAutoEId);
+  const latestAutoEId = useSelector(selectlastestAutoEId);
 
   // useEffect(() => {
   //   setEntityId(latestAutoEId);
@@ -178,56 +178,58 @@ const TextCard = ({
               }
               // Create payload
               Object.values(result.markup).forEach( item => {
-                  // const payload = {
-                  //   entitySpanStart: item.entitySpanStart,
-                  //   entitySpanEnd: item.entitySpanEnd,
-                  //   entityLabel: item.entityLabel,
-                  //   entityLabelId: item.entityLabelId,
-                  //   textId: textId,
-                  //   projectId: project._id,
-                  //   applyAll: false,
-                  //   annotationType: "entity",
-                  //   suggested: true,
-                  //   textIds: Object.keys(texts),
-                  //   entityText: item.entityText,
-                  // };
-                  // console.log(payload);
-    
-                  // dispatch(applyAnnotation({ ...payload }));
-                  // const source = entityId;
 
-                  // const payload2 = {
-                  //   entitySpanStart: 2,
-                  //   entitySpanEnd: 2,
-                  //   entityLabel: item.entityLabel,
-                  //   entityLabelId: item.entityLabelId,
-                  //   textId: textId,
-                  //   projectId: project._id,
-                  //   applyAll: false,
-                  //   annotationType: "entity",
-                  //   suggested: true,
-                  //   textIds: Object.keys(texts),
-                  //   entityText: "you",
-                  // };
-                  // console.log(payload2);
+                  // 先后获得两个实体的id，关键:实时获取id。
+                  const payload = {
+                    entitySpanStart: item.entitySpanStart,
+                    entitySpanEnd: item.entitySpanEnd,
+                    entityLabel: item.entityLabel,
+                    entityLabelId: item.entityLabelId,
+                    textId: textId,
+                    projectId: project._id,
+                    applyAll: false,
+                    annotationType: "entity",
+                    suggested: true,
+                    textIds: Object.keys(texts),
+                    entityText: item.entityText,
+                  };
+                  console.log(payload);
     
-                  // dispatch(applyAnnotation({ ...payload2 }));
-                  // const target = entityId;
+                  dispatch(applyAnnotation({ ...payload }));
+                  const source = latestAutoEId;
+
+                  const payload2 = {
+                    entitySpanStart: 2,
+                    entitySpanEnd: 2,
+                    entityLabel: item.entityLabel,
+                    entityLabelId: item.entityLabelId,
+                    textId: textId,
+                    projectId: project._id,
+                    applyAll: false,
+                    annotationType: "entity",
+                    suggested: true,
+                    textIds: Object.keys(texts),
+                    entityText: "you",
+                  };
+                  console.log(payload2);
+    
+                  dispatch(applyAnnotation({ ...payload2 }));
+                  const target = latestAutoEId;
                   
-
-                  dispatch(
-                    applyAnnotation({
-                      projectId: project._id,
-                      textId: textId,
-                      sourceEntityId: "6426b86d1a71b7002e687cfe",
-                      targetEntityId: "6426b8711a71b7002e687d00",
-                      relationLabelId: "20b64967-0100-4ae7-ad57-4f13aa18e320",
-                      applyAll: false,
-                      suggested: true,
-                      annotationType: "relation",
-                      textIds: Object.keys(texts),//.map((t) => t._id),
-                    })
-                  );
+                  // apply relation
+                  const reload = {
+                    projectId: project._id,
+                    textId: textId,
+                    sourceEntityId: source,
+                    targetEntityId: target,
+                    relationLabelId: "20b64967-0100-4ae7-ad57-4f13aa18e320",
+                    applyAll: false,
+                    suggested: true,
+                    annotationType: "relation",
+                    textIds: Object.keys(texts),//.map((t) => t._id),
+                  }
+                  console.log(reload);
+                  dispatch(applyAnnotation({...reload}));
                 }
               )
               
