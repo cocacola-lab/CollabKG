@@ -89,7 +89,7 @@ const TextCard = ({
   annotationMode
 }) => {
   const dispatch = useDispatch();
-  // const GetEntityid = async () => {
+  // const GetEntityid = () => {
   //   const temp = useSelector(selectlastestAutoEId);
   //   return temp;
   // }
@@ -100,7 +100,7 @@ const TextCard = ({
   //   setEntityId(latestAutoEId);
   // }, [latestAutoEId]);
 
-  //console.log(entityId);
+  //console.log(latestAutoEId);
 
   const handleautoAnnotate = async () => { 
     if (annotationMode === "entity"){
@@ -167,81 +167,78 @@ const TextCard = ({
           task: "entity",
       }
       //console.log(payinput);  
-      await axios
-          .post("/api/text/autoannotate", payinput)
-          .then((response) => {
-            if (response.status === 200) {
-              const result = response.data;
-              console.log(result);
-              if(result.markup.length === 0){
-                return;
-              }
-              // Create payload
-              Object.values(result.markup).forEach( item => {
+      try{
+        const response = await axios
+          .post("/api/text/autoannotate", payinput);
 
-                  // 先后获得两个实体的id，关键:实时获取id。
-                  const payload = {
-                    entitySpanStart: item.entitySpanStart,
-                    entitySpanEnd: item.entitySpanEnd,
-                    entityLabel: item.entityLabel,
-                    entityLabelId: item.entityLabelId,
-                    textId: textId,
-                    projectId: project._id,
-                    applyAll: false,
-                    annotationType: "entity",
-                    suggested: true,
-                    textIds: Object.keys(texts),
-                    entityText: item.entityText,
-                  };
-                  console.log(payload);
-    
-                  dispatch(applyAnnotation({ ...payload }));
-                  const source = latestAutoEId;
+        if (response.status === 200) {
+          const result = response.data;
+          console.log(result);
+          if(result.markup.length === 0){
+            return;
+          }
+          // Create payload
+          for (const item of result.markup) {
 
-                  const payload2 = {
-                    entitySpanStart: 2,
-                    entitySpanEnd: 2,
-                    entityLabel: item.entityLabel,
-                    entityLabelId: item.entityLabelId,
-                    textId: textId,
-                    projectId: project._id,
-                    applyAll: false,
-                    annotationType: "entity",
-                    suggested: true,
-                    textIds: Object.keys(texts),
-                    entityText: "you",
-                  };
-                  console.log(payload2);
-    
-                  dispatch(applyAnnotation({ ...payload2 }));
-                  const target = latestAutoEId;
-                  
-                  // apply relation
-                  const reload = {
-                    projectId: project._id,
-                    textId: textId,
-                    sourceEntityId: source,
-                    targetEntityId: target,
-                    relationLabelId: "20b64967-0100-4ae7-ad57-4f13aa18e320",
-                    applyAll: false,
-                    suggested: true,
-                    annotationType: "relation",
-                    textIds: Object.keys(texts),//.map((t) => t._id),
-                  }
-                  console.log(reload);
-                  dispatch(applyAnnotation({...reload}));
-                }
-              )
-              
-            }
-          })
-          .catch((error) => {
-            // if (error.response.status === 401 || 403) {
-            //   history.push("/unauthorized");
-            // }else{
-            console.log(error);
+            // 先后获得两个实体的id，关键:实时获取id。
+            const payload = {
+              entitySpanStart: item.entitySpanStart,
+              entitySpanEnd: item.entitySpanEnd,
+              entityLabel: item.entityLabel,
+              entityLabelId: item.entityLabelId,
+              textId: textId,
+              projectId: project._id,
+              applyAll: false,
+              annotationType: "entity",
+              suggested: true,
+              textIds: Object.keys(texts),
+              entityText: item.entityText,
+            };
+            console.log(payload);
+
+            dispatch(applyAnnotation({ ...payload }));
+            //const source = await GetEntityid();
+            const source = latestAutoEId;
+
+            const payload2 = {
+              entitySpanStart: 2,
+              entitySpanEnd: 2,
+              entityLabel: item.entityLabel,
+              entityLabelId: item.entityLabelId,
+              textId: textId,
+              projectId: project._id,
+              applyAll: false,
+              annotationType: "entity",
+              suggested: true,
+              textIds: Object.keys(texts),
+              entityText: "you",
+            };
+            console.log(payload2);
+
+            dispatch(applyAnnotation({ ...payload2 }));
+            //const target = await GetEntityid();
+            const target = "sdaf";
             
-          }); 
+            // apply relation
+            const reload = {
+              projectId: project._id,
+              textId: textId,
+              sourceEntityId: source,
+              targetEntityId: target,
+              relationLabelId: "20b64967-0100-4ae7-ad57-4f13aa18e320",
+              applyAll: false,
+              suggested: true,
+              annotationType: "relation",
+              textIds: Object.keys(texts),//.map((t) => t._id),
+            }
+            console.log(reload);
+            dispatch(applyAnnotation({...reload}));
+          }
+        }
+       
+      } catch(e){
+        console.log(e); 
+      }
     }
   }  
   //包括一个左上角的序号、一个中间的文本块和一个右上角的工具栏:一个保存图标、关系计数图标。
