@@ -88,7 +88,7 @@ const Span = ({ text, tokenIndex, span, suggested }) => {
 
   // console.log(token, hasSuggestedRelation, isSourceForRelation);
 
-  useEffect(() => {
+  useEffect(() => { // 管理target span；悬停控制
     switch (hoveredElement) {
       case "span":
         // Equivalent to onMouseEnter on span
@@ -176,7 +176,7 @@ const Span = ({ text, tokenIndex, span, suggested }) => {
   const labelColour = span.colour;
   const fontColour = getFontColour(labelColour);
 
-  const handleMouseDown = (text, span) => {
+  const handleMouseDown = (text, span) => { // 管理source span
     const event = !sourceSpan
       ? "SET_SOURCE"
       : sourceSpan._id === span._id
@@ -374,7 +374,7 @@ const Span = ({ text, tokenIndex, span, suggested }) => {
     project.tasks.relationAnnotationType === "closed" &&
     (!suggested || hasSuggestedRelation)
   ) {
-    const renderSpanRelationLabels = (relations, text, span) => {
+    const renderSpanRelationLabels = (relations, text, span) => { // 就是点击sourespan后，targetspan处的关系标签显示
       /* Render full label if only one; else render first character capitalised */
       // Filter for the relations to the current source only otherwise all relations to other non-related spans will be shown.
       const relationLabelIds = relations[text._id]
@@ -437,7 +437,7 @@ const Span = ({ text, tokenIndex, span, suggested }) => {
           onMouseEnter={() => setHoveredElement("span")}
           onMouseLeave={() => setHoveredElement(null)}
         >
-          {(span.state === "related" || span.state === "target") &&
+          {(span.state === "related" || span.state === "target") && // 得注意这个位置，控制显示的
             renderSpanRelationLabels(relations, text, span)}
           {span.name}
         </span>

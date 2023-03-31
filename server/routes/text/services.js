@@ -869,7 +869,7 @@ const applyAllAnnotations = async (payload, userId) => { // 就是标签传播�
                 m.labelId === focusRelationDetails.labelId
             );
 
-          const newSourceEntity =
+          const newSourceEntity = // 重要，RE模式时的两个实体提示标注
             matchedSourceEntity.length === 0
               ? await Markup.create({
                   textId: obj.textId,
