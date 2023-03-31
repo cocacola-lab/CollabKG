@@ -309,6 +309,7 @@ const applySingleAnnotation = async (payload, userId) => { // 执行一次标记
           //   },
           //   { new: true }
           // );
+          response = { data: null, count: null };
         } else {
           // Markup already exists
           response = { data: null, count: null };
@@ -353,6 +354,7 @@ const applySingleAnnotation = async (payload, userId) => { // 执行一次标记
         if (relationMarkup[0].suggested) {
           // Convert into accepted relation
           // TODO: handle after apply all is added...
+          response = { data: null, count: null };
         }
       } else {
         // Relation does not exist.
@@ -363,7 +365,7 @@ const applySingleAnnotation = async (payload, userId) => { // 执行一次标记
           source: payload.sourceEntityId,
           target: payload.targetEntityId,
           labelId: payload.relationLabelId,
-          suggested: false,
+          suggested: payload.suggested,
         });
 
         // Need to fetch created relation to backref the entities for the Redux store to update

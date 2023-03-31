@@ -143,6 +143,57 @@ const TextCard = ({
                   console.log(payload);
     
                   dispatch(applyAnnotation({ ...payload }));
+                }
+              )
+              
+            }
+          })
+          .catch((error) => {
+            // if (error.response.status === 401 || 403) {
+            //   history.push("/unauthorized");
+            // }else{
+            console.log(error);            
+          }); 
+    } else if(annotationMode === "relation"){
+      const temptype = Object.values(project.ontology).filter( (ont) =>
+          ont.isEntity
+      );
+      const payinput = {
+          sentence: "",
+          type: [],
+          text: texts[textId],
+          pretype: temptype,
+          lang: "english",
+          task: "entity",
+      }
+      //console.log(payinput);  
+      await axios
+          .post("/api/text/autoannotate", payinput)
+          .then((response) => {
+            if (response.status === 200) {
+              const result = response.data;
+              console.log(result);
+              if(result.markup.length === 0){
+                return;
+              }
+              // Create payload
+              Object.values(result.markup).forEach( item => {
+                  // const payload = {
+                  //   entitySpanStart: item.entitySpanStart,
+                  //   entitySpanEnd: item.entitySpanEnd,
+                  //   entityLabel: item.entityLabel,
+                  //   entityLabelId: item.entityLabelId,
+                  //   textId: textId,
+                  //   projectId: project._id,
+                  //   applyAll: false,
+                  //   annotationType: "entity",
+                  //   suggested: true,
+                  //   textIds: Object.keys(texts),
+                  //   entityText: item.entityText,
+                  // };
+                  // console.log(payload);
+    
+                  // dispatch(applyAnnotation({ ...payload }));
                   // const source = entityId;
 
                   // const payload2 = {
@@ -164,19 +215,19 @@ const TextCard = ({
                   // const target = entityId;
                   
 
-                  // dispatch(
-                  //   applyAnnotation({
-                  //     projectId: project._id,
-                  //     textId: textId,
-                  //     sourceEntityId: "6425ad1d3ecd7c001e67a245",
-                  //     targetEntityId: "6425ad1d3ecd7c001e67a246",
-                  //     relationLabelId: "c4dfdc6c-757c-4492-8772-1125aaa3784f",
-                  //     applyAll: false,
-                  //     suggested: true,
-                  //     annotationType: "relation",
-                  //     textIds: Object.keys(texts),//.map((t) => t._id),
-                  //   })
-                  // );
+                  dispatch(
+                    applyAnnotation({
+                      projectId: project._id,
+                      textId: textId,
+                      sourceEntityId: "6426b86d1a71b7002e687cfe",
+                      targetEntityId: "6426b8711a71b7002e687d00",
+                      relationLabelId: "20b64967-0100-4ae7-ad57-4f13aa18e320",
+                      applyAll: false,
+                      suggested: true,
+                      annotationType: "relation",
+                      textIds: Object.keys(texts),//.map((t) => t._id),
+                    })
+                  );
                 }
               )
               
@@ -189,7 +240,7 @@ const TextCard = ({
             console.log(error);
             
           }); 
-    }    
+    }
   }  
   //包括一个左上角的序号、一个中间的文本块和一个右上角的工具栏:一个保存图标、关系计数图标。
   return (

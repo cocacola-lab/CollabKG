@@ -2,7 +2,7 @@ FROM python:3.9
 
 COPY ./requirements.txt ./requirements.txt
 
-RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --no-cache-dir --upgrade -r requirements.txt
+RUN pip install -i https://pypi.mirrors.ustc.edu.cn/simple --no-cache-dir --upgrade -r requirements.txt
 
 COPY . .
 
