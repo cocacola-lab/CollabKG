@@ -309,10 +309,10 @@ const applySingleAnnotation = async (payload, userId) => { // 执行一次标记
           //   },
           //   { new: true }
           // );
-          response = { data: null, count: null };
+          response = { data: spanMarkup[0], count: 0 }; // count为0保证不会重复标注,返回spanMarkup是为了重复时也能获取id
         } else {
           // Markup already exists
-          response = { data: null, count: null };
+          response = { data: spanMarkup[0], count: 0 };
         }
       } else {
         // Does not exist - add as an accepted span.
