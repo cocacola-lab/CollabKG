@@ -377,9 +377,16 @@ const Span = ({ text, tokenIndex, span, suggested }) => {
     const renderSpanRelationLabels = (relations, text, span) => { // 就是点击sourespan后，targetspan处的关系标签显示
       /* Render full label if only one; else render first character capitalised */
       // Filter for the relations to the current source only otherwise all relations to other non-related spans will be shown.
-      const relationLabelIds = relations[text._id]
+      let relationLabelIds;
+      if (sourceSpan === null) {
+        relationLabelIds = [];
+      }
+      else{
+        relationLabelIds = relations[text._id]
         .filter((r) => r.source === sourceSpan._id && r.target === span._id)
         .map((r) => r.labelId);
+      }
+      
 
       return relationLabelIds.map((rId) => {
         const label = flatRelationOntology.filter(
