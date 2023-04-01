@@ -94,7 +94,7 @@ const TextCard = ({
   //   return temp;
   // }
   // const [entityId, setEntityId] = useState(null);
-  const latestAutoEId = useSelector(selectlastestAutoEId);
+  // const latestAutoEId = useSelector(selectlastestAutoEId);
 
   // useEffect(() => {
   //   setEntityId(latestAutoEId);
@@ -196,9 +196,10 @@ const TextCard = ({
             };
             console.log(payload);
 
-            dispatch(applyAnnotation({ ...payload }));
-            //const source = await GetEntityid();
-            const source = latestAutoEId;
+            const temp = await dispatch(applyAnnotation({ ...payload }));
+            //console.log(temp);
+          
+            const source = temp.payload.response.data._id;
 
             const payload2 = {
               entitySpanStart: 2,
@@ -215,9 +216,9 @@ const TextCard = ({
             };
             console.log(payload2);
 
-            dispatch(applyAnnotation({ ...payload2 }));
-            //const target = await GetEntityid();
-            const target = "sdaf";
+            const temp2 = await dispatch(applyAnnotation({ ...payload2 }));
+            //console.log(temp2);
+            const target = temp2.payload.response.data._id;
             
             // apply relation
             const reload = {
@@ -225,7 +226,7 @@ const TextCard = ({
               textId: textId,
               sourceEntityId: source,
               targetEntityId: target,
-              relationLabelId: "20b64967-0100-4ae7-ad57-4f13aa18e320",
+              relationLabelId: "7e8e61da-05e0-4e7f-ad6d-816c766bef2d",
               applyAll: false,
               suggested: true,
               annotationType: "relation",
