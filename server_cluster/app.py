@@ -156,7 +156,7 @@ def auto_annotate(data: Data2):
     
     payin['access'] = ""
 
-    output = chatie(payin)
+    output = chatie(payin, logger)
     
     # 将result转换为前端想要的形式
     # ------------tools function ------------------
@@ -200,6 +200,8 @@ def auto_annotate(data: Data2):
 
 
     result = output['result']
+    logger.info(result)
+
     if type(result[0]) == str:
         return {'markup': []}
     

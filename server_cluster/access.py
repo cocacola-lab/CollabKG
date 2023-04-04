@@ -86,62 +86,62 @@ ee_s2_p = {
 }     
 
 
-def chat_re(inda, chatbot):
-    print("---RE---")
+def chat_re(inda, chatbot, logger):
+    logger.info("---RE---")
     mess = [{"role": "system", "content": "You are a helpful assistant."},] # chatgpt对话历史
 
-    """ typelist = inda['type']
+    typelist = inda['type']
     sent = inda['sentence']
     lang = inda['lang']
 
     out = [] # 输出列表 [(e1,r1,e2)]
 
     try:
-        print('---stage1---')
+        logger.info('---stage1---')
         # 构造prompt
         stage1_tl = list(typelist.keys())
         s1p = re_s1_p[lang].format(sent, str(stage1_tl))
-        print(s1p)
+        logger.info(s1p)
 
         # 请求chatgpt
         mess.append({"role": "user", "content": s1p})
         text1 = chatbot(mess)
         mess.append({"role": "assistant", "content": text1})
-        print(text1)
+        logger.info(text1)
 
         # 正则提取结果
         res1 = re.findall(r'\(.*?\)', text1)
-        print(res1)
+        logger.info(res1)
         if res1!=[]:
             rels = [temp[1:-1].split(',') for temp in res1]
             rels = list(set([re.sub('[\'"]','', j).strip() for i in rels for j in i]))
-            #print(rels)
+            #logger.info(rels)
         else:
             rels = []
-        print(rels)
+        logger.info(rels)
     except Exception as e:
-        print(e)
-        print('re stage 1 none out or error')
+        logger.info(e)
+        logger.info('re stage 1 none out or error')
         return ['error-stage1:' + str(e)], mess
 
-    print('---stage2')
+    logger.info('---stage2')
     try:
         for r in rels:
             if r in typelist:
                 # 构造prompt
                 st, ot = typelist[r]
                 s2p = re_s2_p[lang].format(st, ot, r, st, ot)
-                print(s2p)
+                logger.info(s2p)
 
                 # 请求chatgpt
                 mess.append({"role": "user", "content": s2p})
                 text2 = chatbot(mess)
                 mess.append({"role": "assistant", "content": text2})
-                print(text2)
+                logger.info(text2)
 
                 # 正则提取结果
                 res2 = re.findall(r'\|.*?\|.*?\|', text2)
-                print(res2)
+                logger.info(res2)
 
                 # 进一步处理结果
                 count=0
@@ -160,8 +160,8 @@ def chat_re(inda, chatbot):
                 #break
     
     except Exception as e:
-        print(e)
-        print('re stage 2 none out or error')
+        logger.info(e)
+        logger.info('re stage 2 none out or error')
         if out == []:
             out.append('error-stage2:' + str(e))
         return out, mess
@@ -171,69 +171,69 @@ def chat_re(inda, chatbot):
     else:
         out = list(set(out))
     
-    print(mess) """
+    logger.info(mess)
     # out = [('滴答', '歌曲', '歌手', '陈思成', '人物'), ('兰花指', '歌曲', '歌手', '阿里郎', '人物'), ('滴答', '歌曲', '歌手', '张碧晨', '人物')]
-    out = [('love', 'Location', 'person-nationality', 'you', 'Person')]
+    #out = [('love', 'Location', 'person-nationality', 'you', 'Person')]
     return out, mess
 
-def chat_ner(inda, chatbot):
-    print("---NER---")
+def chat_ner(inda, chatbot, logger):
+    logger.info("---NER---")
     mess = [{"role": "system", "content": "You are a helpful assistant."},] # chatgpt对话历史
 
-    """ typelist = inda['type']
+    typelist = inda['type']
     sent = inda['sentence']
     lang = inda['lang']
 
     out = [] # 输出列表 [(e1,et1)]
 
     try:
-        print('---stage1---')
+        logger.info('---stage1---')
         # 构造prompt
         stage1_tl = typelist
         s1p = ner_s1_p[lang].format(sent, str(stage1_tl))
-        print(s1p)
+        logger.info(s1p)
 
         # 请求chatgpt
         mess.append({"role": "user", "content": s1p})
         text1 = chatbot(mess)
         mess.append({"role": "assistant", "content": text1})
-        print(text1)
+        logger.info(text1)
 
         # 正则提取结果, ner特殊
         if lang == 'chinese':
             res1 = re.findall(r'\(.*?\)', text1)
         else:
             res1 = re.findall(r'\[.*?\]', text1)
-        print(res1)
+        logger.info(res1)
         if res1!=[]:
             rels = [temp[1:-1].split(',') for temp in res1]
             rels = list(set([re.sub('[\'"]','', j).strip() for i in rels for j in i]))
-            #print(rels)
+            #logger.info(rels)
         else:
             rels = []
-        print(rels)
+        logger.info(rels)
     except Exception as e:
-        print(e)
-        print('ner stage 1 none out or error')
+        logger.info(e)
+        logger.info('ner stage 1 none out or error')
         return ['error-stage1:' + str(e)], mess
 
-    print('---stage2')
+    logger.info('---stage2')
     try:
         for r in rels:
             if r in typelist:
                 # 构造prompt
                 s2p = ner_s2_p[lang].format(r)
-                print(s2p)
+                logger.info(s2p)
 
                 # 请求chatgpt
                 mess.append({"role": "user", "content": s2p})
                 text2 = chatbot(mess)
                 mess.append({"role": "assistant", "content": text2})
-                print(text2)
+                logger.info(text2)
 
                 # 正则提取结果
                 res2 = re.findall(r'\|.*?\|.*?\|', text2)
-                print(res2)
+                logger.info(res2)
 
                 # 进一步处理结果
                 count=0
@@ -251,8 +251,8 @@ def chat_ner(inda, chatbot):
                         out.append((o, r))
     
     except Exception as e:
-        print(e)
-        print('ner stage 2 none out or error')
+        logger.info(e)
+        logger.info('ner stage 2 none out or error')
         if out == []:
             out.append('error-stage2:' + str(e))
         return out, mess
@@ -263,12 +263,12 @@ def chat_ner(inda, chatbot):
     else:
         out = list(set(out))
     
-    print(mess) """
-    out = [('you', 'Person'), ('love', 'Location')]
+    logger.info(mess)
+    # out = [('you', 'Person'), ('love', 'Location')]
     return out, mess
 
-def chat_ee(inda, chatbot):
-    print("---EE---")
+def chat_ee(inda, chatbot, logger):
+    logger.info("---EE---")
     mess = [{"role": "system", "content": "You are a helpful assistant."},] # chatgpt对话历史
 
     typelist = inda['type']
@@ -278,51 +278,51 @@ def chat_ee(inda, chatbot):
     out = [] # 输出列表 [(e1,r1,e2)]
 
     try:
-        print('---stage1---')
+        logger.info('---stage1---')
         # 构造prompt
         stage1_tl = list(typelist.keys())
         s1p = ee_s1_p[lang].format(sent, str(stage1_tl))
-        print(s1p)
+        logger.info(s1p)
 
         # 请求chatgpt
         mess.append({"role": "user", "content": s1p})
         text1 = chatbot(mess)
         mess.append({"role": "assistant", "content": text1})
-        print(text1)
+        logger.info(text1)
 
         # 正则提取结果
         res1 = re.findall(r'\(.*?\)', text1)
-        print(res1)
+        logger.info(res1)
         if res1!=[]:
             rels = [temp[1:-1].split(',') for temp in res1]
             rels = list(set([re.sub('[\'"]','', j).strip() for i in rels for j in i]))
-            #print(rels)
+            #logger.info(rels)
         else:
             rels = []
-        print(rels)
+        logger.info(rels)
     except Exception as e:
-        print(e)
-        print('re stage 1 none out or error')
+        logger.info(e)
+        logger.info('re stage 1 none out or error')
         return ['error-stage1:' + str(e)], mess
     
-    print('---stage2')
+    logger.info('---stage2')
     try:
         for r in rels:
             if r in typelist:
                 # 构造prompt
                 t = typelist[r]
                 s2p = ee_s2_p[lang].format(r, t)
-                print(s2p)
+                logger.info(s2p)
 
                 # 请求chatgpt
                 mess.append({"role": "user", "content": s2p})
                 text2 = chatbot(mess)
                 mess.append({"role": "assistant", "content": text2})
-                print(text2)
+                logger.info(text2)
 
                 # 正则提取结果
                 res2 = re.findall(r'\|.*?\|.*?\|', text2)
-                print(res2)
+                logger.info(res2)
 
                 # 进一步处理结果
                 single_out = {r: {}}
@@ -344,8 +344,8 @@ def chat_ee(inda, chatbot):
                 #break
     
     except Exception as e:
-        print(e)
-        print('re stage 2 none out or error')
+        logger.info(e)
+        logger.info('re stage 2 none out or error')
         if out == []:
             out.append('error-stage2:' + str(e))
         return out, mess
@@ -353,7 +353,7 @@ def chat_ee(inda, chatbot):
     if out == []:
         out.append('none-none')
     
-    print(mess)
+    logger.info(mess)
     #out = [{'晋级':{'晋级方': '阿根廷', '时间': '2022年'}}]
     return out, mess
 
@@ -369,9 +369,9 @@ def chat(mess):
     return res
 
 
-def chatie(input_data):
-    print('input data type:{}'.format(type(input_data)))
-    print('input data:{}'.format(input_data))
+def chatie(input_data, logger):
+    logger.info('input data type:{}'.format(type(input_data)))
+    logger.info('input data:{}'.format(input_data))
 
     # 参数处理，默认参数
     task = input_data['task']
@@ -381,7 +381,7 @@ def chatie(input_data):
 
     ## account
     if access=="":
-        print('using default access token')
+        logger.info('using default access token')
         tempes = random.choice(df_access)
         input_data['access'] = tempes[1]+tempes[0][1:]
 
@@ -390,15 +390,15 @@ def chatie(input_data):
         openai.api_key = input_data['access']
         chatbot = chat
     except Exception as e:
-        print('---chatbot---')
-        print(e)
+        logger.info('---chatbot---')
+        logger.info(e)
         input_data['result'] = ['error-chatbot']
         return input_data # 没必要进行下去
     
     ## typelist, 空就用默认的
     
     if typelist == [] or typelist == {}:
-        print('using default typelist')
+        logger.info('using default typelist')
         if task == 'relation':
             typelist = df_ret[lang]
             input_data['type'] = typelist
@@ -411,13 +411,13 @@ def chatie(input_data):
 
     # get output from chatgpt        
     if task == 'relation':
-        input_data['result'], input_data['mess'] =  chat_re(input_data, chatbot)
+        input_data['result'], input_data['mess'] =  chat_re(input_data, chatbot, logger)
     elif task == 'entity':
-        input_data['result'], input_data['mess'] =  chat_ner(input_data, chatbot)
+        input_data['result'], input_data['mess'] =  chat_ner(input_data, chatbot, logger)
     else:
-        input_data['result'], input_data['mess'] =  chat_ee(input_data, chatbot)
+        input_data['result'], input_data['mess'] =  chat_ee(input_data, chatbot, logger)
     
-    print(input_data)
+    logger.info(input_data)
 
     with open('access_record.json', 'a') as fw:
         fw.write(json.dumps(input_data, ensure_ascii=False)+'\n')
