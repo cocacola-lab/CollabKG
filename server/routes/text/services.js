@@ -513,9 +513,17 @@ const applyAllAnnotations = async (payload, userId) => { // 就是标签传播�
         appliedFocusEntitySpan = true;
       }
 
+      let regexString;
+      if(/[a-zA-Z]/.test(entityText)){
+        // entityText包含英文字母，需要使用\b
+        regexString = `\\b${entityText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`;
+      }
+      else{
+        regexString = `${entityText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`;
+      }
       console.log(
         "match regex",
-        `\\b${entityText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`
+        regexString
       );
 
       // Need to match with word boundaries so if matching on 'oil', a text with 'oils' is not returned
@@ -523,7 +531,7 @@ const applyAllAnnotations = async (payload, userId) => { // 就是标签传播�
         projectId: payload.projectId,
         original: {
           $regex: new RegExp(
-            `\\b${entityText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`
+            regexString
           ),
           $options: "i",
         },
@@ -721,21 +729,44 @@ const applyAllAnnotations = async (payload, userId) => { // 就是标签传播�
         : focusSourceSpan.start - focusTargetSpan.end - 1;
 
       // const focusEntityOffset = focusTargetSpan.start - focusSourceSpan.end - 1;
+      let regexString2;
+      let regexString3;
+      if(/[a-zA-Z]/.test(focusTargetSpanEntityText) || /[a-zA-Z]/.test(focusSourceSpanEntityText)){
+        // 包含英文字母，需要使用\b
+        regexString2 = `\\b${focusSourceSpanEntityText.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        )} (\\w+ ){${focusEntityOffset}}${focusTargetSpanEntityText.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        )}\\b`;
+        regexString3 = `\\b${focusTargetSpanEntityText.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        )} (\\w+ ){${focusEntityOffset}}${focusSourceSpanEntityText.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        )}\\b`;
+      }
+      else{
+        regexString2 = `${focusSourceSpanEntityText.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        )} ([\u4e00-\u9fa5]+ ){${focusEntityOffset}}${focusTargetSpanEntityText.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        )}`;
+        regexString3 = `${focusTargetSpanEntityText.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        )} ([\u4e00-\u9fa5]+ ){${focusEntityOffset}}${focusSourceSpanEntityText.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        )}`;
+      }
       const matchRegex = relationDirLR
-        ? `\\b${focusSourceSpanEntityText.replace(
-            /[.*+?^${}()|[\]\\]/g,
-            "\\$&"
-          )} (\\w+ ){${focusEntityOffset}}${focusTargetSpanEntityText.replace(
-            /[.*+?^${}()|[\]\\]/g,
-            "\\$&"
-          )}\\b`
-        : `\\b${focusTargetSpanEntityText.replace(
-            /[.*+?^${}()|[\]\\]/g,
-            "\\$&"
-          )} (\\w+ ){${focusEntityOffset}}${focusSourceSpanEntityText.replace(
-            /[.*+?^${}()|[\]\\]/g,
-            "\\$&"
-          )}\\b`;
+        ? regexString2
+        : regexString3;
       console.log("matchRegex", matchRegex);
 
       matchedTexts = await Text.find({
