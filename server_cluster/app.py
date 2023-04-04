@@ -17,6 +17,7 @@ from pydantic import BaseModel, Field
 from sentence_transformers import SentenceTransformer
 from sklearn.cluster import AgglomerativeClustering, KMeans
 from sklearn.decomposition import LatentDirichletAllocation
+from access import chatie
 
 log_path = pathlib.Path(__file__).parent.resolve()
 
@@ -125,16 +126,158 @@ def auto_annotate(data: Data2):
     payin = data.payin
     logger.info(payin)
 
-    return {'markup':[
-        {
-            'entitySpanStart': 1,
-            'entitySpanEnd': 1,
-            'entityLabel': 'Location',
-            'entityLabelId': payin['pretype'][2]['_id'],
-            'entityText': 'love',
-            'isEntity': True,
-        }
-    ]}
+    pretype = payin['pretype']
+    text = payin['text']
+    task = payin['task']
+    lang = payin['lang']
+    
+    # 获得chatie需要的type和sentence
+    # sentence
+    temp_text = list(map(lambda x: x['value'], text['tokens'].values()))
+    if lang == 'chinese':
+        sentence = ''.join(temp_text)
+    else:
+        sentence = ' '.join(temp_text)
+        
+    payin['sentence'] = sentence
+
+    # type
+    if task == 'entity':
+        type1 = list(map(lambda x: x['name'], pretype))
+
+        payin['type'] = type1
+    elif task == 'relation':
+        type1 = {}
+        for item in pretype:
+            key = item['name']
+            value = item['extra']
+            type1[key] = value
+        payin['type'] = type1
+    
+    payin['access'] = ""
+
+    output = chatie(payin)
+    
+    # 将result转换为前端想要的形式
+    # ------------tools function ------------------
+    def getEntitymarkup(ent, lab, temp_text, label2id, lang):
+        single_markup = {'isEntity': True,}
+
+        # label
+        if lab in label2id:
+            single_markup['entityLabel'] = lab
+            single_markup['entityLabelId'] = label2id[lab]
+        else: return {}
+
+        # start end
+        mark = False
+        if lang == 'english':
+            entlist = ent.split(' ')
+        elif lang == 'chinese':
+            entlist = list(ent)
+        startw = entlist[0]
+        wlen = len(entlist)
+        for idx, word in enumerate(temp_text):
+            if startw == word:
+                prew = temp_text[idx:idx+wlen]
+                if prew == entlist:
+                    single_markup['entitySpanStart'] = idx
+                    single_markup['entitySpanEnd'] = idx + wlen -1
+                    single_markup['entityText'] = ' '.join(entlist)
+                    mark =True
+                    break
+        if not mark:
+            return {}
+        else:
+            return single_markup
+        
+    def getRelationmarkup(r, rlabel2id):
+        single_markup = {}
+        if r in rlabel2id:
+            single_markup['relationLabelId'] = rlabel2id[r]
+            return single_markup
+        else: return {}  
+
+
+    result = output['result']
+    if type(result[0]) == str:
+        return {'markup': []}
+    
+    if task == 'entity':
+        markup = []
+        # 获得start end和label
+        # 构建label2id dict
+        label2id = {item['name']: item['_id'] for item in pretype}
+        for ent, lab in result:
+            single_markup = getEntitymarkup(ent, lab, temp_text, label2id, lang)
+            if single_markup != {}:
+                markup.append(single_markup)
+            
+        return {'markup': markup}
+        """ return {'markup':[
+            {
+                'entitySpanStart': 1,
+                'entitySpanEnd': 1,
+                'entityLabel': 'Location',
+                'entityLabelId': payin['pretype'][2]['_id'],
+                'entityText': 'love',
+                'isEntity': True,
+            }
+        ]} """
+    elif task == 'relation':
+        markup = []
+        # 获得start end和label
+        # 构建entity label2id dict
+        label2id = {item['name']: item['_id'] for item in payin['epretype']}
+        rlabel2id = {item['name']: item['_id'] for item in payin['pretype']}
+        for s, st, r, o, ot in result:
+            single = []
+
+            single_markup = getEntitymarkup(s, st, temp_text, label2id, lang)
+            if single_markup != {}:
+                single.append(single_markup)
+            else:
+                continue
+
+            single_markup = getEntitymarkup(o, ot, temp_text, label2id, lang)
+            if single_markup != {}:
+                single.append(single_markup)
+            else:
+                continue
+
+            single_markup = getRelationmarkup(r, rlabel2id)
+            if single_markup != {}:
+                single.append(single_markup)
+            else:
+                continue
+
+            markup.append(single)
+
+        return {'markup': markup}
+
+        """ return {'markup':[
+            [
+                {
+                'entitySpanStart': 1,
+                'entitySpanEnd': 1,
+                'entityLabel': 'Location',
+                'entityLabelId': payin['epretype'][2]['_id'],
+                'entityText': 'love',
+                'isEntity': True,
+                },
+                {
+                'entitySpanStart': 2,
+                'entitySpanEnd': 2,
+                'entityLabel': 'Location',
+                'entityLabelId': payin['epretype'][2]['_id'],
+                'entityText': 'you',
+                'isEntity': True,
+                },
+                {
+                'relationLabelId': payin['pretype'][0]['_id']
+                }
+            ],
+        ]} """
 
 
 

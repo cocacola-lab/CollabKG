@@ -116,46 +116,45 @@ const TextCard = ({
           task: "entity",
       }
       //console.log(payinput);  
-      await axios
-          .post("/api/text/autoannotate", payinput)
-          .then((response) => {
-            if (response.status === 200) {
-              const result = response.data;
-              console.log(result);
-              if(result.markup.length === 0){
-                return;
-              }
-              // Create payload
-              Object.values(result.markup).forEach( item => {
-                  const payload = {
-                    entitySpanStart: item.entitySpanStart,
-                    entitySpanEnd: item.entitySpanEnd,
-                    entityLabel: item.entityLabel,
-                    entityLabelId: item.entityLabelId,
-                    textId: textId,
-                    projectId: project._id,
-                    applyAll: false,
-                    annotationType: "entity",
-                    suggested: true,
-                    textIds: Object.keys(texts),
-                    entityText: item.entityText,
-                  };
-                  console.log(payload);
-    
-                  dispatch(applyAnnotation({ ...payload }));
-                }
-              )
-              
+      try{
+        const response = await axios
+        .post("/api/text/autoannotate", payinput)
+        
+        if (response.status === 200) {
+          const result = response.data;
+          console.log(result);
+          if(result.markup.length === 0){
+            return;
+          }
+          // Create payload
+          for (const item of result.markup) {
+            const payload = {
+              entitySpanStart: item.entitySpanStart,
+              entitySpanEnd: item.entitySpanEnd,
+              entityLabel: item.entityLabel,
+              entityLabelId: item.entityLabelId,
+              textId: textId,
+              projectId: project._id,
+              applyAll: false,
+              annotationType: "entity",
+              suggested: true,
+              textIds: Object.keys(texts),
+              entityText: item.entityText,
+            };
+            console.log(payload);
+
+            await dispatch(applyAnnotation({ ...payload })); // 注意要await，不然标注结果会乱
             }
-          })
-          .catch((error) => {
-            // if (error.response.status === 401 || 403) {
-            //   history.push("/unauthorized");
-            // }else{
-            console.log(error);            
-          }); 
+        }
+
+      } catch(e){
+        console.log(e); 
+      }
     } else if(annotationMode === "relation"){
       const temptype = Object.values(project.ontology).filter( (ont) =>
+          !ont.isEntity
+      );
+      const temptype2 = Object.values(project.ontology).filter( (ont) =>
           ont.isEntity
       );
       const payinput = {
@@ -163,8 +162,9 @@ const TextCard = ({
           type: [],
           text: texts[textId],
           pretype: temptype,
+          epretype: temptype2,
           lang: "english",
-          task: "entity",
+          task: "relation",
       }
       //console.log(payinput);  
       try{
@@ -182,17 +182,17 @@ const TextCard = ({
 
             // 先后获得两个实体的id，关键:实时获取id。
             const payload = {
-              entitySpanStart: item.entitySpanStart,
-              entitySpanEnd: item.entitySpanEnd,
-              entityLabel: item.entityLabel,
-              entityLabelId: item.entityLabelId,
+              entitySpanStart: item[0].entitySpanStart,
+              entitySpanEnd: item[0].entitySpanEnd,
+              entityLabel: item[0].entityLabel,
+              entityLabelId: item[0].entityLabelId,
               textId: textId,
               projectId: project._id,
               applyAll: false,
               annotationType: "entity",
               suggested: true,
               textIds: Object.keys(texts),
-              entityText: item.entityText,
+              entityText: item[0].entityText,
             };
             console.log(payload);
 
@@ -202,17 +202,17 @@ const TextCard = ({
             const source = temp.payload.response.data._id;
 
             const payload2 = {
-              entitySpanStart: 2,
-              entitySpanEnd: 2,
-              entityLabel: item.entityLabel,
-              entityLabelId: item.entityLabelId,
+              entitySpanStart: item[1].entitySpanStart,
+              entitySpanEnd: item[1].entitySpanEnd,
+              entityLabel: item[1].entityLabel,
+              entityLabelId: item[1].entityLabelId,
               textId: textId,
               projectId: project._id,
               applyAll: false,
               annotationType: "entity",
               suggested: true,
               textIds: Object.keys(texts),
-              entityText: "you",
+              entityText: item[1].entityText,
             };
             console.log(payload2);
 
@@ -226,14 +226,14 @@ const TextCard = ({
               textId: textId,
               sourceEntityId: source,
               targetEntityId: target,
-              relationLabelId: "7e8e61da-05e0-4e7f-ad6d-816c766bef2d",
+              relationLabelId: item[2].relationLabelId,
               applyAll: false,
               suggested: true,
               annotationType: "relation",
               textIds: Object.keys(texts),//.map((t) => t._id),
             }
             console.log(reload);
-            dispatch(applyAnnotation({...reload}));
+            await dispatch(applyAnnotation({...reload}));
           }
         }
        
