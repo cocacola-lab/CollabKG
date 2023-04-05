@@ -5836,8 +5836,8 @@ export const relationOntologies = {
   ],
   NYT11: [
     {
-      name: "person-company:[Person, Person]",
-      fullName: "person-company:[Person, Person]",
+      name: "person-company@[Person, Person]",
+      fullName: "person-company@[Person, Person]",
       description: "",
       domain: [],
       range: [],
@@ -5845,8 +5845,8 @@ export const relationOntologies = {
       isEntity: false,
     },
     {
-      name: "person-nationality: [Person, Country]",
-      fullName: "person-nationality: [Person, Country]",
+      name: "person-nationality@ [Person, Country]",
+      fullName: "person-nationality@ [Person, Country]",
       description: "",
       domain: [],
       range: [],

@@ -68,9 +68,9 @@ export const Create = () => {
 
   const handleCreate = async () => { // 多表单都填完，提交后，传到server进行交互处理。
     const getextra = (pre) => {
-      // input: "related:[PER, LOC]" output: ["PER", "LOC"]数组
+      // input: "related@[PER, LOC]" output: ["PER", "LOC"]数组
       var aft = []; // 返回RE的subject，object类型等
-      const index = pre.indexOf(":");
+      const index = pre.indexOf("@");
       if(index < 0){
         return [];
       }
@@ -85,8 +85,8 @@ export const Create = () => {
     };
 
     const getprefix = (pre) => {
-      // input: "related:[PER, LOC]" output: releated
-      const index = pre.indexOf(":");
+      // input: "related@[PER, LOC]" output: releated
+      const index = pre.indexOf("@");
       if(index < 0){
         return pre;
       }
