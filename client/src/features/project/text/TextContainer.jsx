@@ -107,7 +107,8 @@ const TextCard = ({
   //console.log(latestAutoEId);
 
   const handleautoAnnotate = async () => { 
-    if (annotationMode === "entity"){
+    if (!project.tasks.relationAnnotation){
+      // perform auto NER
       const temptype = Object.values(project.ontology).filter( (ont) =>
           ont.isEntity
       );
@@ -154,7 +155,8 @@ const TextCard = ({
       } catch(e){
         console.log(e); 
       }
-    } else if(annotationMode === "relation"){
+    } else if(project.tasks.relationAnnotation){
+      // perform auto RE or EE
       const temptype = Object.values(project.ontology).filter( (ont) =>
           !ont.isEntity
       );
@@ -168,7 +170,7 @@ const TextCard = ({
           pretype: temptype,
           epretype: temptype2,
           lang: annotationLang,
-          task: "relation",
+          task: project.tasks.isEvent?"event":"relation",
       }
       //console.log(payinput);  
       try{
