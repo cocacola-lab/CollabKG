@@ -81,13 +81,15 @@ export const Details = () => {
                   <Checkbox
                     checked={
                       steps[activeStep].data.performRelationAnnotation &&
-                      steps[activeStep].data.relationAnnotationType === "closed"
+                      steps[activeStep].data.relationAnnotationType === "closed" &&
+                      !steps[activeStep].data.isEvent
                     }
                     onChange={(e) => {
                       dispatch(
                         setStepData({
                           performRelationAnnotation: true,
                           relationAnnotationType: "closed",
+                          isEvent: false,
                         })
                       );
                     }}
@@ -99,23 +101,24 @@ export const Details = () => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    disabled
                     checked={
                       steps[activeStep].data.performRelationAnnotation &&
-                      steps[activeStep].data.relationAnnotationType === "open"
+                      steps[activeStep].data.relationAnnotationType === "closed" &&
+                      steps[activeStep].data.isEvent
                     }
                     onChange={(e) => {
                       dispatch(
                         setStepData({
                           performRelationAnnotation: true,
-                          relationAnnotationType: "open",
+                          relationAnnotationType: "closed",
+                          isEvent: true,
                         })
                       );
                     }}
-                    name="ea-ra-open"
+                    name="ea-ra-event"
                   />
                 }
-                label="Entity and Open Relation Annotation"
+                label="Event Annotation"
               />
               <FormControlLabel
                 control={

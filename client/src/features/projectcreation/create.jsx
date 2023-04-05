@@ -134,6 +134,7 @@ export const Create = () => {
         entityAnnotation: true,
         relationAnnotation: steps.details.data.performRelationAnnotation,
         relationAnnotationType: steps.details.data.relationAnnotationType,
+        isEvent: steps.details.data.isEvent,
       },
       performClustering: steps.details.data.performClustering,
       texts: steps.upload.data.corpus,

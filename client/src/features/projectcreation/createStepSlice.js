@@ -13,6 +13,7 @@ const initialState = {
         description: "",
         performRelationAnnotation: false,
         relationAnnotationType: "",
+        isEvent: false,
         performClustering: false,
       },
       valid: false,

@@ -90,7 +90,7 @@ def chat_re(inda, chatbot, logger):
     logger.info("---RE---")
     mess = [{"role": "system", "content": "You are a helpful assistant."},] # chatgpt对话历史
 
-    typelist = inda['type']
+    """ typelist = inda['type']
     sent = inda['sentence']
     lang = inda['lang']
 
@@ -171,16 +171,16 @@ def chat_re(inda, chatbot, logger):
     else:
         out = list(set(out))
     
-    logger.info(mess)
+    logger.info(mess) """
     # out = [('滴答', '歌曲', '歌手', '陈思成', '人物'), ('兰花指', '歌曲', '歌手', '阿里郎', '人物'), ('滴答', '歌曲', '歌手', '张碧晨', '人物')]
-    #out = [('love', 'Location', 'person-nationality', 'you', 'Person')]
+    out = [('love', 'Location', 'person-nationality', 'you', 'Person'), ('我', '人物', '父亲', '你', '人物')]
     return out, mess
 
 def chat_ner(inda, chatbot, logger):
     logger.info("---NER---")
     mess = [{"role": "system", "content": "You are a helpful assistant."},] # chatgpt对话历史
 
-    typelist = inda['type']
+    """ typelist = inda['type']
     sent = inda['sentence']
     lang = inda['lang']
 
@@ -263,8 +263,8 @@ def chat_ner(inda, chatbot, logger):
     else:
         out = list(set(out))
     
-    logger.info(mess)
-    # out = [('you', 'Person'), ('love', 'Location')]
+    logger.info(mess) """
+    out = [('you', 'Person'), ('I love', 'Location'), ('中国', 'Location')]
     return out, mess
 
 def chat_ee(inda, chatbot, logger):

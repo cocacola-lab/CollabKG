@@ -116,9 +116,9 @@ const ProjectList = () => {
                     !project.tasks.relationAnnotation
                       ? "Entity Only"
                       : project.tasks.relationAnnotationType.toLowerCase() ===
-                        "closed"
+                        "closed" && !project.tasks.isEvent
                       ? "Entity + Closed Relation"
-                      : "Entity + Open Relation"
+                      : "Event Relation"
                   }
                   title="The task configuration for this project"
                 />

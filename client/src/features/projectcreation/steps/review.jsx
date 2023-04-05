@@ -30,10 +30,10 @@ export const Review = () => {
       `Task: ${
         !steps.details.data.performRelationAnnotation
           ? "Entity Typing"
-          : steps.details.data.relationAnnotationType === "closed"
+          : steps.details.data.relationAnnotationType === "closed" && !steps.details.data.isEvent
           ? "Entity Typing and Closed Relation Extraction"
-          : steps.details.data.relationAnnotationType === "open"
-          ? "Entity Typing and Open Relation Extraction"
+          : steps.details.data.relationAnnotationType === "closed" && steps.details.data.isEvent
+          ? "Event Extraction"
           : null
       }`,
       `${
