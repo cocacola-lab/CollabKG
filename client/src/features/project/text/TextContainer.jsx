@@ -9,6 +9,7 @@ import {
   selectTexts,
   selectTextsStatus,
   selectAnnotationMode,
+  selectAnnotationLang,
   applyAnnotation,
   selectlastestAutoEId,
 } from "../../../app/dataSlice";
@@ -24,6 +25,7 @@ export const TextContainer = ({ textId, textIndex }) => {
   const project = useSelector(selectProject);
   const texts = useSelector(selectTexts);
   const annotationMode = useSelector(selectAnnotationMode);
+  const annotationLang = useSelector(selectAnnotationLang);
   const textsStatus = useSelector(selectTextsStatus);
   const relations = useSelector(selectRelations);
   const userId = useSelector(selectUserId);
@@ -60,6 +62,7 @@ export const TextContainer = ({ textId, textIndex }) => {
     textId,
     texts,
     annotationMode,
+    annotationLang,
   };
 
   return (
@@ -86,7 +89,8 @@ const TextCard = ({
   suggestedRelationCount,
   textId,
   texts,
-  annotationMode
+  annotationMode,
+  annotationLang,
 }) => {
   const dispatch = useDispatch();
   // const GetEntityid = () => {
@@ -112,7 +116,7 @@ const TextCard = ({
           type: [],
           text: texts[textId],
           pretype: temptype,
-          lang: "english",
+          lang: annotationLang,
           task: "entity",
       }
       //console.log(payinput);  
@@ -163,7 +167,7 @@ const TextCard = ({
           text: texts[textId],
           pretype: temptype,
           epretype: temptype2,
-          lang: "english",
+          lang: annotationLang,
           task: "relation",
       }
       //console.log(payinput);  

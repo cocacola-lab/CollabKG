@@ -5,6 +5,7 @@ const initialState = {
   textsStatus: "idle",
   textsError: null,
   annotationMode: "entity",
+  annotationLang: "english",
   selectedTokens: {},
   relations: null, // 有哪些实体已经被标注，与表MarkUP对应 {textID: [{$markup}]}
   entities: null, // 有哪些关系已经被标注
@@ -265,6 +266,9 @@ export const dataSlice = createSlice({
       state.sourceSpan = null;
       state.targetSpan = null;
       state.relatedSpans = null;
+    },
+    setAnnotationLang: (state, action) => {
+      state.annotationLang = action.payload;
     },
     setSelectedTokens: (state, action) => { // 重要
       const token = action.payload;
@@ -734,6 +738,7 @@ export const {
   setActiveCluster,
   setPageBeforeViewChange,
   setAnnotationMode,
+  setAnnotationLang,
   setShowToast,
   addTokens,
   setSourceRel,
@@ -759,6 +764,7 @@ export const selectShowCluster = (state) => state.data.showCluster;
 export const selectRelations = (state) => state.data.relations;
 export const selectEntities = (state) => state.data.entities;
 export const selectAnnotationMode = (state) => state.data.annotationMode;
+export const selectAnnotationLang = (state) => state.data.annotationLang;
 export const selectSourceSpan = (state) => state.data.sourceSpan;
 export const selectTargetSpan = (state) => state.data.targetSpan;
 export const selectSelectMode = (state) => state.data.selectMode;

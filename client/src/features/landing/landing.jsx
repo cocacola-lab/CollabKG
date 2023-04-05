@@ -37,7 +37,7 @@ export const Landing = () => {
             <Toolbar style={{ display: "flex", justifyContent: "right" }}>
               <div style={{ display: "flex" }}>
                 <IconButton
-                  href="https://github.com/nlp-tlp/quickgraph"
+                  href="https://github.com/threeColorFr/autoKG"
                   target="_blank"
                   rel="noreferrer"
                   alt="Github repository"
@@ -45,7 +45,7 @@ export const Landing = () => {
                   <GitHubIcon fontSize="large" color="secondary" id="github" />
                 </IconButton>
                 <IconButton
-                  href="https://youtu.be/DTWrR67-nCU"
+                  href="https://youtu.be"
                   target="_blank"
                   rel="noreferrer"
                   alt="YouTube demonstration video"
@@ -57,7 +57,7 @@ export const Landing = () => {
                   />
                 </IconButton>
                 <IconButton
-                  href="https://github.com/nlp-tlp/quickgraph/blob/main/About.md"
+                  href="https://github.com/threeColorFr/autoKG/blob/main/README.md"
                   target="_blank"
                   rel="noreferrer"
                   alt="QuickGraph About Page"
