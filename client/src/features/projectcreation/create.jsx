@@ -17,6 +17,8 @@ import { Upload } from "./steps/upload";
 
 import axios from "../utils/api-interceptor";
 import history from "../utils/history";
+import { getRandomColor } from "./data/utils";
+import { v4 as uuidv4 } from "uuid";
 
 // New
 import {
@@ -119,13 +121,80 @@ export const Create = () => {
       return newrels
     }
 
-    const newrels = addextra(steps.schema.data.relationLabels);
-    //console.log(newrels);
-    dispatch(
-      setStepData({
-        relationLabels: newrels,
-      })
-    );
+    const addextraEE = (orientitys, orirels) => {
+      // process event 
+      const temprels = [];
+      const tempentitys = [];
+      const temprole = {}; // {role: [event type 1, event type 2]}
+  
+      Object.values(orirels).forEach((item) => {
+        //entity get
+        const prefix = getprefix(item.name);
+        tempentitys.push({
+          children: [],
+          colour: getRandomColor(),
+          description: "",
+          fullName: prefix,
+          isEntity: true,
+          name: prefix,
+          _id: uuidv4()
+        });
+  
+        // temprole get 
+        const extra = getextra(item.name);
+        Object.values(extra).forEach((role) => {
+          if (role in temprole) {
+            temprole[role].push(prefix);
+          } else {
+            temprole[role] = [prefix];
+          }
+        });
+      });
+  
+      // console.log(temprole);
+      // relation get
+      Object.keys(temprole).forEach((key) => {
+        temprels.push({
+          children: [],
+          colour: getRandomColor(),
+          description: "",
+          fullName: key,
+          isEntity: false,
+          name: key,
+          extra: temprole[key],
+          _id: uuidv4()
+        });
+      });
+      return [[...orientitys, ...tempentitys], temprels];
+    };
+    
+    let newrels, newentitys;
+    if(!steps.details.data.performRelationAnnotation){
+      // entity only, no process
+      newentitys = steps.schema.data.entityLabels;
+      newrels = steps.schema.data.relationLabels;
+    }
+    else if(!steps.details.data.isEvent){
+      // relation and entity, process rels
+      newentitys = steps.schema.data.entityLabels;
+      newrels = addextra(steps.schema.data.relationLabels);
+      //console.log(newrels);
+      dispatch(
+        setStepData({
+          relationLabels: newrels,
+        })
+      );
+    }else if(steps.details.data.isEvent){
+      // event, prcess rels and add entitys
+      const orientitys = steps.schema.data.entityLabels;
+      const orirels = steps.schema.data.relationLabels;
+      const result = addextraEE(orientitys, orirels);
+      newentitys = result[0];
+      newrels = result[1];
+      console.log(newentitys);
+      console.log(newrels);
+    }
+    
 
     const payload = {
       name: steps.details.data.name,
@@ -140,7 +209,7 @@ export const Create = () => {
       texts: steps.upload.data.corpus,
       entityDictionary: steps.preannotation.data.entityDictionary,
       typedTripleDictionary: steps.preannotation.data.typedTripleDictionary,
-      entityOntology: steps.schema.data.entityLabels,
+      entityOntology: newentitys,
       relationOntology: steps.details.data.performRelationAnnotation
         ? newrels
         : [],

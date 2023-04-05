@@ -5834,6 +5834,26 @@ export const relationOntologies = {
       isEntity: false,
     },
   ],
+  ACE05_EE: [
+    {
+      name: "Life:Marry@[Person, Time, Place]",
+      fullName: "Life:Marry@[Person, Time, Place]",
+      description: "",
+      domain: [],
+      range: [],
+      _id: uuidv4(),
+      isEntity: false,
+    },
+    {
+      name: "Life:Be-Born@[Person, Time, Place]",
+      fullName: "Life:Be-Born@[Person, Time, Place]",
+      description: "",
+      domain: [],
+      range: [],
+      _id: uuidv4(),
+      isEntity: false,
+    },
+  ],
   NYT11: [
     {
       name: "person-company@[Person, Person]",
