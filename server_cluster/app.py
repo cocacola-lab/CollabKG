@@ -310,6 +310,8 @@ def auto_annotate(data: Data2):
                     single = [trigger_markup]
 
                     argument = arguement_role[r]
+                    if argument.lower() in ['无', 'none']:
+                        continue
                     argument_markup = getEntitymarkup(argument, payin['epretype'][0]['name'], temp_text, label2id, lang)
                     if argument_markup != {}:
                         single.append(argument_markup)

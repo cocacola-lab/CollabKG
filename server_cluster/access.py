@@ -452,8 +452,8 @@ if __name__=="__main__":
     #p = '''中国共产党创立于中华民国大陆时期，由陈独秀和李大钊领导组织。'''
     #p = '''James worked for Google in Beijing, the capital of China.'''
     # --------
-    #p = '''在2022年卡塔尔世界杯决赛中，阿根廷以点球大战险胜法国。'''
-    p = '''Yesterday Bob and his wife got divorced in Guangzhou.'''
+    p = '''在2022年的卡塔尔世界杯决赛中，阿根廷以点球大战险胜法国。'''
+    #p = '''Yesterday Bob and his wife got divorced in Guangzhou.'''
 
     import pathlib
     log_path = pathlib.Path(__file__).parent.resolve()
@@ -465,7 +465,7 @@ if __name__=="__main__":
       "type": [],
       "access": "",
       "task": "event",
-      "lang": "english",
+      "lang": "chinese",
     }
     post_data=chatie(ind, logger)
     #print(post_data)

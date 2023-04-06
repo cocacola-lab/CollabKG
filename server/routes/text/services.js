@@ -752,14 +752,14 @@ const applyAllAnnotations = async (payload, userId) => { // 就是标签传播�
         regexString2 = `${focusSourceSpanEntityText.replace(
           /[.*+?^${}()|[\]\\]/g,
           "\\$&"
-        )} ([\u4e00-\u9fa5]+ ){${focusEntityOffset}}${focusTargetSpanEntityText.replace(
+        )} ([\\S]+ ){${focusEntityOffset}}${focusTargetSpanEntityText.replace(
           /[.*+?^${}()|[\]\\]/g,
           "\\$&"
         )}`;
         regexString3 = `${focusTargetSpanEntityText.replace(
           /[.*+?^${}()|[\]\\]/g,
           "\\$&"
-        )} ([\u4e00-\u9fa5]+ ){${focusEntityOffset}}${focusSourceSpanEntityText.replace(
+        )} ([\\S]+ ){${focusEntityOffset}}${focusSourceSpanEntityText.replace(
           /[.*+?^${}()|[\]\\]/g,
           "\\$&"
         )}`;
