@@ -83,7 +83,12 @@ ee_s1_p = {
 ee_s2_p = {
     'chinese': '''事件类型"{}"对应的论元角色列表为：{}。\n在给定的句子中，根据论元角色提取出事件论元。\n如果论元角色没有相应的论元内容，则论元内容回答：无\n按照表格形式回复，表格有两列且表头为（论元角色，论元内容）：''',
     'english': '''The list of argument roles corresponding to event type "{}" is: {}.\nIn the given sentence, extract event arguments according to their role.\nIf the argument role does not have a corresponding argument content, then the argument content answer: None\nRespond in the form of a table with two columns and a header of (argument role, argument content):'''
-}     
+}
+
+ee_s3_p = {
+    'chinese': '''当上述句子的事件类型为:"{}"时，请识别出相应的触发词。触发词为动词。\n答案只给出触发词即可。触发词：''',
+    'english': '''When the event type of the given sentence above is "{}", please recognize the corresponding trigger word. The trigger word is a verb.\nThe answer only gives trigger words. trigger word:'''
+}
 
 
 def chat_re(inda, chatbot, logger):
@@ -271,7 +276,7 @@ def chat_ee(inda, chatbot, logger):
     logger.info("---EE---")
     mess = [{"role": "system", "content": "You are a helpful assistant."},] # chatgpt对话历史
 
-    """ typelist = inda['type']
+    typelist = inda['type']
     sent = inda['sentence']
     lang = inda['lang']
 
@@ -324,8 +329,22 @@ def chat_ee(inda, chatbot, logger):
                 res2 = re.findall(r'\|.*?\|.*?\|', text2)
                 logger.info(res2)
 
+                # trigger抽取
+
+                # 构造prompt
+                s3p = ee_s3_p[lang].format(r)
+                logger.info(s3p)
+
+                # 请求chatgpt
+                mess.append({"role": "user", "content": s3p})
+                text3 = chatbot(mess)
+                mess.append({"role": "assistant", "content": text3})
+                logger.info(text3)
+
                 # 进一步处理结果
-                single_out = {r: {}}
+                single_out = {r: [{},]}
+                single_out[r].append(re.sub('[\'"]','', text3).strip())
+
                 count=0
                 for so in res2:
                     count+=1
@@ -338,7 +357,7 @@ def chat_ee(inda, chatbot, logger):
                         s, o = so
                         #if st in s and ot in o or '---' in s and '---' in o:
                         #    continue 
-                        single_out[r][s] = o
+                        single_out[r][0][s] = o
 
                 out.append(single_out)
                 #break
@@ -353,8 +372,8 @@ def chat_ee(inda, chatbot, logger):
     if out == []:
         out.append('none-none')
     
-    logger.info(mess) """
-    out = [{'Life:Marry':[{'Person': 'you', 'Place': 'hello'}, 'like']}] # [{type: [argument dict, trigger]}]
+    logger.info(mess)
+    # out = [{'Life:Marry':[{'Person': 'you', 'Place': 'hello'}, 'like']}] # [{type: [argument dict, trigger]}]
     return out, mess
 
 
@@ -425,22 +444,28 @@ def chatie(input_data, logger):
     return input_data
 
 if __name__=="__main__":
-    p = '''第五部：《如懿传》《如懿传》是一部古装宫廷情感电视剧，由汪俊执导，周迅、霍建华、张钧甯、董洁、辛芷蕾、童瑶、李纯、邬君梅等主演'''
+    # p = '''第五部：《如懿传》《如懿传》是一部古装宫廷情感电视剧，由汪俊执导，周迅、霍建华、张钧甯、董洁、辛芷蕾、童瑶、李纯、邬君梅等主演'''
     #p = '''Mr. Johnson retired before the 2005 season and briefly worked as a football analyst for WBZ-TV in Boston .'''
     #'''Four other Google executives the chief financial officer , George Reyes ; the senior vice president for business operations , Shona Brown ; the chief legal officer , David Drummond ; and the senior vice president for product management , Jonathan Rosenberg earned salaries of $ 250,000 each .'''
     # -------
     #p = '''中国共产党创立于中华民国大陆时期，由陈独秀和李大钊领导组织。'''
     #p = '''James worked for Google in Beijing, the capital of China.'''
     # --------
-    #p = '''在2022年卡塔尔世界杯决赛中，阿根廷以点球大战险胜法国。'''
+    p = '''在2022年卡塔尔世界杯决赛中，阿根廷以点球大战险胜法国。'''
     #p = '''Yesterday Bob and his wife got divorced in Guangzhou.'''
 
+    import pathlib
+    log_path = pathlib.Path(__file__).parent.resolve()
+    from loguru import logger
+    logger.add(
+        f"{log_path}/api.log", rotation="10 MB")
     ind = {
       "sentence": p,
       "type": [],
       "access": "",
-      "task": "relation",
+      "task": "event",
       "lang": "chinese",
     }
-    post_data=chatie(ind)
-    print(post_data)
+    post_data=chatie(ind, logger)
+    #print(post_data)
+    print(post_data['result'])
