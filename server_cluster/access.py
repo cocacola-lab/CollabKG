@@ -271,7 +271,7 @@ def chat_ee(inda, chatbot, logger):
     logger.info("---EE---")
     mess = [{"role": "system", "content": "You are a helpful assistant."},] # chatgpt对话历史
 
-    typelist = inda['type']
+    """ typelist = inda['type']
     sent = inda['sentence']
     lang = inda['lang']
 
@@ -353,8 +353,8 @@ def chat_ee(inda, chatbot, logger):
     if out == []:
         out.append('none-none')
     
-    logger.info(mess)
-    #out = [{'晋级':{'晋级方': '阿根廷', '时间': '2022年'}}]
+    logger.info(mess) """
+    out = [{'Life:Marry':[{'Person': 'you', 'Place': 'hello'}, 'like']}] # [{type: [argument dict, trigger]}]
     return out, mess
 
 

@@ -153,6 +153,17 @@ def auto_annotate(data: Data2):
             value = item['extra']
             type1[key] = value
         payin['type'] = type1
+    else:
+        type1 = {}
+        for item in pretype:
+            value = item['name']
+            extra = item['extra']
+            for key in extra:
+                if key in type1:
+                    type1[key].append(value)
+                else:
+                    type1[key] = [value]
+        payin['type'] = type1
     
     payin['access'] = ""
 
@@ -280,6 +291,40 @@ def auto_annotate(data: Data2):
                 }
             ],
         ]} """
+    else:
+        # event
+        markup = []
+        # 获得start end和label
+        # 构建entity label2id dict
+        label2id = {item['name']: item['_id'] for item in payin['epretype']}
+        rlabel2id = {item['name']: item['_id'] for item in payin['pretype']}
+        for item in result:
+            for eetype in item:
+                arguement_role = item[eetype][0]
+
+                trigger = item[eetype][1]
+                trigger_markup = getEntitymarkup(trigger, eetype, temp_text, label2id, lang)
+                if trigger_markup == {}:
+                    continue
+                for r in arguement_role:
+                    single = [trigger_markup]
+
+                    argument = arguement_role[r]
+                    argument_markup = getEntitymarkup(argument, payin['epretype'][0]['name'], temp_text, label2id, lang)
+                    if argument_markup != {}:
+                        single.append(argument_markup)
+                    else:
+                        continue
+
+                    r_markup = getRelationmarkup(r, rlabel2id)
+                    if r_markup != {}:
+                        single.append(r_markup)
+                    else:
+                        continue
+
+                    markup.append(single)
+
+        return {'markup': markup}
 
 
 
