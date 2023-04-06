@@ -95,7 +95,7 @@ def chat_re(inda, chatbot, logger):
     logger.info("---RE---")
     mess = [{"role": "system", "content": "You are a helpful assistant."},] # chatgpt对话历史
 
-    """ typelist = inda['type']
+    typelist = inda['type']
     sent = inda['sentence']
     lang = inda['lang']
 
@@ -176,16 +176,16 @@ def chat_re(inda, chatbot, logger):
     else:
         out = list(set(out))
     
-    logger.info(mess) """
+    logger.info(mess)
     # out = [('滴答', '歌曲', '歌手', '陈思成', '人物'), ('兰花指', '歌曲', '歌手', '阿里郎', '人物'), ('滴答', '歌曲', '歌手', '张碧晨', '人物')]
-    out = [('love', 'Location', 'person-nationality', 'you', 'Person'), ('我', '人物', '父亲', '你', '人物')]
+    #out = [('love', 'Location', 'person-nationality', 'you', 'Person'), ('我', '人物', '父亲', '你', '人物')]
     return out, mess
 
 def chat_ner(inda, chatbot, logger):
     logger.info("---NER---")
     mess = [{"role": "system", "content": "You are a helpful assistant."},] # chatgpt对话历史
 
-    """ typelist = inda['type']
+    typelist = inda['type']
     sent = inda['sentence']
     lang = inda['lang']
 
@@ -268,8 +268,8 @@ def chat_ner(inda, chatbot, logger):
     else:
         out = list(set(out))
     
-    logger.info(mess) """
-    out = [('you', 'Person'), ('I love', 'Location'), ('中国', 'Location')]
+    logger.info(mess)
+    #out = [('you', 'Person'), ('I love', 'Location'), ('中国', 'Location')]
     return out, mess
 
 def chat_ee(inda, chatbot, logger):
@@ -378,7 +378,8 @@ def chat_ee(inda, chatbot, logger):
 
 
 def chat(mess):
-    openai.proxy = 'http://127.0.0.1:10809' # 根据自己服务器的vpn情况设置proxy；如果是在自己电脑线下使用，可以在电脑上开vpn然后不加此句代码。
+    #openai.proxy = 'http://127.0.0.1:10809' # 根据自己服务器的vpn情况设置proxy；如果是在自己电脑线下使用，可以在电脑上开vpn然后不加此句代码。
+    openai.api_base = "https://chatie.deno.dev/v1"
     responde = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=mess
@@ -451,8 +452,8 @@ if __name__=="__main__":
     #p = '''中国共产党创立于中华民国大陆时期，由陈独秀和李大钊领导组织。'''
     #p = '''James worked for Google in Beijing, the capital of China.'''
     # --------
-    p = '''在2022年卡塔尔世界杯决赛中，阿根廷以点球大战险胜法国。'''
-    #p = '''Yesterday Bob and his wife got divorced in Guangzhou.'''
+    #p = '''在2022年卡塔尔世界杯决赛中，阿根廷以点球大战险胜法国。'''
+    p = '''Yesterday Bob and his wife got divorced in Guangzhou.'''
 
     import pathlib
     log_path = pathlib.Path(__file__).parent.resolve()
@@ -464,7 +465,7 @@ if __name__=="__main__":
       "type": [],
       "access": "",
       "task": "event",
-      "lang": "chinese",
+      "lang": "english",
     }
     post_data=chatie(ind, logger)
     #print(post_data)
