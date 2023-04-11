@@ -206,7 +206,7 @@ export default function Layout({ children, context }) {
         <div style={{ display: "flex", alignItems: "center" }}>
           <EmailIcon style={{ fontSize: "1.25rem", marginRight: "0.25rem" }} />
           <a
-            href="mailto:22120436@bjtu.edu.cn?subject=QuickGraph Feedback&body=Feedback/Feature/Bug%0DPlease%20specify%20type%20of%20feedback%0D%0DFeedback%0DEnter%20your%20feedback%20here"
+            href="mailto:22120436@bjtu.edu.cn?subject=AutoKG Feedback&body=Feedback/Feature/Bug%0DPlease%20specify%20type%20of%20feedback%0D%0DFeedback%0DEnter%20your%20feedback%20here"
             target="_blank"
             rel="noreferrer"
             alt="Email feedback"

@@ -138,8 +138,7 @@ export const Details = () => {
               />
             </FormGroup>
             <FormHelperText>
-              Be careful as this choice is irreversible. Open relation
-              annotation is currently single-user only.
+              Be careful as this choice is irreversible.
             </FormHelperText>
           </FormControl>
         </Grid>
@@ -150,6 +149,7 @@ export const Details = () => {
               <FormControlLabel
                 control={
                   <Checkbox
+                    disabled
                     checked={steps[activeStep].data.performClustering}
                     onChange={(e) => {
                       dispatch(
