@@ -129,6 +129,7 @@ const TextCard = ({
           const result = response.data;
           console.log(result);
           if(result.markup.length === 0){
+            alert("None auto Markup");
             return;
           }
           // Create payload
@@ -153,6 +154,7 @@ const TextCard = ({
         }
 
       } catch(e){
+        alert("auto annotate error");
         console.log(e); 
       }
     } else if(project.tasks.relationAnnotation){
@@ -181,6 +183,7 @@ const TextCard = ({
           const result = response.data;
           console.log(result);
           if(result.markup.length === 0){
+              alert("None auto Markup");
             return;
           }
           // Create payload
@@ -244,6 +247,7 @@ const TextCard = ({
         }
        
       } catch(e){
+        alert("auto annotate error");
         console.log(e); 
       }
     }
