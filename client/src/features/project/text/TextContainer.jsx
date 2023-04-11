@@ -129,7 +129,7 @@ const TextCard = ({
           const result = response.data;
           console.log(result);
           if(result.markup.length === 0){
-            alert("None auto Markup");
+            alert("None auto Markup or model timeout");
             return;
           }
           // Create payload
@@ -183,7 +183,7 @@ const TextCard = ({
           const result = response.data;
           console.log(result);
           if(result.markup.length === 0){
-            alert("None auto Markup");
+            alert("None auto Markup or model timeout");
             return;
           }
           // Create payload
