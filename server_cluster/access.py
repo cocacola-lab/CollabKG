@@ -5,8 +5,7 @@ import re
 import openai
 
 df_access = [
-    ('@EOPFBzj5PNZQC8iuwT3BlbkFJCRLlhaWVvAiTYgoI53pe','sk-ti1'),
-    ('@Xknw8IkphcwMG4uENT3BlbkFJenDqj5RQk5sCPHcs5fQf','sk-990')
+    ('@ZDAdzBlWo4aqNwIHhT3BlbkFJFLpgEkpVMlHQ74ouH6gR','sk-vLu'),
 ]
 
 df_ret = {
@@ -87,7 +86,7 @@ ee_s2_p = {
 
 ee_s3_p = {
     'chinese': '''当上述句子的事件类型为:"{}"时，请识别出相应的触发词。触发词为动词。\n答案只给出触发词即可。触发词：''',
-    'english': '''When the event type of the given sentence above is "{}", please recognize the corresponding event trigger words. The trigger words are verb.\nThe answer only gives trigger words. The trigger words are:'''
+    'english': '''When the event type of the given sentence above is "{}", please recognize the corresponding trigger word. The trigger word is verb.\nOnly answer the trigger word, no extra word. The trigger word is:'''
 }
 
 
@@ -445,7 +444,7 @@ def chatie(input_data, logger):
     return input_data
 
 if __name__=="__main__":
-    # p = '''第五部：《如懿传》《如懿传》是一部古装宫廷情感电视剧，由汪俊执导，周迅、霍建华、张钧甯、董洁、辛芷蕾、童瑶、李纯、邬君梅等主演'''
+    #p = '''第五部：《如懿传》《如懿传》是一部古装宫廷情感电视剧，由汪俊执导，周迅、霍建华、张钧甯、董洁、辛芷蕾、童瑶、李纯、邬君梅等主演'''
     #p = '''Mr. Johnson retired before the 2005 season and briefly worked as a football analyst for WBZ-TV in Boston .'''
     #'''Four other Google executives the chief financial officer , George Reyes ; the senior vice president for business operations , Shona Brown ; the chief legal officer , David Drummond ; and the senior vice president for product management , Jonathan Rosenberg earned salaries of $ 250,000 each .'''
     # -------
