@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IoColorWand, IoGitCompare, IoSave, IoBrush } from "react-icons/io5";
+import { IoColorWand, IoGitCompare, IoSave, IoLogoElectron } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import {
   saveAnnotations,
@@ -307,7 +307,7 @@ const TextCard = ({
                 }`}
               />
             )}
-            <IoBrush
+            <IoLogoElectron
               title={"auto annotate"}
               style={{
                 color: "#FFFFFF",
