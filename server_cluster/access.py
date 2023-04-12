@@ -87,7 +87,7 @@ ee_s2_p = {
 
 ee_s3_p = {
     'chinese': '''当上述句子的事件类型为:"{}"时，请识别出相应的触发词。触发词为动词。\n答案只给出触发词即可。触发词：''',
-    'english': '''When the event type of the given sentence above is "{}", please recognize the corresponding trigger word. The trigger word is a verb.\nThe answer only gives trigger words. trigger word:'''
+    'english': '''When the event type of the given sentence above is "{}", please recognize the corresponding event trigger words. The trigger words are verb.\nThe answer only gives trigger words. The trigger words are:'''
 }
 
 
@@ -452,8 +452,8 @@ if __name__=="__main__":
     #p = '''中国共产党创立于中华民国大陆时期，由陈独秀和李大钊领导组织。'''
     #p = '''James worked for Google in Beijing, the capital of China.'''
     # --------
-    p = '''在2022年的卡塔尔世界杯决赛中，阿根廷以点球大战险胜法国。'''
-    #p = '''Yesterday Bob and his wife got divorced in Guangzhou.'''
+    #p = '''在2022年的卡塔尔世界杯决赛中，阿根廷以点球大战险胜法国。'''
+    p = '''Yesterday Bob and his wife got divorced in Guangzhou.'''
 
     import pathlib
     log_path = pathlib.Path(__file__).parent.resolve()
@@ -465,7 +465,7 @@ if __name__=="__main__":
       "type": [],
       "access": "",
       "task": "event",
-      "lang": "chinese",
+      "lang": "english",
     }
     post_data=chatie(ind, logger)
     #print(post_data)

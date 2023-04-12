@@ -149,7 +149,6 @@ export const Details = () => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    disabled
                     checked={steps[activeStep].data.performClustering}
                     onChange={(e) => {
                       dispatch(
