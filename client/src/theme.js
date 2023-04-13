@@ -10,5 +10,10 @@ export const theme = createTheme({
     secondary: {
       main: grey[500],
     },
+    custom: {
+      light: '#42a5f5',
+      main: '#1976d2',
+      dark: '#1565c0',
+    },
   },
 });

@@ -168,6 +168,7 @@ export default function Layout({ children, context }) {
               variant="determinate"
               value={metrics.value}
               title={projectProgress}
+              color="custom"
             />
           )}
         </AppBar>

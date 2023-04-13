@@ -128,6 +128,7 @@ export const Details = () => {
                       dispatch(
                         setStepData({
                           performRelationAnnotation: false,
+                          isEvent: false,
                         })
                       );
                     }}
