@@ -60,7 +60,7 @@ export const Landing = () => {
                   href="https://github.com/threeColorFr/autoKG/blob/main/README.md"
                   target="_blank"
                   rel="noreferrer"
-                  alt="QuickGraph About Page"
+                  alt="AutoKG About Page"
                 >
                   <InfoIcon
                     fontSize="large"
@@ -83,11 +83,11 @@ export const Landing = () => {
         >
           <Grid container item spacing={2}>
             <Grid item xs={12}>
-              <h1>QuickGraph</h1>
+              <h1>AutoKG</h1>
             </Grid>
             <Grid item xs={12}>
               <h3 style={{ fontWeight: "normal" }}>
-                An annotation tool for rapid knowledge graph extraction from
+                An annotation tool for auto knowledge graph extraction from
                 text
               </h3>
             </Grid>
@@ -102,7 +102,7 @@ export const Landing = () => {
               <Button
                 variant="contained"
                 color="primary"
-                href={isAuthenticated ? "/feed" : "/signup"}
+                href={isAuthenticated ? "/feed" : "/login"}
                 sx={{
                   ":hover": {
                     bgcolor: "primary.light", // theme.palette.primary.main
@@ -111,7 +111,7 @@ export const Landing = () => {
                 }}
                 endIcon={isAuthenticated ? <ArrowForwardIosIcon /> : null}
               >
-                {isAuthenticated ? "Enter" : "Sign up"}
+                {isAuthenticated ? "Enter" : "Login"}
               </Button>
               {!isAuthenticated && (
                 <span
@@ -126,9 +126,9 @@ export const Landing = () => {
                     style={{
                       color: "#263238",
                     }}
-                    href="/login"
+                    href="/signup"
                   >
-                    <strong style={{ cursor: "pointer" }}>login</strong>
+                    <strong style={{ cursor: "pointer" }}>sign up</strong>
                   </a>
                 </span>
               )}

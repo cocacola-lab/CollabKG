@@ -108,7 +108,7 @@ function App() {
     },
     {
       protected: false,
-      title: "Rapid Knowledge Graph Extraction",
+      title: "Auto Knowledge Graph Extraction",
       path: "/",
       name: null,
       layout: null,
@@ -127,7 +127,7 @@ function App() {
               return (
                 <ProtectedRoute path={route.path}>
                   <Helmet>
-                    <title>{route.title} | QuickGraph</title>
+                    <title>{route.title} | AutoKG</title>
                   </Helmet>
                   <Layout
                     children={route.component}
@@ -141,7 +141,7 @@ function App() {
               return (
                 <Route exact path={route.path}>
                   <Helmet>
-                    <title>{route.title} | QuickGraph</title>
+                    <title>{route.title} | AutoKG</title>
                   </Helmet>
                   {route.layout ? (
                     <Layout

@@ -1,6 +1,6 @@
 {
-  "short_name": "QuickGraph",
-  "name": "QuickGraph | Rapid Knowledge Graph Extraction",
+  "short_name": "AutoKG",
+  "name": "AutoKG | Auto Knowledge Graph Extraction",
   "icons": [
     {
       "src": "favicon.ico",
