@@ -92,7 +92,7 @@ export default function Layout({ children, context }) {
           position="sticky"
           elevation={0}
           style={{
-            background: grey[200],
+            background: "#3c3c3c",
             color: grey[800],
             borderBottom: `1px solid ${grey[400]}`,
           }}
@@ -105,7 +105,7 @@ export default function Layout({ children, context }) {
               padding: "0rem 2rem",
             }}
           >
-            <h3>
+            <h3 style={{color: "white"}}>
               {context.name === "Annotation" ? (
                 <BrandProjectDetail />
               ) : (
@@ -121,14 +121,14 @@ export default function Layout({ children, context }) {
               ) : (
                 <>
                   <Button
-                    style={{ color: grey[800], marginRight: "0.5rem" }}
+                    style={{ color: "white", marginRight: "0.5rem" }}
                     href="/project/new"
                   >
                     New Project
                   </Button>
                   <NotificationBell />
                   <Button
-                    style={{ color: grey[800] }}
+                    style={{ color: "white" }}
                     id="basic-button"
                     aria-controls={open ? "basic-menu" : undefined}
                     aria-haspopup="true"
@@ -331,7 +331,7 @@ const AnnotationItems = ({ showFilters, setShowFilters }) => {
         dispatch(fetchMetrics({ projectId: project._id }));
       },
       display: true,
-      color: savePending ? teal[500] : grey[500],
+      color: savePending ? "white" : teal[300],
     },
     {
       name: "Close QuickView",
@@ -353,7 +353,7 @@ const AnnotationItems = ({ showFilters, setShowFilters }) => {
         );
       },
       display: project.tasks,
-      color: annotationLang === "english" ? grey[900] : teal[500],
+      color: annotationLang === "english" ? "white" : teal[300],
     },
     {
       name:
@@ -367,7 +367,7 @@ const AnnotationItems = ({ showFilters, setShowFilters }) => {
         // console.log("switched from annotation mode", annotationMode);
       },
       display: project.tasks && project.tasks.relationAnnotation,
-      color: annotationMode === "entity" ? grey[900] : teal[500],
+      color: annotationMode === "entity" ? "white" : teal[300],
     },
   ];
 
@@ -389,7 +389,7 @@ const AnnotationItems = ({ showFilters, setShowFilters }) => {
           </Button>
         ))}
       <Button
-        style={{ color: grey[800] }}
+        style={{ color: "white" }}
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"

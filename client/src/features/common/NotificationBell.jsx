@@ -58,7 +58,7 @@ export const NotificationBell = () => {
           color="primary"
           max={9}
         >
-          <NotificationsIcon />
+          <IoNotifications color="white" />
         </Badge>
       </IconButton>
       <Menu
