@@ -18,6 +18,7 @@ import Stack from "@mui/material/Stack";
 import ArticleIcon from "@mui/icons-material/Article";
 import GroupIcon from "@mui/icons-material/Group";
 import LayersIcon from "@mui/icons-material/Layers";
+import backgroundImage from "../../media/landing2.jpg";
 
 export const Feed = () => {
   const dispatch = useDispatch();
@@ -74,7 +75,13 @@ const ProjectList = () => {
       direction="row"
       columnSpacing={4}
       rowSpacing={4}
-      sx={{ p: 8 }}
+      sx={{ 
+        p: 8,
+        backgroundImage: `url(${backgroundImage})`, 
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "cover", 
+      }}
     >
       {projects.map((project) => (
         <Grid item xs={4} style={{ maxWidth: "700px" }}>

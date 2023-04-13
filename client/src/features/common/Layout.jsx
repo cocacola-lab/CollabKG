@@ -94,7 +94,7 @@ export default function Layout({ children, context }) {
           style={{
             background: "#3c3c3c",
             color: grey[800],
-            borderBottom: `1px solid ${grey[400]}`,
+            borderBottom: `1px solid ${grey[800]}`,
           }}
         >
           <Toolbar
