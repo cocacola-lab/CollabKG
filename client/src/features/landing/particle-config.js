@@ -1,4 +1,4 @@
-import { teal } from "@mui/material/colors";
+import { teal, cyan } from "@mui/material/colors";
 
 const ParticlesConfig = {
   fpsLimit: 60,
@@ -16,20 +16,20 @@ const ParticlesConfig = {
     },
     modes: {
       push: {
-        quantity: 4,
+        quantity: 10,
       },
       repulse: {
-        distance: 200,
+        distance: 150,
         duration: 0.4,
       },
     },
   },
   particles: {
     color: {
-      value: teal[100],
+      value: cyan[100],
     },
     links: {
-      color: teal[100],
+      color: cyan[100],
       distance: 150,
       enable: true,
       opacity: 0.5,
@@ -56,13 +56,13 @@ const ParticlesConfig = {
       value: 80,
     },
     opacity: {
-      value: 0.5,
+      value: 0.6,
     },
     shape: {
-      type: "circle",
+      type: "star",
     },
     size: {
-      value: { min: 1, max: 5 },
+      value: { min: 1, max: 6 },
     },
   },
   detectRetina: true,

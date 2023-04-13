@@ -4,7 +4,7 @@ import history from "../utils/history";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { Card, Form, Button, Col } from "react-bootstrap";
-import SignUpImage from "../../media/signup.jpeg";
+import SignUpImage from "../../media/signup.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectSignupError,

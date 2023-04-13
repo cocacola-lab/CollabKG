@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Card, Form, Button, Col } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
-import LoginImage from "../../media/login.jpeg";
+import LoginImage from "../../media/login.jpg";
 
 const schema = yup.object().shape({
   username: yup.string().required("Please enter your username"),
