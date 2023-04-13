@@ -43,6 +43,12 @@ export const Feed = () => {
         direction="column"
         justifyContent="center"
         alignItems="center"
+        sx={{ 
+          backgroundImage: `url(${backgroundImage})`, 
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover", 
+        }}
       >
         <h2>No Projects</h2>
         <Button
@@ -72,6 +78,7 @@ const ProjectList = () => {
   return (
     <Grid
       container
+      xs={18}
       direction="row"
       columnSpacing={4}
       rowSpacing={4}
