@@ -11,6 +11,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import ParticlesConfig from "./particle-config";
+import backgroundImage from "../../media/landing3.jpg";
 
 export const Landing = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -30,7 +31,13 @@ export const Landing = () => {
         container
         alignItems="center"
         justifyContent="center"
-        style={{ zIndex: 999 }}
+        style={{
+          zIndex: 999,
+          backgroundImage: `url(${backgroundImage})`, 
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
       >
         <Grid item xs={12} style={{ flexGrow: 1 }}>
           <AppBar position="fixed" elevation={0} style={{ background: "none" }}>
