@@ -4,6 +4,7 @@
   flex-direction: column;
   overflow-y: auto;
   outline: none; /* hides focus border for tabIndex */
+  background: #f5f5f5;
 }
 
 /* width */

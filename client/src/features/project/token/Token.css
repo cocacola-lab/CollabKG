@@ -26,7 +26,7 @@
   opacity: 0.25;
 }
 
-/* TOKEN */
+/* TOKEN color important*/
 
 #token {
   padding: 4px;
@@ -34,7 +34,7 @@
   cursor: pointer;
   text-align: center;
   color: black;
-  background-color: rgb(236, 239, 241);
+  background-color: rgb(255, 255, 255);
   z-index: 1;
   position: relative;
   margin-top: 0.25rem;

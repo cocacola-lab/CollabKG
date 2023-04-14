@@ -270,6 +270,7 @@ const TextCard = ({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-start",
+          background: "white"
         }}
       >
         <span
@@ -339,6 +340,7 @@ const TextCard = ({
           display: "flex",
           padding: "0rem 0.25rem 0.5rem 1rem",
           justifyContent: "space-between",
+          background: "white"
         }}
       >
         <Text key={textIndex} textId={textId} textIndex={textIndex} />
