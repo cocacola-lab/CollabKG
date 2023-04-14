@@ -12,6 +12,7 @@ import {
 } from "../../app/dataSlice"; //"./text/textSlice";
 import { AnnotationToast } from "./toast/Toast";
 import { ClusterActionBar } from "./cluster/ClusterActionBar";
+import backgroundImage from "../../media/landing2.jpg";
 
 export const Project = () => {
   const showToast = useSelector(selectShowToast);
@@ -25,7 +26,12 @@ export const Project = () => {
   return (
     <>
       {showToast && <AnnotationToast />}
-      <Container fluid>
+      <Container fluid style={{ 
+        backgroundImage: `url(${backgroundImage})`, 
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "cover", 
+      }}>
         <Row>
           <Col id="top-paginator-container"></Col>
         </Row>
