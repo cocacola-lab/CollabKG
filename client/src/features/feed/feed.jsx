@@ -18,7 +18,7 @@ import Stack from "@mui/material/Stack";
 import ArticleIcon from "@mui/icons-material/Article";
 import GroupIcon from "@mui/icons-material/Group";
 import LayersIcon from "@mui/icons-material/Layers";
-import backgroundImage from "../../media/landing.jpg";
+import backgroundImage from "../../media/landing6.jpg";
 
 export const Feed = () => {
   const dispatch = useDispatch();

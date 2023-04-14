@@ -11,7 +11,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import ParticlesConfig from "./particle-config";
-import backgroundImage from "../../media/landing3.jpg";
+import backgroundImage from "../../media/landing4.jpg";
 
 export const Landing = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
