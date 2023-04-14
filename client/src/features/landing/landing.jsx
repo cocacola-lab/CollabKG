@@ -12,6 +12,7 @@ import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import ParticlesConfig from "./particle-config";
 import backgroundImage from "../../media/landing4.jpg";
+import SwipeableTextMobileStepper from './play'
 
 export const Landing = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -37,9 +38,76 @@ export const Landing = () => {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
+          width: "100vw", 
+          height: "100vh",
         }}
       >
-        <Grid item xs={12} style={{ flexGrow: 1 }}>
+        <Grid
+          container
+          item
+          justifyContent="center"
+          alignItems="center"
+          direction="column"
+          style={{ width: "50%", display: "flex", flexDirection: "column", paddingLeft: "3rem"}}
+          spacing={2}
+        >
+          <Grid container item spacing={2} direction="row" justifyContent="center">
+            <Grid item >
+              <h1>AutoKG</h1>
+            </Grid>
+            <Grid item>
+              <h3 style={{ fontWeight: "normal" }}>
+                An annotation tool for auto knowledge graph extraction from
+                text
+              </h3>
+            </Grid>
+          </Grid>
+          <Grid container item direction="row" justifyContent="center">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "25%"
+              }}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                href={isAuthenticated ? "/feed" : "/login"}
+                sx={{
+                  ":hover": {
+                    bgcolor: "primary.light", // theme.palette.primary.main
+                    color: "white",
+                  },
+                  textAlign: "left",
+                }}
+                endIcon={isAuthenticated ? <ArrowForwardIosIcon /> : null}
+              >
+                {isAuthenticated ? "Enter" : "Login"}
+              </Button>
+              {!isAuthenticated && (
+                <span
+                  style={{
+                    textAlign: "right",
+                    marginRight: "0.5rem",
+                    color: "#263238",
+                  }}
+                >
+                  or{" "}
+                  <a
+                    style={{
+                      color: "#263238",
+                    }}
+                    href="/signup"
+                  >
+                    <strong style={{ cursor: "pointer" }}>sign up</strong>
+                  </a>
+                </span>
+              )}
+            </div>
+          </Grid>
+        </Grid>
+        <Grid container item alignItems="center" justifyContent="center" style={{ width: "50%", display: "flex", flexDirection: "column" }}>
           <AppBar position="fixed" elevation={0} style={{ background: "none" }}>
             <Toolbar style={{ display: "flex", justifyContent: "right" }}>
               <div style={{ display: "flex" }}>
@@ -78,69 +146,7 @@ export const Landing = () => {
               </div>
             </Toolbar>
           </AppBar>
-        </Grid>
-        <Grid
-          container
-          item
-          justifyContent="center"
-          alignItems="center"
-          direction="column"
-          style={{ textAlign: "center", height: "100vh", zIndex: 999 }}
-          spacing={2}
-        >
-          <Grid container item spacing={2}>
-            <Grid item xs={12}>
-              <h1>AutoKG</h1>
-            </Grid>
-            <Grid item xs={12}>
-              <h3 style={{ fontWeight: "normal" }}>
-                An annotation tool for auto knowledge graph extraction from
-                text
-              </h3>
-            </Grid>
-          </Grid>
-          <Grid item>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                href={isAuthenticated ? "/feed" : "/login"}
-                sx={{
-                  ":hover": {
-                    bgcolor: "primary.light", // theme.palette.primary.main
-                    color: "white",
-                  },
-                }}
-                endIcon={isAuthenticated ? <ArrowForwardIosIcon /> : null}
-              >
-                {isAuthenticated ? "Enter" : "Login"}
-              </Button>
-              {!isAuthenticated && (
-                <span
-                  style={{
-                    textAlign: "right",
-                    marginRight: "0.5rem",
-                    color: "#263238",
-                  }}
-                >
-                  or{" "}
-                  <a
-                    style={{
-                      color: "#263238",
-                    }}
-                    href="/signup"
-                  >
-                    <strong style={{ cursor: "pointer" }}>sign up</strong>
-                  </a>
-                </span>
-              )}
-            </div>
-          </Grid>
+          <SwipeableTextMobileStepper />
         </Grid>
       </Grid>
     </>

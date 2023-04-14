@@ -41,6 +41,8 @@
     "react-sortable-tree": "^2.8.0",
     "react-toastify": "^7.0.4",
     "react-tsparticles": "^2.0.6",
+    "react-swipeable-views": "^0.14.0",
+    "react-swipeable-views-utils": "^0.14.0",
     "redux": "^4.1.1",
     "redux-persist": "^6.0.0",
     "redux-undo": "^1.0.1",
