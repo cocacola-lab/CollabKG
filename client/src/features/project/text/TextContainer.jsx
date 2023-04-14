@@ -276,7 +276,7 @@ const TextCard = ({
         <span
           style={{
             fontWeight: "bold",
-            color: "#90a4ae",
+            color: "#f0c6a0",
             padding: "1rem 1rem 1rem 1rem",
           }}
         >
