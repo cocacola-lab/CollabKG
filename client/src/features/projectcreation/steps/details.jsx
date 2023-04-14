@@ -96,7 +96,7 @@ export const Details = () => {
                     name="ea-ra-closed"
                   />
                 }
-                label="Entity and Closed Relation Annotation"
+                label="Entity-Relation Triples Annotation"
               />
               <FormControlLabel
                 control={

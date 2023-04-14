@@ -394,7 +394,7 @@ export const Create = () => {
                 const labelProps = {};
                 return (
                   <Step key={label} {...stepProps}>
-                    <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
+                    <StepLabel StepIconComponent={ColorlibStepIcon}><strong>{index+1+". "+label}</strong></StepLabel>
                   </Step>
                 );
               })}
