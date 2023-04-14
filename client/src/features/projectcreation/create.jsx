@@ -20,6 +20,16 @@ import history from "../utils/history";
 import { getRandomColor } from "./data/utils";
 import { v4 as uuidv4 } from "uuid";
 
+import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+import { styled } from '@mui/material/styles';
+import SettingsIcon from '@mui/icons-material/Settings';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import VideoLabelIcon from '@mui/icons-material/VideoLabel';
+import UploadIcon from '@mui/icons-material/Upload';
+import NotesIcon from '@mui/icons-material/Notes';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import PropTypes from 'prop-types';
+
 // New
 import {
   Grid,
@@ -241,38 +251,100 @@ export const Create = () => {
     }
   };
 
+  // 连接线样式
+  const QontoConnector = styled(StepConnector)(({ theme }) => ({
+    [`&.${stepConnectorClasses.active}`]: {
+      [`& .${stepConnectorClasses.line}`]: {
+        borderColor: '#784af4',
+        borderLeftStyle: "solid",
+      },
+    },
+    [`&.${stepConnectorClasses.completed}`]: {
+      [`& .${stepConnectorClasses.line}`]: {
+        borderColor: '#784af4',
+        borderLeftStyle: "solid",
+      },
+    },
+    [`& .${stepConnectorClasses.line}`]: {
+      borderRadius: 1,
+      height: "40px", // 设置连接线的高度
+      borderColor: "grey",
+      borderWidth: "2.5px",
+      borderLeftStyle: "dashed",
+    },
+  }));
+  
+  //stepper label样式
+  const ColorlibStepIconRoot = styled('div')(({ theme, ownerState }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#3c3c3c',
+    zIndex: 1,
+    color: '#fff',
+    width: 35,
+    height: 35,
+    display: 'flex',
+    borderRadius: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...(ownerState.active && {
+      backgroundImage:
+        'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+      boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
+    }),
+    ...(ownerState.completed && {
+      backgroundImage:
+        'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+    }),
+  }));
+  
+  function ColorlibStepIcon(props) {
+    const { active, completed, className } = props;
+  
+    const icons = {
+      1: <SettingsIcon />,
+      2: <UploadIcon />,
+      3: <GroupAddIcon />,
+      4: <VideoLabelIcon />,
+      5: <NotesIcon />,
+      6: <VisibilityIcon />,
+    };
+  
+    return (
+      <ColorlibStepIconRoot ownerState={{ completed, active }} className={className}>
+        {icons[String(props.icon)]}
+      </ColorlibStepIconRoot>
+    );
+  }
+  
+  ColorlibStepIcon.propTypes = {
+    /**
+     * Whether this step is active.
+     * @default false
+     */
+    active: PropTypes.bool,
+    className: PropTypes.string,
+    /**
+     * Mark the step as completed. Is passed to child components.
+     * @default false
+     */
+    completed: PropTypes.bool,
+    /**
+     * The label displayed in the step icon.
+     */
+    icon: PropTypes.node,
+  };
+
   // Step 是多表单“进度条”，即到哪个子步骤了
   // steps[activeStep].valid控制下一步按键是否disable
   return (
-    <Grid item style={{ width: "75vw", maxWidth: "1600px" }}>
-      <Grid item style={{ margin: "1rem 0rem" }}>
-        <Card variant="outlined">
-          <CardContent>
-            <Stepper activeStep={activeStep}>
-              {Object.keys(steps).map((label, index) => {
-                const stepProps = { completed: steps[label].saved };
-                const labelProps = {};
-                return (
-                  <Step key={label} {...stepProps}>
-                    <StepLabel {...labelProps}>{label}</StepLabel>
-                  </Step>
-                );
-              })}
-            </Stepper>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item style={{ margin: "1rem 0rem" }}>
-        <Card variant="outlined">
+    <Grid container style={{ width: "100vw", height: "100vh" }}>
+      <Grid item style={{ width: "80%", display: "flex", flexDirection: "column", alignItems: "stretch" }}>
+        <Card variant="outlined" style={{ flex: 1, paddingLeft: "1rem", paddingRight: "2rem"}}>
           <CardHeader
             title={activeStep}
             subheader={descriptions[activeStep]}
             style={{ textTransform: "capitalize" }}
           />
-          <CardContent>
-            <Grid item xs={12}>
-              <Stepper />
-            </Grid>
+          <CardContent style={{ flex: 1 }}>
             {components[activeStep]}
           </CardContent>
           <CardActions
@@ -311,6 +383,23 @@ export const Create = () => {
               </Button>
             )}
           </CardActions>
+        </Card>
+      </Grid>
+      <Grid item style={{ width: "20%", display: "flex", flexDirection: "column" }}>
+        <Card variant="outlined" style={{ flex: 1, paddingLeft: "3rem" }}>
+          <CardContent style={{ overflowY: "auto"}}>
+            <Stepper activeStep={activeStep} orientation="vertical" connector={<QontoConnector />}>
+              {Object.keys(steps).map((label, index) => {
+                const stepProps = { completed: steps[label].saved };
+                const labelProps = {};
+                return (
+                  <Step key={label} {...stepProps}>
+                    <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
+                  </Step>
+                );
+              })}
+            </Stepper>
+          </CardContent>
         </Card>
       </Grid>
     </Grid>
