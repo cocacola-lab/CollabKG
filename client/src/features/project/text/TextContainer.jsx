@@ -287,7 +287,7 @@ const TextCard = ({
             padding: "0.125rem 0.5rem",
             width: "auto",
             borderBottomLeftRadius: "0.25rem",
-            backgroundColor: saved ? "#1b5e20" : "#37474f",
+            backgroundColor: saved ? "#4279ab" : "#3c3c3c",
             color: "#eceff1",
           }}
         >
@@ -320,7 +320,7 @@ const TextCard = ({
             <IoSave
               title={saved ? "Click to unsave" : "Click to save"}
               style={{
-                color: saved ? "#eceff1" : "#607d8b",
+                color: saved ? "#eceff1" : "#c2c2c2",
                 margin: "0rem 0.25rem 0rem 0rem",
                 cursor: "pointer",
               }}
