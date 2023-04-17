@@ -64,7 +64,9 @@ export const Create = () => {
     details: "Enter project details including task type and clustering",
     upload: "Create or upload a corpus",
     preprocessing: "Apply text preprocessing to your corpus",
-    schema: "Build an ontology/schema for entity/relation annotation",
+    schema: !steps.details.data.performRelationAnnotation? "Build an ontology/schema for entity annotation":
+    !steps.details.data.isEvent? "Build an ontology/schema for entity-relation triples annotation. ps: the relation types format is \"relation@[subject, object], where subject/object refers to head/tail entity type in triples.\""
+    :"Build an ontology/schema for event annotation. ps: 1. the event types only choice preset \"EE\", where \"Anything\" stands for event Argument, of course you can change it for you like. 2. the relation types format is \"event-type@[argument role 1, argument role 2, ...].\"",
     preannotation: "Upload data for pre-annotation",
     review: "Review project before creation",
   };
