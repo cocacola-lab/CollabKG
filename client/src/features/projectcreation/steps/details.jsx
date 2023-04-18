@@ -143,7 +143,32 @@ export const Details = () => {
             </FormHelperText>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} direction="column" style={{ display: "flex", flexDirection: "column"}}>
+        <FormControl sx={{ mt: 4 }} component="fieldset" variant="standard">
+            <FormLabel component="legend">Model Update</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={steps[activeStep].data.modelUpdate}
+                    onChange={(e) => {
+                      dispatch(
+                        setStepData({
+                          modelUpdate:
+                            !steps[activeStep].data.modelUpdate,
+                        })
+                      );
+                    }}
+                    name="modelupdate"
+                  />
+                }
+                label="Perform model Update"
+              />
+            </FormGroup>
+            <FormHelperText>
+              Be careful as this choice is irreversible.
+            </FormHelperText>
+          </FormControl>
           <FormControl sx={{ mt: 4 }} component="fieldset" variant="standard">
             <FormLabel component="legend">Document Clustering</FormLabel>
             <FormGroup>

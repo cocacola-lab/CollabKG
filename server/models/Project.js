@@ -33,6 +33,7 @@ const ProjectSchema = mongoose.Schema(
       relationAnnotation: { type: Boolean, required: true, default: false },
       relationAnnotationType: { type: String, required: false },
       isEvent: { type: Boolean, required: false, default: false },
+      modelUpdate: { type: Boolean, required: true, default: false },
     },
     ontology: [
       {

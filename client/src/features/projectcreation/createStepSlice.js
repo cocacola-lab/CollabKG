@@ -15,6 +15,7 @@ const initialState = {
         relationAnnotationType: "",
         isEvent: false,
         performClustering: false,
+        modelUpdate: false,
       },
       valid: false,
     },

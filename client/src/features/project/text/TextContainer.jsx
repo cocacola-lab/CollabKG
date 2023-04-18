@@ -6,6 +6,7 @@ import {
   selectPage,
   selectPageLimit,
   selectRelations,
+  selectEntities,
   selectTexts,
   selectTextsStatus,
   selectAnnotationMode,
@@ -28,6 +29,7 @@ export const TextContainer = ({ textId, textIndex }) => {
   const annotationLang = useSelector(selectAnnotationLang);
   const textsStatus = useSelector(selectTextsStatus);
   const relations = useSelector(selectRelations);
+  const entitys = useSelector(selectEntities);
   const userId = useSelector(selectUserId);
   const pageLimit = useSelector(selectPageLimit);
   const page = useSelector(selectPage);
@@ -63,6 +65,8 @@ export const TextContainer = ({ textId, textIndex }) => {
     texts,
     annotationMode,
     annotationLang,
+    entitys,
+    relations,
   };
 
   return (
@@ -91,6 +95,8 @@ const TextCard = ({
   texts,
   annotationMode,
   annotationLang,
+  entitys,
+  relations,
 }) => {
   const dispatch = useDispatch();
   // const GetEntityid = () => {
@@ -119,6 +125,10 @@ const TextCard = ({
           pretype: temptype,
           lang: annotationLang,
           task: "entity",
+          modelUpdate: project.tasks.modelUpdate, // 执行模型更新
+          curEmarkup: project.tasks.modelUpdate ? // false直接返回[]，为了避免拖慢运行速度
+              textId in entitys ? entitys[textId].filter((mp)=> !mp.suggested) : [] 
+              : [], // 一次调用模型加入更新当前句的markup
       }
       //console.log(payinput);  
       try{
@@ -173,6 +183,13 @@ const TextCard = ({
           epretype: temptype2,
           lang: annotationLang,
           task: project.tasks.isEvent?"event":"relation",
+          modelUpdate: project.tasks.modelUpdate,
+          curEmarkup: project.tasks.modelUpdate ? 
+            textId in entitys ? entitys[textId].filter((mp)=> !mp.suggested) : []
+            : [],
+          curRmarkup: project.tasks.modelUpdate ? 
+            textId in relations ? relations[textId].filter((mp)=> !mp.suggested) : []
+            : [],
       }
       //console.log(payinput);  
       try{

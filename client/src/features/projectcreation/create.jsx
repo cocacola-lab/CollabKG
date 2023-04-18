@@ -216,6 +216,7 @@ export const Create = () => {
         relationAnnotation: steps.details.data.performRelationAnnotation,
         relationAnnotationType: steps.details.data.relationAnnotationType,
         isEvent: steps.details.data.isEvent,
+        modelUpdate: steps.details.data.modelUpdate,
       },
       performClustering: steps.details.data.performClustering,
       texts: steps.upload.data.corpus,
