@@ -3,6 +3,7 @@ import random
 import ast
 import re
 import openai
+import itertools
 
 df_access = [
     ('@ZDAdzBlWo4aqNwIHhT3BlbkFJFLpgEkpVMlHQ74ouH6gR','sk-vLu'),
@@ -384,11 +385,29 @@ def chat_ee(inda, chatbot, logger):
     # out = [{'Life:Marry':[{'Person': 'you', 'Place': 'hello'}, 'like']}] # [{type: [argument dict, trigger]}]
     return out, mess
 
+# 封装openai Create,实现换key功能
+with open("tokens.txt", "r") as f:
+    keys = f.readlines()
+    keys = [key.strip() for key in keys]
+
+all_keys = itertools.cycle(keys)
+
+def create(**args):
+    global all_keys
+    openai.api_key = next(all_keys)
+
+    try:
+        result = openai.ChatCompletion.create(**args)
+    except openai.error.RateLimitError:
+        result = create(**args)
+    
+    return result
+
 
 def chat(mess):
     #openai.proxy = 'http://127.0.0.1:10809' # 根据自己服务器的vpn情况设置proxy；如果是在自己电脑线下使用，可以在电脑上开vpn然后不加此句代码。
     openai.api_base = "https://chatie.deno.dev/v1"
-    responde = openai.ChatCompletion.create(
+    responde = create(
         model="gpt-3.5-turbo",
         messages=mess
     )
@@ -415,7 +434,7 @@ def chatie(input_data, logger):
 
     ## chatgpt
     try:
-        openai.api_key = input_data['access']
+        #openai.api_key = input_data['access']
         chatbot = chat
     except Exception as e:
         logger.info('---chatbot---')
@@ -474,6 +493,7 @@ if __name__=="__main__":
       "access": "",
       "task": "event",
       "lang": "english",
+      "modelUpdate": False
     }
     post_data=chatie(ind, logger)
     #print(post_data)
