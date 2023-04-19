@@ -105,6 +105,9 @@ def chat_re(inda, chatbot, logger):
         # 构造prompt
         stage1_tl = list(typelist.keys())
         s1p = re_s1_p[lang].format(sent, str(stage1_tl))
+
+        if inda['modelUpdate']: # 模型更新，加prompt
+            s1p = inda['frontprompt'] + '\n' + s1p
         logger.info(s1p)
 
         # 请求chatgpt
@@ -195,6 +198,9 @@ def chat_ner(inda, chatbot, logger):
         # 构造prompt
         stage1_tl = typelist
         s1p = ner_s1_p[lang].format(sent, str(stage1_tl))
+
+        if inda['modelUpdate']: # 模型更新，加prompt
+            s1p = inda['frontprompt'] + '\n' + s1p
         logger.info(s1p)
 
         # 请求chatgpt
@@ -286,6 +292,9 @@ def chat_ee(inda, chatbot, logger):
         # 构造prompt
         stage1_tl = list(typelist.keys())
         s1p = ee_s1_p[lang].format(sent, str(stage1_tl))
+        
+        if inda['modelUpdate']: # 模型更新，加prompt
+            s1p = inda['frontprompt'] + '\n' + s1p
         logger.info(s1p)
 
         # 请求chatgpt

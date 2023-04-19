@@ -354,7 +354,9 @@ const applySingleAnnotation = async (payload, userId) => { // 执行一次标记
         if (relationMarkup[0].suggested) {
           // Convert into accepted relation
           // TODO: handle after apply all is added...
-          response = { data: null, count: null };
+          response = { data: relationMarkup[0], count: 0 }; // count为0保证不会重复标注,返回relationMarkup是为了重复时也不会出现读name失败
+        } else {
+          response = { data: relationMarkup[0], count: 0 };
         }
       } else {
         // Relation does not exist.

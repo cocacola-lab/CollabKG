@@ -18,6 +18,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.cluster import AgglomerativeClustering, KMeans
 from sklearn.decomposition import LatentDirichletAllocation
 from access import chatie
+import re
 
 log_path = pathlib.Path(__file__).parent.resolve()
 
@@ -120,6 +121,13 @@ def rank_cluster(data: Data):
 class Data2(BaseModel):
     payin: dict
 
+
+knowledge_base = {
+    'entity': [],
+    'relation': [],
+    'event': []
+}
+
 @app.post("/auto_annotate")
 def auto_annotate(data: Data2):
     logger.info("hello, i am auto annotater")
@@ -166,6 +174,117 @@ def auto_annotate(data: Data2):
         payin['type'] = type1
     
     payin['access'] = ""
+
+    # 更新知识库，匹配知识库形成前缀prompt
+    if payin['modelUpdate']:
+        payin['frontprompt'] = ""
+        frontprompt = "Note:"
+        if task == "entity":
+            curEmarkup = payin['curEmarkup']
+            knowledges = []
+            for item in curEmarkup:
+                label = item['fullName']
+                ent = item['entityText']
+                if lang == 'chinese':
+                    ent = ''.join(ent.split(' '))
+                knowledges.append((ent, label))
+            # 添加到知识库
+            knowledge_base[task].extend(knowledges)
+            knowledge_base[task] = list(set(knowledge_base[task]))# 去重
+            # 查找知识库
+            for item in knowledge_base[task]:
+                label = item[1]
+                ent = item[0]
+                if label in payin['type'] and re.search(ent, sentence):
+                    if lang == 'english':
+                        frontprompt = frontprompt + "{} is {};".format(ent,label)    
+                    elif lang == 'chinese':
+                        frontprompt = frontprompt + "{}是{};".format(ent,label)   
+            if frontprompt != 'Note:':
+                payin['frontprompt'] = frontprompt
+
+        elif task == "relation":
+            curEmarkup = payin['curEmarkup']
+            curRmarkup = payin['curRmarkup']
+            curEmpdict = {i['_id']:i for i in curEmarkup}
+            knowledges = []
+            for item in curRmarkup:
+                source = item['source']
+                target = item['target']
+                cur_r = item['fullName']
+                
+                sourceEmp = curEmpdict.get(source, None)
+                targetEmp = curEmpdict.get(target, None)
+                if not sourceEmp or not targetEmp:
+                    continue
+                slabel = sourceEmp['fullName']
+                sent = sourceEmp['entityText']
+                tlabel = targetEmp['fullName']
+                tent = targetEmp['entityText']
+                if lang == 'chinese':
+                    sent = ''.join(sent.split(' '))
+                    tent = ''.join(tent.split(' '))
+                knowledges.append((sent, cur_r, tent))
+            # 添加到知识库
+            knowledge_base[task].extend(knowledges)
+            knowledge_base[task] = list(set(knowledge_base[task]))# 去重
+            # 查找知识库
+            for item in knowledge_base[task]:
+                r = item[1]
+                sent = item[0]
+                tent = item[2]
+                if r in payin['type'] and re.search(sent, sentence) and re.search(tent, sentence):
+                    if lang == 'english':
+                        frontprompt = frontprompt + "the relation betweent {} and {} is {};".format(sent,tent,r)    
+                    elif lang == 'chinese':
+                        frontprompt = frontprompt + "{}和{}之间的关系是{};".format(sent,tent,r)   
+            if frontprompt != 'Note:':
+                payin['frontprompt'] = frontprompt
+
+        elif task == "event":
+            curEmarkup = payin['curEmarkup']
+            curRmarkup = payin['curRmarkup']
+            curEmpdict = {i['_id']:i for i in curEmarkup}
+            knowledges = []
+            for item in curRmarkup:
+                source = item['source']
+                target = item['target']
+                cur_r = item['fullName']
+                
+                sourceEmp = curEmpdict.get(source, None)
+                targetEmp = curEmpdict.get(target, None)
+                if not sourceEmp or not targetEmp:
+                    continue
+                slabel = sourceEmp['fullName']
+                sent = sourceEmp['entityText']
+                tlabel = targetEmp['fullName']
+                tent = targetEmp['entityText']
+                if lang == 'chinese':
+                    sent = ''.join(sent.split(' '))
+                    tent = ''.join(tent.split(' '))
+                knowledges.append((sent, slabel, cur_r, tent, tlabel))
+            # 添加到知识库
+            knowledge_base[task].extend(knowledges)
+            knowledge_base[task] = list(set(knowledge_base[task]))# 去重
+            # 查找知识库
+            rlist = [i['name'] for i in payin['pretype']]
+            elist = [i['name'] for i in payin['epretype']]
+            for item in knowledge_base[task]:
+                r = item[2] # argument role
+                sent = item[0] # trigger
+                tent = item[3] # argument content
+                slabel = item[1] # event type
+                tlabel = item[4] # Anything
+                if slabel in elist and r in rlist and tlabel in elist\
+                    and re.search(sent, sentence) and re.search(tent, sentence):
+                    if lang == 'english':
+                        frontprompt = frontprompt + "The {} of event type {} is {} and the trigger word is {};".format(r,slabel,tent,sent)    
+                    elif lang == 'chinese':
+                        frontprompt = frontprompt + "事件类型{}的{}是{}且触发词为{};".format(slabel,r,tent,sent)   
+            if frontprompt != 'Note:':
+                payin['frontprompt'] = frontprompt
+
+        logger.info(knowledge_base[task])
 
     output = chatie(payin, logger)
     

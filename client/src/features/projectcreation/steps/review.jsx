@@ -37,6 +37,11 @@ export const Review = () => {
           : null
       }`,
       `${
+        steps.details.data.modelUpdate
+          ? "Model Update"
+          : "No Model Update"
+      }`,
+      `${
         steps.details.data.performClustering
           ? "Perfoming Clustering"
           : "No Clustering"
