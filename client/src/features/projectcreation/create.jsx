@@ -62,7 +62,7 @@ export const Create = () => {
 
   const descriptions = {
     details: "Enter project details including task type and clustering",
-    upload: "Create or upload a corpus",
+    upload: "Create or upload a corpus, Note: Words (including punctuation) should be separated by spaces, like \"I love Bob , which is my father .\"",
     preprocessing: "Apply text preprocessing to your corpus",
     schema: !steps.details.data.performRelationAnnotation? "Build an ontology/schema for entity annotation":
     !steps.details.data.isEvent? "Build an ontology/schema for entity-relation triples annotation. ps: the relation types format is \"relation@[subject, object], where subject/object refers to head/tail entity type in triples.\""
