@@ -311,8 +311,10 @@ def chat_ee(inda, chatbot, logger):
             rels = [temp[1:-1].split(',') for temp in res1]
             rels = list(set([re.sub('[\'"]','', j).strip() for i in rels for j in i]))
             #logger.info(rels)
-        else:
-            rels = []
+        else: # 说明正则没提取到，可能是单个类型的情况
+            text1 = text1.strip().rstrip('.')
+            rels = [text1]
+
         logger.info(rels)
     except Exception as e:
         logger.info(e)
@@ -350,9 +352,14 @@ def chat_ee(inda, chatbot, logger):
                 mess.append({"role": "assistant", "content": text3})
                 logger.info(text3)
 
+                # 处理trigger, 情况： "The trigger word is experienced."
+                re_trigger = re.search('(?i)The trigger .*is:{0,1} "{0,1}(\w+)', text3) #(?i)不区分大小写
+                if re_trigger:
+                    text3 = re_trigger.group(1)
+
                 # 进一步处理结果
                 single_out = {r: [{},]}
-                single_out[r].append(re.sub('[\'"]','', text3).strip())
+                single_out[r].append(re.sub('[\'"]','', text3).strip().rstrip('.'))
 
                 count=0
                 for so in res2:
@@ -480,7 +487,9 @@ if __name__=="__main__":
     #p = '''James worked for Google in Beijing, the capital of China.'''
     # --------
     #p = '''在2022年的卡塔尔世界杯决赛中，阿根廷以点球大战险胜法国。'''
-    p = '''Yesterday Bob and his wife got divorced in Guangzhou.'''
+    #p = '''Yesterday Bob and his wife got divorced in Guangzhou.'''
+    #p = '''israel has experienced its fifth suicide bombing in three days .'''
+    p = '''Orders went out today to deploy 17,000 U.S. Army soldiers in the Persian Gulf region .'''
 
     import pathlib
     log_path = pathlib.Path(__file__).parent.resolve()
