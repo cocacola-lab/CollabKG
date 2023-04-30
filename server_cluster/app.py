@@ -303,17 +303,20 @@ def auto_annotate(data: Data2):
         mark = False
         if lang == 'english':
             entlist = ent.split(' ')
+            entlist_lower = ent.lower().split(' ')
         elif lang == 'chinese':
             entlist = list(ent)
+            entlist_lower = list(ent.lower())
         startw = entlist[0]
+        startw_lower = entlist_lower[0]
         wlen = len(entlist)
         for idx, word in enumerate(temp_text):
-            if startw == word:
+            if startw == word or startw_lower == word:
                 prew = temp_text[idx:idx+wlen]
-                if prew == entlist:
+                if prew == entlist or prew == entlist_lower:
                     single_markup['entitySpanStart'] = idx
                     single_markup['entitySpanEnd'] = idx + wlen -1
-                    single_markup['entityText'] = ' '.join(entlist)
+                    single_markup['entityText'] = ' '.join(prew)
                     mark =True
                     break
         if not mark:
