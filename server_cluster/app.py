@@ -425,6 +425,7 @@ def auto_annotate(data: Data2):
                 trigger_markup = getEntitymarkup(trigger, eetype, temp_text, label2id, lang)
                 if trigger_markup == {}:
                     continue
+                arg_add = False
                 for r in arguement_role:
                     single = [trigger_markup]
 
@@ -444,6 +445,9 @@ def auto_annotate(data: Data2):
                         continue
 
                     markup.append(single)
+                    arg_add = True
+                if not arg_add: # 针对没有论元的情况
+                    markup.append([trigger_markup, {}, {}])
 
         return {'markup': markup}
 
