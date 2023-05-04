@@ -162,7 +162,7 @@ export const Details = () => {
                     name="modelupdate"
                   />
                 }
-                label="Perform model Update"
+                label="Perform model update"
               />
             </FormGroup>
             <FormHelperText>

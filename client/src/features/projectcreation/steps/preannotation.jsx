@@ -246,7 +246,7 @@ export const Preannotation = () => {
   return (
     <Grid item xs={12}>
       <Grid item xs={12} style={{ fontSize: "0.8125rem" }} sx={{mb: 2}}>
-        Before commencing annotation with QuickGraph, you can upload a
+        Before commencing annotation with AutoKG, you can upload a
         dictionary for pre-annotation of entities and triples. The types
         specified in each dictionary must be consistent with the ontologies
         specified in this project. The dictionary items must be consistent with

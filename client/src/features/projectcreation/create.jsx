@@ -61,7 +61,7 @@ export const Create = () => {
   };
 
   const descriptions = {
-    details: "Enter project details including task type and clustering",
+    details: "Enter project details including task type, model update and clustering",
     upload: "Create or upload a corpus, Note: Words (including punctuation) should be separated by spaces, like \"I love Bob , which is my father .\"",
     preprocessing: "Apply text preprocessing to your corpus",
     schema: !steps.details.data.performRelationAnnotation? "Build an ontology/schema for entity annotation":
