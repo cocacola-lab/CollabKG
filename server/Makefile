@@ -1,6 +1,6 @@
 build:
-	docker build -t quickgraph-server .
+	docker build -t autokg-server .
 run:
-	docker run -p 3001:3001 --name quickgraph-server quickgraph-server
+	docker run -p 3001:3001 --name autokg-server autokg-server
 cleanup:
-	docker rm quickgraph-server
+	docker rm autokg-server

@@ -33,7 +33,7 @@ export const Login = () => {
     <Card id="login-card">
       <Card.Img src={LoginImage} />
       <Card.Body>
-        <Card.Title>Login to QuickGraph</Card.Title>
+        <Card.Title>Login to AutoKG</Card.Title>
         <Formik
           validationSchema={schema}
           onSubmit={(values) => handleSubmit(values)}

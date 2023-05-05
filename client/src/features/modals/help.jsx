@@ -8,7 +8,7 @@ export const Help = () => {
       <span style={{ fontSize: "12px" }}>
         Please contact{" "}
         <a
-          href="mailto:tyler.bikaun@research.uwa.edu.au?subject=QuickGraph Help"
+          href="mailto:tyler.bikaun@research.uwa.edu.au?subject=AutoKG Help"
           target="_blank"
           rel="noreferrer"
         >

@@ -1,6 +1,6 @@
 build:
-	docker build --no-cache -t quickgraph-client .
+	docker build --no-cache -t autokg-client .
 build-prod:
-	docker build -t quickgraph-client-prod -f Dockerfile.production .
+	docker build -t autokg-client-prod -f Dockerfile.production .
 cleanup:
-	docker rm quickgraph-client
+	docker rm autokg-client
