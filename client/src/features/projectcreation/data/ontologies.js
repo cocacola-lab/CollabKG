@@ -6404,8 +6404,8 @@ export const relationOntologies = {
       isEntity: false,
     },
     {
-      name: "Movement:Transport@[Agent, Artifact, Vehicle, Price, Origin]",
-      fullName: "Movement:Transport@[Agent, Artifact, Vehicle, Price, Origin]",
+      name: "Movement:Transport@[Agent, Artifact, Vehicle, Price, Origin, Destination, Time]",
+      fullName: "Movement:Transport@[Agent, Artifact, Vehicle, Price, Origin, Destination, Time]",
       description: "",
       domain: [],
       range: [],
