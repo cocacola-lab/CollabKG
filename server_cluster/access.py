@@ -87,7 +87,7 @@ ee_s2_p = {
 
 ee_s3_p = {
     'chinese': '''当上述句子的事件类型为:"{}"时，请识别出相应的触发词。触发词为动词。\n答案只给出触发词即可。触发词：''',
-    'english': '''When the event type of the given sentence above is "{}", please recognize the corresponding trigger word. The trigger word is verb.\nOnly answer the trigger word, no extra word. The trigger word is:'''
+    'english': '''When the event type of the given sentence above is "{}", please recognize the corresponding trigger word. The trigger word is the word or phrase that most clearly express event occurrences.\nOnly answer the trigger word, no extra word. The trigger word is:'''
 }
 
 
