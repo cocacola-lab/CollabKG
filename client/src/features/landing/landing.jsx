@@ -112,7 +112,7 @@ export const Landing = () => {
             <Toolbar style={{ display: "flex", justifyContent: "right" }}>
               <div style={{ display: "flex" }}>
                 <IconButton
-                  href="https://github.com/threeColorFr/autoKG"
+                  href="https://github.com/cocacola-lab/autoKG"
                   target="_blank"
                   rel="noreferrer"
                   alt="Github repository"
@@ -132,7 +132,7 @@ export const Landing = () => {
                   />
                 </IconButton>
                 <IconButton
-                  href="https://github.com/threeColorFr/autoKG/blob/main/README.md"
+                  href="https://github.com/cocacola-lab/autoKG/blob/main/README.md"
                   target="_blank"
                   rel="noreferrer"
                   alt="AutoKG About Page"
