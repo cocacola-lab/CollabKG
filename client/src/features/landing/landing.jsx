@@ -53,7 +53,7 @@ export const Landing = () => {
         >
           <Grid container item spacing={2} direction="row" justifyContent="center">
             <Grid item >
-              <h1>AutoKG</h1>
+              <h1>CollabKG</h1>
             </Grid>
             <Grid item>
               <h3 style={{ fontWeight: "normal" }}>
@@ -112,7 +112,7 @@ export const Landing = () => {
             <Toolbar style={{ display: "flex", justifyContent: "right" }}>
               <div style={{ display: "flex" }}>
                 <IconButton
-                  href="https://github.com/cocacola-lab/autoKG"
+                  href="https://github.com/cocacola-lab/CollabKG"
                   target="_blank"
                   rel="noreferrer"
                   alt="Github repository"
@@ -132,10 +132,10 @@ export const Landing = () => {
                   />
                 </IconButton>
                 <IconButton
-                  href="https://github.com/cocacola-lab/autoKG/blob/main/README.md"
+                  href="https://github.com/cocacola-lab/CollabKG/blob/main/README.md"
                   target="_blank"
                   rel="noreferrer"
-                  alt="AutoKG About Page"
+                  alt="CollabKG About Page"
                 >
                   <InfoIcon
                     fontSize="large"

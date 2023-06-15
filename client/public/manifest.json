@@ -1,6 +1,6 @@
 {
-  "short_name": "AutoKG",
-  "name": "AutoKG | Auto Knowledge Graph Extraction",
+  "short_name": "CollabKG",
+  "name": "CollabKG | Collaboration (Event) Knowledge Graph Extraction",
   "icons": [
     {
       "src": "favicon.ico",

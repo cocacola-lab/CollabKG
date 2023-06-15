@@ -1,26 +1,26 @@
 version: "3.8"
 services:
   client:
-    image: autokg-client
+    image: collabkg-client
     build: ./client/
     stdin_open: true
     ports:
       - "3020:3000"
     networks:
-      - autokg-app
+      - collabkg-app
     volumes:
       - ./client/:/usr/src/app
       - /usr/src/app/node_modules
     depends_on:
       - server
   server:
-    image: autokg-server
+    image: collabkg-server
     build: ./server/
     stdin_open: true
     ports:
       - "3010:3010"
     networks:
-      - autokg-app
+      - collabkg-app
     volumes:
       - ./server/:/usr/src/app
       - /usr/src/app/node_modules
@@ -31,22 +31,22 @@ services:
     ports:
       - "27018:27017"
     networks:
-      - autokg-app
+      - collabkg-app
     volumes:
       - mongo-data:/data/db
     depends_on:
       - server_cluster
   server_cluster:
-    image: autokg-server-cluster
+    image: collabkg-server-cluster
     build: ./server_cluster
     stdin_open: true
     ports:
       - "8000:8000"
     networks:
-      - autokg-app
+      - collabkg-app
 
 networks:
-  autokg-app:
+  collabkg-app:
     driver: bridge
 
 volumes:

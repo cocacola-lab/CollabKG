@@ -1,6 +1,6 @@
 build:
-	docker build -t autokg-server .
+	docker build -t collabkg-server .
 run:
-	docker run -p 3001:3001 --name autokg-server autokg-server
+	docker run -p 3001:3001 --name collabkg-server collabkg-server
 cleanup:
-	docker rm autokg-server
+	docker rm collabkg-server

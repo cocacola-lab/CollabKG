@@ -1,6 +1,6 @@
 build:
-	docker build --no-cache -t autokg-client .
+	docker build --no-cache -t collabkg-client .
 build-prod:
-	docker build -t autokg-client-prod -f Dockerfile.production .
+	docker build -t collabkg-client-prod -f Dockerfile.production .
 cleanup:
-	docker rm autokg-client
+	docker rm collabkg-client

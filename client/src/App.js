@@ -127,7 +127,7 @@ function App() {
               return (
                 <ProtectedRoute path={route.path}>
                   <Helmet>
-                    <title>{route.title} | AutoKG</title>
+                    <title>{route.title} | CollabKG</title>
                   </Helmet>
                   <Layout
                     children={route.component}
@@ -141,7 +141,7 @@ function App() {
               return (
                 <Route exact path={route.path}>
                   <Helmet>
-                    <title>{route.title} | AutoKG</title>
+                    <title>{route.title} | CollabKG</title>
                   </Helmet>
                   {route.layout ? (
                     <Layout
