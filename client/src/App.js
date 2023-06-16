@@ -108,7 +108,7 @@ function App() {
     },
     {
       protected: false,
-      title: "Auto Knowledge Graph Extraction",
+      title: "Collabration (Event) Knowledge Graph Extraction",
       path: "/",
       name: null,
       layout: null,
