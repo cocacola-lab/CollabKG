@@ -1,13 +1,38 @@
 # About CollabKG
+- [About CollabKG](#about-collabkg)
+  - [Annotation](#annotation)
+    - [NER](#ner)
+    - [RE](#re)
+    - [EE](#ee)
+  - [Project Feed](#project-feed)
+  - [Project Creation](#project-creation)
+    - [Details](#details)
+    - [Corpus Upload](#corpus-upload)
+    - [Corpus Preprocessing](#corpus-preprocessing)
+    - [Project Ontology/Schema](#project-ontologyschema)
+      - [NER](#ner-1)
+      - [RE](#re-1)
+      - [EE](#ee-1)
+      - [Relation Constraints](#relation-constraints)
+    - [Corpus Pre-annotation](#corpus-pre-annotation)
+      - [Entity Preannotation](#entity-preannotation)
+      - [Typed Triple Preannotation](#typed-triple-preannotation)
+    - [Project Review and Creation](#project-review-and-creation)
+  - [Project Dashboard](#project-dashboard)
 
 A Learnable Human-Machine-Cooperative Information Extraction Toolkit for (Event) Knowledge Graph Construction.
 
-- CollabKG is an open-source IE annotation toolkit that unifies NER, RE, and EE tasks, integrates KG and EKG, and supports both English and Chinese languages. 
-- CollabKG combines automatic and manual labeling to build a human-machine cooperative system. In particular, humans benefit from machines and meanwhile, manual labeling provides a reference for machines to update during annotation. Additionally, CollabKG is designed with many other appealing features that enhance productivity, power, and user-friendliness.
+- CollabKG is an open-source IE annotation toolkit that **unifies NER, RE, and EE tasks**, integrates **KG and EKG**, and supports both English and Chinese languages. 
+- CollabKG **combines automatic and manual labeling** to build a human-machine cooperative system. In particular, humans benefit from machines and meanwhile, manual labeling provides a reference for machines to update during annotation. Additionally, CollabKG is designed with many other appealing features that enhance productivity, power, and user-friendliness.
 - CollabKG Extensive human studies suggest that CollabKG can significantly improve the effectiveness and efficiency of manual annotation, as well as reduce variance.
 
 ## Annotation
 
+### NER
+
+### RE
+
+### EE
 
 ## Project Feed
 
@@ -61,13 +86,13 @@ The preprocessing steps are irreversible and will be displayed on the projects d
 ### Project Ontology/Schema
 Depending on the multi-task configuration selected at the details step, an ontology/schema must be specified for entities, relations or events.
 
-**NER:**
+#### NER
 
 ![image-ner](images/image-ner.jpg)
 
 A custom entity ontology can be built consiting of an arbitrary number of classes. Alternatively, preset entity ontologies also exist. Warning: Selecting any of these will override any custom ontology created.
 
-**RE:**
+#### RE
 
 ![image-re-r](images/image-re-r.jpg)
 
@@ -79,7 +104,7 @@ Note corresponding entity:
 
 ![image-re-e](images/image-re-e.jpg)
 
-**EE:**
+#### EE
 
 ![image-ee-r](images/image-ee-r.jpg)
 
@@ -134,5 +159,21 @@ At the end of the project creation process, an overview of the steps performed i
 
 ## Project Dashboard
 
+Our toolkit offers a range of features to enhance the user-friendly display.
 
-## User Profile
+Firstly, it displays annotation progress and counts the results across multiple dimensions, such as entity, relation, and triples.
+
+![image-display-over](images/image-display-over.jpg)
+
+Secondly, users can view a Knowledge Graph or Entity Knowledge Graph (EKG) and filter the results.
+
+![image-display-graph](images/image-display-graph.jpeg)
+![image-display-graph-ee](images/image-display-graph-ee.jpg)
+
+Thirdly, the tool provides a double-checking function for each text/document.
+
+![image-display-adj](images/image-display-adj.jpg)
+
+Finally, our tool supports the filtering and exporting functions. Filter function includes saving, loading, quality filtering (accepted or suggested), and so on.
+
+![image-display-down](images/image-display-down.jpg)
