@@ -1,40 +1,50 @@
-# About QuickGraph
+# About CollabKG
 
-QuickGraph is a collaborative annotation tool for rapid multi-task information extraction.
+A Learnable Human-Machine-Cooperative Information Extraction Toolkit for (Event) Knowledge Graph Construction.
+
+- CollabKG is an open-source IE annotation toolkit that unifies NER, RE, and EE tasks, integrates KG and EKG, and supports both English and Chinese languages. 
+- CollabKG combines automatic and manual labeling to build a human-machine cooperative system. In particular, humans benefit from machines and meanwhile, manual labeling provides a reference for machines to update during annotation. Additionally, CollabKG is designed with many other appealing features that enhance productivity, power, and user-friendliness.
+- CollabKG Extensive human studies suggest that CollabKG can significantly improve the effectiveness and efficiency of manual annotation, as well as reduce variance.
+
+## Annotation
+
 
 ## Project Feed
 
-![image-20220514190955828](images/image-20220514190955828.png)
+![image-project-feed](images/image-project-feed.jpg)
 
 This page (above) shows all the projects you have created (and manage) as well as projects you are a part of. Each card in the feed shows the projects - creation date, name, description, number of documents annotated by the group (or yourself if single user annotation), number of active annotators, and task configuration.
 
 ## Project Creation
 
-Clicking on `new project` will take you to QuickGraph's project creation page.
+Clicking on `new project` will take you to CollabKG's project creation page.
 
 ### Details
 
-![image-20220514191552610](images/image-20220514191552610.png)
+![image-details](images/image-details.jpg)
 
-The details page is where the projects `name`,`description`, `task type` and `clustering` options are specified. Each project is distinguished by its name and description. Currently, QuickGraph the following tasks:
+The details page is where the projects `name`, `description`, `task type`, `model update` and `clustering` options are specified. Each project is distinguished by its name and description. Currently, CollabKG the following tasks:
 
-- Entity annotation
-- Entity and open relation annotation
-- Entity and closed relation annotation
+- **Entity** annotation
+- **Event** annotation
+- **Entity and relation triple** annotation
 
-To aid with annotation efficiency, QuickGraph allows projects to have their documents clustered by embedding documents and clustering them using agglomerative clustering via Sentence-BERT [].
+Model Update: manual labeling provides a reference for machines to update during annotation.
+
+Clustering: allows projects to have their sentences/documents clustered by embedding sentences/documents and clustering them using agglomerative clustering via Sentence-BERT.
 
 ### Corpus Upload
 
-![image-20220514191630005](images/image-20220514191630005.png)
+![image-upload](images/image-upload.jpg)
 
-Uploading a corpus to the new project is possible by either loading a text file or pasting in a set of new line separated texts. After either action, the number of texts in the corpus will be presented.
+Uploading a corpus (English/Chinese) to the new project is possible by either loading a text file or pasting in a set of new line separated texts. After either action, the number of texts in the corpus will be presented.
+Note: Words (Including Punctuation) Should Be Separated By Spaces, Like "I Love Bob , Which Is My Father ."
 
 ### Corpus Preprocessing
 
-![image-20220515075608127](images/image-20220515075608127.png)
+![image-preprocess](images/image-preprocess.jpg)
 
-To improve annotation efficiency, QuickGraph allows uploaded corpora to be lightly preprocessed. The preprocessing actions include:
+To improve annotation efficiency, CollabKG allows uploaded corpora to be lightly preprocessed. The preprocessing actions include:
 
 - Removing casing,
 - Removing characters, and
@@ -49,34 +59,58 @@ If any of these actions are selected, the impacts on the corpus will be shown vi
 The preprocessing steps are irreversible and will be displayed on the projects dashboard. 
 
 ### Project Ontology/Schema
+Depending on the multi-task configuration selected at the details step, an ontology/schema must be specified for entities, relations or events.
 
-![image-20220515075908645](images/image-20220515075908645.png)
+**NER:**
 
-Depending on the multi-task configuration selected at the `details` step, an ontology/schema must be specified for entities and relations (if applicable). Shown above is the view for entities. Here, a custom hierarchical entity ontology can be built consiting of an arbitrary number of classes with arbitrary depth. Alternatively, preset ontologies also exist for entity classification including: CoNLL03, SemEval-07 Task 4, SemEval-10 Task 8, and FIGER. **Warning: Selecting any of these will override any custom ontology created.**
+![image-ner](images/image-ner.jpg)
 
-![image-20220515080433795](images/image-20220515080433795.png)
+A custom entity ontology can be built consiting of an arbitrary number of classes. Alternatively, preset entity ontologies also exist. Warning: Selecting any of these will override any custom ontology created.
 
-Similarly, for tasks consisting of relation annotation, a custom ontology can be created with an arbitrary number of relations and depth. Preset ontologies are also included and include:  ConceptNet-5, Coreference, SemEval-07 Task 4, and SemEval-10 Task 8. **Warning: Selecting any of these will override any custom ontology created.**
+**RE:**
+
+![image-re-r](images/image-re-r.jpg)
+
+Format: *relation@[subject_type, object_type]* like *person-place_lived@[person, location]*
+
+A custom relation ontology can be built consiting of an arbitrary number of classes. Alternatively, preset relation ontologies also exist. Warning: Selecting any of these will override any custom ontology created.
+
+Note corresponding entity:
+
+![image-re-e](images/image-re-e.jpg)
+
+**EE:**
+
+![image-ee-r](images/image-ee-r.jpg)
+
+Format: *event_type@[argument_role_1, argument_role_2, ...]* like *Life:Be-Born@[Person, Time, Place]*
+
+A custom event ontology can be built consiting of an arbitrary number of classes. Alternatively, preset event ontologies also exist. Warning: Selecting any of these will override any custom ontology created.
+
+Note fixed `entityOntologies` for all event extaction, *Anything* denotes the type for all *Arguments*:
+
+![image-ee-e](images/image-ee-e.jpg)
 
 #### Relation Constraints
 
-![image-20220515080705364](images/image-20220515080705364.png)
+![image-rc](images/image-rc.jpg)
 
-A novel feature of QuickGraph is the ability to apply relation constraints onto relations in the relation ontology by pressing **[BUTTON]**. This feature allows the domain and range of relations to be specified by selecting entities from the entity ontology. For example, show above is the domain and range specified for the relation `AtLocation` - here, the domain is `Organisation` and `Person` and `Location` is the range. By specifying this, annotators will only be able to apply relations from `Organization` and `Person` to `Location`. Triples such as `(Miscellaneous, AtLocation, Organization)` will not be possible. For large relation ontologies, this enhances the speed of relation annotation by reducing time and cognitive load searching for applicable relations between entities.
+Only for RE:
+
+A feature of CollabKG is the ability to apply relation constraints onto relations in the relation ontology by pressing button. This feature allows the domain and range of relations to be specified by selecting entities from the entity ontology. For example, show above is the domain and range specified for the relation `person-company` - here, the domain is `person` and `organization` is the range. By specifying this, annotators will only be able to apply `person-company` relation from `person` to `organization`, namely `(person, person-company, organization)`. For large relation ontologies, this enhances the speed of relation annotation by reducing time and cognitive load searching for applicable relations between entities.
 
 ### Corpus Pre-annotation
 
-![image-20220515081000778](images/image-20220515081000778.png)
+![image-preannotation](images/image-preannotation.jpg)
 
-To aid annotation, QuickGraph allows projects to be preannotated using predefined resources. Currently, QuickGraph allows *entity preannotation* and *typed triple preannotation*.
+To aid annotation, CollabKG allows projects to be preannotated using predefined resources. Currently, CollabKG allows *entity preannotation* and *typed triple preannotation*.
 
 #### Entity Preannotation
 
 Entity preannotation requires the resource to be formatted as a text file consisting of lines with `token span,entity class`. For example:
 
 ```
-Barack Obama,person/president
-Michelle Obama,person 
+Bob,person 
 ```
 
 When the project is created, the specified tokens will have the entity classes applied as `suggestions` that the annotator must accept.
@@ -86,20 +120,16 @@ When the project is created, the specified tokens will have the entity classes a
 Typed triple preannotation requires the resource to be formatted as a text file consisting of lines with `source span, source type, relation type, target span, target type, offset`. Here the often is the number of tokens separating the source and target. This is implemented to reduce the over application of triples. An example resource looks like:
 
 ```
-Barack Obama,person/president,marriedTo,Michelle Obama,person,3
+Bob,person,person-company,Google,organization,2
 ```
 
-This would match on the sentence `Barack Obama is married to Michelle Obama` where `is married to` consists of 3 tokens that offset the source and target spans.
+This would match on the sentence `Bob worked for Google` where `worked for` consists of 2 tokens that offset the source and target spans.
 
 ### Project Review and Creation
 
-![image-20220515082342623](images/image-20220515082342623.png)
+![image-review](images/image-review.jpg)
 
 At the end of the project creation process, an overview of the steps performed is presented. At any stage, the step can be modified by clicking the `back` button. If the project is created satisfactorily, clicking `create` will create the project. Note that for large projects (thousands of documents) or projects with clustering, this process may take a few minutes. 
-
-*Note: additional annotators can be invited to the project after project creation from the project dashboard.*
-
-## Annotation
 
 
 ## Project Dashboard
