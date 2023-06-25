@@ -36,8 +36,10 @@
 A Learnable Human-Machine-Cooperative Information Extraction Toolkit for (Event) Knowledge Graph Construction.
 
 - CollabKG is an open-source IE annotation toolkit that **unifies NER, RE, and EE tasks**, integrates **KG and EKG**, and supports both English and Chinese languages. 
-- CollabKG **combines automatic and manual labeling** to build a human-machine cooperative system. In particular, humans benefit from machines and meanwhile, manual labeling provides a reference for machines to update during annotation. Additionally, CollabKG is designed with many other appealing features that enhance productivity, power, and user-friendliness.
-- CollabKG Extensive human studies suggest that CollabKG can significantly improve the effectiveness and efficiency of manual annotation, as well as reduce variance.
+- CollabKG **combines automatic and manual labeling** to build a human-machine cooperative system. In particular, humans benefit from machines and meanwhile, manual labeling provides a reference for machines to update during annotation. 
+- Additionally, CollabKG is designed with many other **appealing features** (customization, training-free, propagation, etc) that enhance productivity, power, and user-friendliness. We holistically compare our toolkit with other existing tools on these features.
+- CollabKG **Extensive human studies** suggest that CollabKG can significantly improve the effectiveness and efficiency of manual annotation, as well as reduce variance.
+
 
 ## Annotation
 
