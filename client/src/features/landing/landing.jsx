@@ -57,8 +57,7 @@ export const Landing = () => {
             </Grid>
             <Grid item>
               <h3 style={{ fontWeight: "normal" }}>
-                An annotation tool for auto knowledge graph extraction from
-                text
+              A Learnable Human-Machine-Cooperative Information Extraction Toolkit for (Event) Knowledge Graph Construction.
               </h3>
             </Grid>
           </Grid>
