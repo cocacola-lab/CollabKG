@@ -2,8 +2,19 @@
 - [About CollabKG](#about-collabkg)
   - [Annotation](#annotation)
     - [NER](#ner)
+      - [auto](#auto)
+      - [manual](#manual)
     - [RE](#re)
+      - [auto](#auto-1)
+      - [manual](#manual-1)
     - [EE](#ee)
+      - [auto](#auto-2)
+      - [manual](#manual-2)
+    - [model update (Learnability)](#model-update-learnability)
+    - [propagation](#propagation)
+      - [enitity](#enitity)
+      - [relation/event](#relationevent)
+  - [Cluster](#cluster)
   - [Project Feed](#project-feed)
   - [Project Creation](#project-creation)
     - [Details](#details)
@@ -20,6 +31,8 @@
     - [Project Review and Creation](#project-review-and-creation)
   - [Project Dashboard](#project-dashboard)
 
+
+
 A Learnable Human-Machine-Cooperative Information Extraction Toolkit for (Event) Knowledge Graph Construction.
 
 - CollabKG is an open-source IE annotation toolkit that **unifies NER, RE, and EE tasks**, integrates **KG and EKG**, and supports both English and Chinese languages. 
@@ -29,10 +42,57 @@ A Learnable Human-Machine-Cooperative Information Extraction Toolkit for (Event)
 ## Annotation
 
 ### NER
+#### auto
+
+![image-anno-ner-a](images/NER-auto.gif)
+![image-anno-ner-a-j](images/NER-auto.jpg)
+
+#### manual
+![image-anno-ner-m](images/NER-manual.gif)
+![image-anno-ner-m-j](images/NER-manual.jpg)
 
 ### RE
+#### auto
+![image-anno-re-a](images/RE-auto.gif)
+![image-anno-re-a-j](images/RE-auto.jpg)
 
+#### manual
+![image-anno-re-m](images/RE-manual.gif)
+![image-anno-re-m-j](images/RE-manual-01.jpg)
+![image-anno-re-m-j02](images/RE-manual-02.jpg)
 ### EE
+#### auto
+
+![image-anno-ee-a](images/EE-auto.gif)
+![image-anno-ee-a-j](images/EE-auto.jpg)
+
+#### manual
+![image-anno-ee-m](images/EE-manual.gif)
+![image-anno-ee-m-j](images/EE-manual.jpg)
+
+### model update (Learnability)
+![image-modelupdate](images/modelupdate.gif)
+
+1. The first time you click the automatic annotation of the second sentence, it will not recognize *(Apple, ORG)*.
+
+2. When you label the first sentence with *(Apple, ORG)* and click the Auto Label button, the model will be updated.
+
+3. When you click the auto-label button of the second sentence again, it will recognize *(Apple, ORG)* (because the prefix prompt `Note:Apple is ORG;` will remind the model, and make it successfully recognize it.)
+
+### propagation
+#### enitity
+![image-anno-propa-e-eng](images/propagation-ner-eng.gif)
+![image-anno-propa-e-chi](images/propagation-ner-chinese.gif)
+
+#### relation/event
+![image-anno-propa-r-eng](images/propagation-re-eng.gif)
+![image-anno-propa-r-chi](images/propagation-re-chi.gif)
+
+## Cluster
+
+![image-cluster](images/cluster.jpg)
+
+Aggregate documents/sentences into clusters by embedding with SBERT sentence embedding.
 
 ## Project Feed
 
