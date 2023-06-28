@@ -124,8 +124,9 @@ def chat_re(inda, chatbot, logger):
             rels = [temp[1:-1].split(',') for temp in res1]
             rels = list(set([re.sub('[\'"]','', j).strip() for i in rels for j in i]))
             #logger.info(rels)
-        else:
-            rels = []
+        else: # 说明正则没提取到，可能是单个类型的情况
+            text1 = text1.strip().rstrip('.')
+            rels = [text1]
         logger.info(rels)
     except Exception as e:
         logger.info(e)
@@ -150,6 +151,10 @@ def chat_re(inda, chatbot, logger):
                 # 正则提取结果
                 res2 = re.findall(r'\|.*?\|.*?\|', text2)
                 logger.info(res2)
+
+                if res2==[]:
+                    res2 = re.findall(r'.*\|.*', text2)
+                    logger.info(res2)
 
                 # 进一步处理结果
                 count=0
@@ -220,8 +225,9 @@ def chat_ner(inda, chatbot, logger):
             rels = [temp[1:-1].split(',') for temp in res1]
             rels = list(set([re.sub('[\'"]','', j).strip() for i in rels for j in i]))
             #logger.info(rels)
-        else:
-            rels = []
+        else: # 说明正则没提取到，可能是单个类型的情况
+            text1 = text1.strip().rstrip('.')
+            rels = [text1]
         logger.info(rels)
     except Exception as e:
         logger.info(e)
@@ -245,6 +251,10 @@ def chat_ner(inda, chatbot, logger):
                 # 正则提取结果
                 res2 = re.findall(r'\|.*?\|.*?\|', text2)
                 logger.info(res2)
+
+                if res2==[]:
+                    res2 = re.findall(r'.*\|.*', text2)
+                    logger.info(res2)
 
                 # 进一步处理结果
                 count=0
@@ -340,6 +350,9 @@ def chat_ee(inda, chatbot, logger):
                 res2 = re.findall(r'\|.*?\|.*?\|', text2)
                 logger.info(res2)
 
+                if res2==[]:
+                    res2 = re.findall(r'.*\|.*', text2)
+                    logger.info(res2)
                 # trigger抽取
 
                 # 构造prompt
