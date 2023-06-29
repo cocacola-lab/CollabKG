@@ -79,7 +79,7 @@ CollabKG: A Learnable Human-Machine-Cooperative Information Extraction Toolkit f
 
 2. When you label the first sentence with *(Apple, ORG)* and click the Auto Label button, the model will be updated.
 
-3. When you click the auto-label button of the second sentence again, it will recognize *(Apple, ORG)* (because the prefix prompt `Note:Apple is ORG;` will remind the model, and make it successfully recognize it.)
+3. When you click the auto-label button of the second sentence again, it will recognize *(Apple, ORG)* (because the prefix prompt `Note:Apple is ORG ...;` will remind the model, and make it successfully recognize it.)
 
 ### propagation
 #### enitity
