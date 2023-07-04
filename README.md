@@ -6,9 +6,9 @@
 
   🖥 [Try out CollabKG online](http://124.221.16.143:3020/)
 
-  🖹 [CollabKG paper of XXX]()
+  🖹 [CollabKG paper of XXX](https://arxiv.org/pdf/2307.00769.pdf)
 
-  🎥 [CollabKG systems demonstration video](https://youtu.be)
+  🎥 [CollabKG systems demonstration video](https://www.youtube.com/channel/UCsadiRvhW9dsmn4KtRDCaFg)
 
   📌 [Overview of how to use CollabKG](https://github.com/cocacola-lab/CollabKG/blob/main/About.md)
 
