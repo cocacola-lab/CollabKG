@@ -6,7 +6,7 @@
 
   🖥 [Try out CollabKG online](http://124.221.16.143:3020/)
 
-  🖹 [CollabKG paper of XXX](https://arxiv.org/pdf/2307.00769.pdf)
+  🖹 [CollabKG paper](https://arxiv.org/pdf/2307.00769.pdf)
 
   🎥 [CollabKG systems demonstration video](https://www.youtube.com/channel/UCsadiRvhW9dsmn4KtRDCaFg)
 
@@ -31,7 +31,7 @@ $ docker-compose -f docker-compose.yml up
 ```
 
 ## Issues, Bugs and Feedback
-CollabKG is currently under active development with only a single developer, so bugs are still being squashed. If you come across any issues, bugs or have any general feedback please feel free to reach out (email: 22120436@bjtu.edu.cn). Alternatively, feel free to raise an issue, or better yet, make a pull request 🙂.
+If you come across any issues, bugs or have any general feedback please feel free to reach out (email: 22120436@bjtu.edu.cn). Alternatively, feel free to raise an issue, or better yet, make a pull request 🙂.
 
 ### Known Issues/Bugs
 
@@ -39,7 +39,7 @@ CollabKG is currently under active development with only a single developer, so 
 
 ## Attribution
 
-Please cite our [[conference paper]](XXX) (to appear in XXX) if you find it useful in your research:
+Please cite our [[paper]]() if you find it useful in your research:
 
 ```
 
