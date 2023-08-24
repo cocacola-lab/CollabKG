@@ -163,7 +163,7 @@ def chat_re(inda, chatbot, logger):
                     if count <=2: # 过滤表头
                         continue
 
-                    so = so[1:-1].split('|')
+                    so = so.strip('|').split('|')
                     so = [re.sub('[\'"]','', i).strip() for i in so]
                     if len(so)==2:
                         s, o = so
@@ -263,7 +263,7 @@ def chat_ner(inda, chatbot, logger):
                     if count <=2: # 过滤表头
                         continue
 
-                    so = so[1:-1].split('|')
+                    so = so.strip('|').split('|')
                     so = [re.sub('[\'"]','', i).strip() for i in so]
                     if len(so)==2:
                         s, o = so
@@ -380,7 +380,7 @@ def chat_ee(inda, chatbot, logger):
                     if count <=2: # 过滤表头
                         continue
 
-                    so = so[1:-1].split('|')
+                    so = so.strip('|').split('|')
                     so = [re.sub('[\'"]','', i).strip() for i in so]
                     if len(so)==2:
                         s, o = so
