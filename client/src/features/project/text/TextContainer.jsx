@@ -139,7 +139,7 @@ const TextCard = ({
           const result = response.data;
           console.log(result);
           if(result.markup.length === 0){
-            alert("None auto Markup or model timeout");
+            alert("Please check whether Openai Key expired!! | None auto Markup | model timeout");
             return;
           }
           // Create payload
@@ -200,7 +200,7 @@ const TextCard = ({
           const result = response.data;
           console.log(result);
           if(result.markup.length === 0){
-            alert("None auto Markup or model timeout");
+            alert("Please check whether Openai Key expired!! | None auto Markup | model timeout");
             return;
           }
           // Create payload
