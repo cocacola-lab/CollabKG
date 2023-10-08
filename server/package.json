@@ -9,7 +9,7 @@
     "app": "concurrently -p \"[{name}]\" -n \"SERVER,CLIENT\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run server\" \"npm run client\"",
     "test": "mocha --recursive --exit"
   },
-  "author": "Tyler Bikaun",
+  "author": "XXX",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
