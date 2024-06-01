@@ -38,7 +38,7 @@ If you come across any issues, bugs or have any general feedback please feel fre
 ## Future features
 
 ## Acknowledges
-Thanks to the [QuickGraph](https://github.com/nlp-tlp/quickgraph/tree/main) team for their support
+Thanks to the [QuickGraph](https://github.com/nlp-tlp/quickgraph/tree/main) team for their support.
 
 ## Attribution
 
